@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "527917572271",
+    "firebase_url": "https://pasabay-72bc4.firebaseio.com",
+    "project_id": "pasabay-72bc4",
+    "storage_bucket": "pasabay-72bc4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527917572271:android:08ff08a75829bdb343345a",
+        "android_client_info": {
+          "package_name": "com.example.pasabay_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527917572271-m62amlnj284f77hee5q9agolnlif3kol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pasabay_app",
+            "certificate_hash": "7d0c0e3c34fa0e6357a4c88ba1dc81fd6247f012"
+          }
+        },
+        {
+          "client_id": "527917572271-s962m1tecrhkcrn4la6gfa755cua2vlq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALQwqdKDVFIFnxwqfEBrNh1oG7snjuCl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527917572271-s962m1tecrhkcrn4la6gfa755cua2vlq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
