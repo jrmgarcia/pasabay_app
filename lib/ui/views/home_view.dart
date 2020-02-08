@@ -37,11 +37,11 @@ class _MyHomeViewState extends State<MyHomeView> {
               decoration: BoxDecoration(
                   color: myColor[2],
               ),
-              accountName: Text(_authenticationService.displayName),
-              accountEmail: Text(_authenticationService.email),
+              accountName: Text(_authenticationService.currentUser.displayName ?? ' '),
+              accountEmail: Text(_authenticationService.currentUser.email ?? ' '),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: NetworkImage(
-                  _authenticationService.photoUrl,
+                  _authenticationService.currentUser.photoUrl ?? 'https://lh3.googleusercontent.com/-cXXaVVq8nMM/AAAAAAAAAAI/AAAAAAAAAKI/_Y1WfBiSnRI/photo.jpg?sz=50',
                 ),
                 radius: 60,
                 backgroundColor: Colors.transparent,
