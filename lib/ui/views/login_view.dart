@@ -1,5 +1,6 @@
 import 'package:pasabay_app/ui/shared/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:pasabay_app/viewmodels/login_view_model.dart';
 
@@ -29,11 +30,11 @@ class LoginView extends StatelessWidget {
                 SizedBox(
                   child: Image.asset('assets/images/pasabay_logo.png'),
                 ),
-                SizedBox(height: 50),
+                verticalSpaceLarge,
                 SizedBox(
                   child: Image.asset('assets/images/pasabay_icon.png'),
                 ),
-                SizedBox(height: 50),
+                verticalSpaceLarge,
                 RaisedButton(
                   splashColor: myColor[1],
                   onPressed: () {
