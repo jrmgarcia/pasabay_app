@@ -25,16 +25,8 @@ class AuthenticationService {
       );
 
       final AuthResult authResult = await _firebaseAuth.signInWithCredential(credential);
-      final FirebaseUser user = authResult.user;    
-
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-      assert(user.email != null);
-      assert(user.displayName != null);
-      assert(user.photoUrl != null);
-
-      final FirebaseUser currentUser = await _firebaseAuth.currentUser();
-      assert(user.uid == currentUser.uid);
+      final FirebaseUser user = authResult.user;
+      await _populateCurrentUser(user);
 
       // create a new user profile on firestore
       _currentUser = User(
@@ -47,20 +39,15 @@ class AuthenticationService {
 
       print("User signed in.");  
 
-      await _populateCurrentUser(user);
       return user != null;
-    } catch (e) {
-      return e.message;
-    }
+    } catch (e) {}
   }
 
   Future signOutGoogle() async {
     try {
       await googleSignIn.signOut();
       print("User signed out.");
-    } catch (e) {
-      return e.message;
-    }
+    } catch (e) {}
   }
 
   Future<bool> isUserLoggedIn() async {

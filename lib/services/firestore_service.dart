@@ -2,24 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pasabay_app/models/user.dart';
 
 class FirestoreService {
-  final CollectionReference _usersCollectionReference = 
+  final CollectionReference _usersCollectionReference =
       Firestore.instance.collection('users');
-  
+
   Future createUser(User user) async {
     try {
       await _usersCollectionReference.document(user.uid).setData(user.toJson());
-    } catch (e) {
-      return e.message;
-    }
+    } catch (e) {}
   }
 
   Future getUser(String uid) async {
     try {
       var userData = await _usersCollectionReference.document(uid).get();
       return User.fromData(userData.data);
-    } catch(e) {
-      return e.message;
-    }
+    } catch (e) {}
   }
-
 }
