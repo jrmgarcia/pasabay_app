@@ -79,10 +79,13 @@ class HomeView extends StatelessWidget {
                 child: model.posts != null ?
                 ListView.builder(
                   itemCount: model.posts.length,
-                  itemBuilder: (context, index) => PostItem(
-                    post: model.posts[index],
-                    onDeleteItem: () => model.deletePost(index),
-                  ),
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () => model.editPost(index),
+                    child: PostItem(
+                      post: model.posts[index],
+                      onDeleteItem: () => model.deletePost(index),
+                    ),
+                  )
                 ) : Center (
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation(Theme.of(context).backgroundColor),

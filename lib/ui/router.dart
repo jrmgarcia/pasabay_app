@@ -1,3 +1,4 @@
+import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/ui/views/create_post_view.dart';
 import 'package:pasabay_app/ui/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: HomeView(),
       );
     case CreatePostViewRoute:
+      var postToEdit = settings.arguments as Post;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: CreatePostView(),
+        viewToShow: CreatePostView(
+          editingPost: postToEdit,
+        ),
       );
     default:
       return MaterialPageRoute(

@@ -43,6 +43,10 @@ class HomeViewModel extends BaseModel {
     }
   }
 
+  void editPost(int index) {
+    _navigationService.navigateTo(CreatePostViewRoute, arguments: _posts[index]);
+  }
+
   Future navigateToCreateView() async {
     await _navigationService.navigateTo(CreatePostViewRoute);
   }
