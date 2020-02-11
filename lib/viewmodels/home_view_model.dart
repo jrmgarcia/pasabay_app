@@ -27,6 +27,21 @@ class HomeViewModel extends BaseModel {
       setBusy(false);
     });
   }
+  
+  Future deletePost(int index) async {
+    var dialogResponse = await _dialogService.showConfirmationDialog(
+      title: 'Are you sure?',
+      description: 'Do you really want to delete this post?',
+      confirmationTitle: 'Yes',
+      cancelTitle: 'No',
+    );
+
+    if (dialogResponse.confirmed) {
+      setBusy(true);
+      await _firestoreService.deletePost(_posts[index].documentId);
+      setBusy(false);
+    }
+  }
 
   Future navigateToCreateView() async {
     await _navigationService.navigateTo(CreatePostViewRoute);

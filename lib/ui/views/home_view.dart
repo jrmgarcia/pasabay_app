@@ -81,6 +81,7 @@ class HomeView extends StatelessWidget {
                   itemCount: model.posts.length,
                   itemBuilder: (context, index) => PostItem(
                     post: model.posts[index],
+                    onDeleteItem: () => model.deletePost(index),
                   ),
                 ) : Center (
                   child: CircularProgressIndicator(
