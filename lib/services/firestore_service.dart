@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
@@ -7,6 +9,9 @@ class FirestoreService {
       Firestore.instance.collection('users');
   final CollectionReference _postsCollectionReference =
       Firestore.instance.collection('posts');
+
+  final StreamController<List<Post>> _postsController = 
+      StreamController<List<Post>>.broadcast();
 
   Future createUser(User user) async {
     try {
@@ -37,5 +42,22 @@ class FirestoreService {
             .toList();
       }
     } catch (e) {}
+  }
+
+  Stream listenToPostsRealTime() {
+    // Register the handler for when the posts data changes
+    _postsCollectionReference.snapshots().listen((postsSnapshot) {
+      if (postsSnapshot.documents.isNotEmpty) {
+        var posts =  postsSnapshot.documents
+            .map((snapshot) => Post.fromMap(snapshot.data))
+            .where((mappedItem) => mappedItem.title != null)
+            .toList();
+
+        // Add the posts onto the controller
+        _postsController.add(posts);
+      }
+    });
+
+    return _postsController.stream;
   }
 }

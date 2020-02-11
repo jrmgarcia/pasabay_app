@@ -15,7 +15,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelProvider<HomeViewModel>.withConsumer(
       viewModel: HomeViewModel(),
-      onModelReady: (model) => model.fetchPosts(),
+      onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text("Pasabay"),

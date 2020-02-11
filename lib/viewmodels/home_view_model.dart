@@ -14,25 +14,22 @@ class HomeViewModel extends BaseModel {
   List<Post> _posts;
   List<Post> get posts => _posts;
 
-  Future fetchPosts() async {
+  void listenToPosts() {
     setBusy(true);
-    var postsResults = await _firestoreService.getPostsOnceOff();
-    setBusy(false);
 
-    if (postsResults is List<Post>) {
-      _posts = postsResults;
-      notifyListeners();
-    } else {
-      await _dialogService.showDialog(
-        title: 'Post Update Failed',
-        description: postsResults
-      );
-    }
+    _firestoreService.listenToPostsRealTime().listen((postsData) {
+      List<Post> updatedPosts = postsData;
+      if (updatedPosts != null && updatedPosts.length > 0) {
+        _posts = updatedPosts;
+        notifyListeners();
+      }
+
+      setBusy(false);
+    });
   }
 
   Future navigateToCreateView() async {
     await _navigationService.navigateTo(CreatePostViewRoute);
-    await fetchPosts();
   }
 
   void navigateToLoginView() =>
