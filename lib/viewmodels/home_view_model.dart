@@ -1,6 +1,7 @@
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/post.dart';
+import 'package:pasabay_app/services/cloud_storage_service.dart';
 import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -10,6 +11,7 @@ class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
+  final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
 
   List<Post> _posts;
   List<Post> get posts => _posts;
@@ -28,7 +30,7 @@ class HomeViewModel extends BaseModel {
     });
   }
   
-  Future deletePost(int index) async {
+Future deletePost(int index) async {
     var dialogResponse = await _dialogService.showConfirmationDialog(
       title: 'Are you sure?',
       description: 'Do you really want to delete this post?',
@@ -37,8 +39,11 @@ class HomeViewModel extends BaseModel {
     );
 
     if (dialogResponse.confirmed) {
+      var postToDelete = _posts[index];
       setBusy(true);
-      await _firestoreService.deletePost(_posts[index].documentId);
+      await _firestoreService.deletePost(postToDelete.documentId);
+      // Delete the image after the post is deleted
+      // await _cloudStorageService.deleteImage(postToDelete.imageFileName);
       setBusy(false);
     }
   }

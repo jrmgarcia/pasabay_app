@@ -66,7 +66,7 @@ class HomeView extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              verticalSpaceLarge,
+              verticalSpaceMedium,
               Row(
                 children: <Widget>[
                   Text(

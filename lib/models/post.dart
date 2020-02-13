@@ -5,12 +5,14 @@ class Post {
   final String imageUrl;
   final String userId;
   final String documentId;
+  final String imageFileName;
 
   Post({
     @required this.userId,
     @required this.title,
     this.documentId,
     this.imageUrl,
+    this.imageFileName,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,6 +20,7 @@ class Post {
       'userId': userId,
       'title': title,
       'imageUrl': imageUrl,
+      'imageFilename': imageFileName,
     };
   }
 
@@ -28,6 +31,7 @@ class Post {
       userId: map['userId'],
       title: map['title'],
       imageUrl: map['imageUrl'],
+      imageFileName: map['imageFileName'],
       documentId: documentId, 
     );
   }

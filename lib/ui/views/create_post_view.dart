@@ -37,28 +37,35 @@ class CreatePostView extends StatelessWidget {
             children: <Widget>[
               verticalSpaceLarge,
               Text(
-                'Create Post',
+                'Create a Post',
                 style: TextStyle(fontSize: 26),
-              ),
-              verticalSpaceMedium,
-              InputField(
-                placeholder: 'Title',
-                controller: titleController,
               ),
               verticalSpaceMedium,
               Text('Post Image'),
               verticalSpaceSmall,
-              Container(
-                height: 250,
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(10)),
-                alignment: Alignment.center,
-                child: Text(
-                  'Tap to add post image',
-                  style: TextStyle(color: Colors.grey[400]),
+              GestureDetector(
+                onTap: () => model.selectImage(),
+                child: Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(10)),
+                  alignment: Alignment.center,
+                  child: model.selectedImage == null
+                      ? Text(
+                          'Tap to add an image',
+                          style: TextStyle(color: Colors.grey[400]),
+                        )
+                      : Image.file(model.selectedImage),
                 ),
-              )
+              ),
+              verticalSpaceMedium,
+              Text('Post Information'),
+              verticalSpaceSmall,
+              InputField(
+                placeholder: 'Title',
+                controller: titleController,
+              ),
             ],
           ),
         )
