@@ -22,13 +22,13 @@ class CreatePostView extends StatelessWidget {
       },
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: !model.busy ? Icon(Icons.add) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
+          child: !model.busy ? Icon(Icons.add, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: () {
             if (!model.busy) {
               model.addPost(title: titleController.text);
             }
           },
-          backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).backgroundColor,
+          backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),

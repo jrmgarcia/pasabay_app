@@ -1,4 +1,3 @@
-import 'package:pasabay_app/ui/shared/app_colors.dart';
 import 'package:pasabay_app/viewmodels/startup_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
@@ -20,13 +19,13 @@ class StartUpView extends StatelessWidget {
               SizedBox(
                 width: 300,
                 height: 100,
-                child: Image.asset('assets/images/pasabay_logo.png', color: myColor[2]),
+                child: Image.asset('assets/images/pasabay_logo.png', color: Theme.of(context).primaryColor),
               ),
               SizedBox(height: 50),
               CircularProgressIndicator(
                 strokeWidth: 3, 
                 valueColor: AlwaysStoppedAnimation(
-                  myColor[3]
+                  Theme.of(context).accentColor
                 )
               )
             ]

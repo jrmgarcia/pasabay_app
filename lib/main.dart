@@ -1,4 +1,3 @@
-import 'package:pasabay_app/ui/shared/app_colors.dart';
 import 'package:pasabay_app/ui/views/startup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -26,8 +25,9 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: locator<NavigationService>().navigationKey,
       theme: ThemeData(
-        primaryColor: myColor[2],
-        backgroundColor: myColor[3],
+        primarySwatch: Colors.orange,
+        primaryColor: Color(0xFFEAB971),
+        accentColor: Color(0xFFF6DB7F),
         textTheme: Theme.of(context).textTheme.apply(
               fontFamily: 'Open Sans',
             ),

@@ -88,7 +88,7 @@ class HomeView extends StatelessWidget {
                   )
                 ) : Center (
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(Theme.of(context).backgroundColor),
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
                   ),
                 )
               )
@@ -104,8 +104,8 @@ class HomeView extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           elevation: 0,
-          backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).backgroundColor,
-          child: !model.busy ? Icon(Icons.add) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
+          backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
+          child: !model.busy ? Icon(Icons.add, color: Colors.white) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: model.navigateToCreateView,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

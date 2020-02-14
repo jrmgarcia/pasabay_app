@@ -1,4 +1,3 @@
-import 'package:pasabay_app/ui/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -19,7 +18,7 @@ class LoginView extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [myColor[2], myColor[3]]
+              colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor]
             )
           ),
           child: Center(
@@ -36,11 +35,11 @@ class LoginView extends StatelessWidget {
                 ),
                 verticalSpaceLarge,
                 RaisedButton(
-                  splashColor: myColor[1],
+                  splashColor: Theme.of(context).accentColor,
                   onPressed: () {
                     model.signIn();
                   },
-                  color: myColor,
+                  color: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                   highlightElevation: 0,
                   child: Padding(
@@ -59,7 +58,7 @@ class LoginView extends StatelessWidget {
                             'Sign in with Google',
                             style: TextStyle(
                               fontSize: 20,
-                              color: myColor[1],
+                              color: Colors.grey,
                             ),
                           ),
                         )
