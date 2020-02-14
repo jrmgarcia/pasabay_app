@@ -31,25 +31,6 @@ class CreatePostView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               verticalSpaceMedium,
-              Text('Post Image'),
-              verticalSpaceSmall,
-              GestureDetector(
-                onTap: () => model.selectImage(),
-                child: Container(
-                  height: 250,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10)),
-                  alignment: Alignment.center,
-                  child: model.selectedImage == null
-                      ? Text(
-                          'Tap to add an image',
-                          style: TextStyle(color: Colors.grey[400]),
-                        )
-                      : Image.file(model.selectedImage),
-                ),
-              ),
-              verticalSpaceMedium,
               Text('Post Information'),
               verticalSpaceSmall,
               InputField(

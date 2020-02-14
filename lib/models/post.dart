@@ -2,25 +2,19 @@ import 'package:flutter/foundation.dart';
 
 class Post {
   final String title;
-  final String imageUrl;
   final String userId;
   final String documentId;
-  final String imageFileName;
 
   Post({
     @required this.userId,
     @required this.title,
     this.documentId,
-    this.imageUrl,
-    this.imageFileName,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
       'title': title,
-      'imageUrl': imageUrl,
-      'imageFileName': imageFileName,
     };
   }
 
@@ -30,8 +24,6 @@ class Post {
     return Post(
       userId: map['userId'],
       title: map['title'],
-      imageUrl: map['imageUrl'],
-      imageFileName: map['imageFileName'],
       documentId: documentId, 
     );
   }
