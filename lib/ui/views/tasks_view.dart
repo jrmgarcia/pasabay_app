@@ -1,22 +1,22 @@
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:pasabay_app/viewmodels/home_view_model.dart';
+import 'package:pasabay_app/viewmodels/tasks_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({Key key}) : super(key: key);
+class TasksView extends StatelessWidget {
+  const TasksView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModel: HomeViewModel(),
+    return ViewModelProvider<TasksViewModel>.withConsumer(
+      viewModel: TasksViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Home"),
+          title: Text("Tasks"),
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        drawer: MyDrawer(),
-        body: Center(child: Text('Home Page'),),
+        endDrawer: MyDrawer(),
+        body: Center(child: Text('Tasks Page'),),
       )
     );
   }

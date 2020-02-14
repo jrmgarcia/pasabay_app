@@ -1,5 +1,5 @@
 import 'package:pasabay_app/viewmodels/base_model.dart';
 
-class HomeViewModel extends BaseModel {
+class ProfileViewModel extends BaseModel {
   
 }
