@@ -30,7 +30,7 @@ class HomeViewModel extends BaseModel {
     });
   }
   
-Future deletePost(int index) async {
+  Future deletePost(int index) async {
     var dialogResponse = await _dialogService.showConfirmationDialog(
       title: 'Are you sure?',
       description: 'Do you really want to delete this post?',
@@ -43,13 +43,14 @@ Future deletePost(int index) async {
       setBusy(true);
       await _firestoreService.deletePost(postToDelete.documentId);
       // Delete the image after the post is deleted
-      // await _cloudStorageService.deleteImage(postToDelete.imageFileName);
+      await _cloudStorageService.deleteImage(postToDelete.imageFileName);
       setBusy(false);
     }
   }
 
   void editPost(int index) {
-    _navigationService.navigateTo(CreatePostViewRoute, arguments: _posts[index]);
+    _navigationService.navigateTo(CreatePostViewRoute,
+        arguments: _posts[index]);
   }
 
   Future navigateToCreateView() async {

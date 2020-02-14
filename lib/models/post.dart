@@ -20,7 +20,7 @@ class Post {
       'userId': userId,
       'title': title,
       'imageUrl': imageUrl,
-      'imageFilename': imageFileName,
+      'imageFileName': imageFileName,
     };
   }
 
