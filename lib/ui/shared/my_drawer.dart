@@ -34,6 +34,7 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               _navigationService.navigateTo(ProfileViewRoute);
             },
+            trailing: Icon(Icons.arrow_right),
           ),
           ListTile(
             title: Text("Posts"),
@@ -41,6 +42,7 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               _navigationService.navigateTo(PostsViewRoute);
             },
+            trailing: Icon(Icons.arrow_right),
           ),
           ListTile(
             title: Text("Tasks"),
@@ -48,6 +50,7 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               _navigationService.navigateTo(TasksViewRoute);
             },
+            trailing: Icon(Icons.arrow_right),
           ),
           ListTile(
             title: Text("Blacklist"),
@@ -55,6 +58,7 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               _navigationService.navigateTo(BlacklistViewRoute);
             },
+            trailing: Icon(Icons.arrow_right),
           ),
           ListTile(
             title: Text("Sign out"),
@@ -63,6 +67,7 @@ class MyDrawer extends StatelessWidget {
               _authenticationService.signOutGoogle();
               _navigationService.navigateTo(LoginViewRoute);
             },
+            trailing: Icon(Icons.arrow_right),
           ),
         ],
       ),
