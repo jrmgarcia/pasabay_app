@@ -21,25 +21,15 @@ class CreatePostView extends StatelessWidget {
         model.setEditingPost(editingPost);
       },
       builder: (context, model, child) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: !model.busy ? Icon(Icons.add, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
-          onPressed: () {
-            if (!model.busy) {
-              model.addPost(title: titleController.text);
-            }
-          },
-          backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
+        appBar: AppBar(
+          title: Text("Create a Post"),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              verticalSpaceLarge,
-              Text(
-                'Create a Post',
-                style: TextStyle(fontSize: 26),
-              ),
               verticalSpaceMedium,
               Text('Post Image'),
               verticalSpaceSmall,
@@ -68,7 +58,16 @@ class CreatePostView extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: !model.busy ? Icon(Icons.add, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
+          onPressed: () {
+            if (!model.busy) {
+              model.addPost(title: titleController.text);
+            }
+          },
+          backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
+        ),
       ),
     );
   }

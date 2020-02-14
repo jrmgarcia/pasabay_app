@@ -66,13 +66,13 @@ class CreatePostViewModel extends BaseModel {
 
     if (result is String) {
       await _dialogService.showDialog(
-        title: 'Cound not create post',
+        title: 'Could not create post',
         description: result,
       );
     } else {
       await _dialogService.showDialog(
-        title: 'Post successfully Added',
-        description: 'Your post has been created',
+        title: 'Post successfully added',
+        description: 'Your post has been created.',
       );
     }
 
