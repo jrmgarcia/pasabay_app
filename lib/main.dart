@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pasabay_app/ui/views/startup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -27,10 +28,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
         primaryColor: Color(0xFFEAB971),
+        primaryColorDark: Color(0xFFFDA085),
+        primaryColorLight: Color(0xFFF6D365),
         accentColor: Color(0xFFF6DB7F),
-        textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'Open Sans',
-            ),
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       home: StartUpView(),
       onGenerateRoute: generateRoute,

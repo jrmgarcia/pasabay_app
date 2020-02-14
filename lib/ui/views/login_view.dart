@@ -18,7 +18,7 @@ class LoginView extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor]
+              colors: [Theme.of(context).primaryColorDark, Theme.of(context).primaryColorLight]
             )
           ),
           child: Center(
