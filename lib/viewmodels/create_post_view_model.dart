@@ -11,10 +11,22 @@ class CreatePostViewModel extends BaseModel {
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
+  String _selectedCategory = 'Select Category';
+  String get selectedCategory => _selectedCategory;
+
   Post _editingPost;
   bool get _editing => _editingPost != null;
 
-  Future addPost({@required String title}) async {
+  void setSelectedCategory(dynamic category) {
+    _selectedCategory = category;
+    notifyListeners();
+  }
+
+  Future addPost({
+    @required String title, 
+    @required String reward, 
+    @required String description,
+  }) async {
     setBusy(true);
 
     var result;
@@ -23,11 +35,17 @@ class CreatePostViewModel extends BaseModel {
       result = await _firestoreService.addPost(Post(
         title: title, 
         userId: currentUser.uid,
+        reward: reward,
+        description: description,
+        category: _selectedCategory,
       ));
     } else {
       result = await _firestoreService.updatePost(Post(
-        title: title,
+        title: _editingPost.title,
         userId: _editingPost.userId,
+        reward: _editingPost.reward,
+        description: _editingPost.description,
+        category: _editingPost.category,
         documentId: _editingPost.documentId,
       ));
     }

@@ -9,17 +9,19 @@ class InputField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final bool password;
+  final bool autoFocus;
   final bool isReadOnly;
   final String placeholder;
   final String validationMessage;
   final Function enterPressed;
-  final bool smallVersion;
+  final bool largeVersion;
   final FocusNode fieldFocusNode;
   final FocusNode nextFocusNode;
   final TextInputAction textInputAction;
   final String additionalNote;
   final Function(String) onChanged;
   final TextInputFormatter formatter;
+  final int maxLines;
 
   InputField(
       {@required this.controller,
@@ -34,8 +36,10 @@ class InputField extends StatefulWidget {
       this.textInputAction = TextInputAction.next,
       this.textInputType = TextInputType.text,
       this.password = false,
+      this.autoFocus = false,
       this.isReadOnly = false,
-      this.smallVersion = false});
+      this.largeVersion = false,
+      this.maxLines = 1});
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -43,7 +47,6 @@ class InputField extends StatefulWidget {
 
 class _InputFieldState extends State<InputField> {
   bool isPassword;
-  double fieldHeight = 55;
 
   @override
   void initState() {
@@ -57,7 +60,7 @@ class _InputFieldState extends State<InputField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          height: widget.smallVersion ? 40 : fieldHeight,
+          height: widget.largeVersion ? fieldHeight*2 : fieldHeight,
           alignment: Alignment.centerLeft,
           padding: fieldPadding,
           decoration:
@@ -66,8 +69,10 @@ class _InputFieldState extends State<InputField> {
             children: <Widget>[
               Expanded(
                 child: TextFormField(
+                  autofocus: widget.autoFocus,
                   controller: widget.controller,
                   keyboardType: widget.textInputType,
+                  maxLines: widget.maxLines,
                   focusNode: widget.fieldFocusNode,
                   textInputAction: widget.textInputAction,
                   onChanged: widget.onChanged,
@@ -88,8 +93,7 @@ class _InputFieldState extends State<InputField> {
                   readOnly: widget.isReadOnly,
                   decoration: InputDecoration.collapsed(
                       hintText: widget.placeholder,
-                      hintStyle:
-                          TextStyle(fontSize: widget.smallVersion ? 12 : 15)),
+                      hintStyle: TextStyle(fontSize: 15)),
                 ),
               ),
               GestureDetector(

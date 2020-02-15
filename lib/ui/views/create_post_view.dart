@@ -1,14 +1,21 @@
 import 'package:pasabay_app/models/post.dart';
-import 'package:pasabay_app/ui/shared/ui_helpers.dart';
+import 'package:pasabay_app/ui/widgets/expansion_list.dart';
 import 'package:pasabay_app/ui/widgets/input_field.dart';
 import 'package:pasabay_app/viewmodels/create_post_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 class CreatePostView extends StatelessWidget {
-  final titleController = TextEditingController();
+  
   final Post editingPost;
   CreatePostView({Key key, this.editingPost}) : super(key: key);
+
+  final titleController = TextEditingController();
+  final rewardController = TextEditingController();
+  final descriptionController = TextEditingController();
+
+  final focusDescription = FocusNode();
+  final focusReward = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +24,8 @@ class CreatePostView extends StatelessWidget {
       onModelReady: (model) {
         // update the text in the controller
         titleController.text = editingPost?.title ?? '';
+        rewardController.text = editingPost?.reward ?? '';
+        descriptionController.text = editingPost?.description ?? '';
 
         model.setEditingPost(editingPost);
       },
@@ -26,16 +35,38 @@ class CreatePostView extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.all(30.0),
+          child: Wrap(
+            direction: Axis.horizontal,
+            spacing: 8.0, // gap between adjacent chips
+            runSpacing: 4.0, // gap between lines
             children: <Widget>[
-              verticalSpaceMedium,
-              Text('Post Information'),
-              verticalSpaceSmall,
               InputField(
                 placeholder: 'Title',
                 controller: titleController,
+                autoFocus: true,
+                nextFocusNode: focusReward,
+              ),
+              InputField(
+                fieldFocusNode: focusReward,
+                placeholder: 'Reward',
+                controller: rewardController,
+                textInputType: TextInputType.number,
+                nextFocusNode: focusDescription,
+              ),
+              InputField(
+                fieldFocusNode: focusDescription,
+                placeholder: 'Description',
+                controller: descriptionController,
+                textInputType: TextInputType.multiline,
+                maxLines: null,
+                largeVersion: true,
+                textInputAction: TextInputAction.newline,
+              ),
+              ExpansionList<String>(
+                items: ['Cleaning', 'Delivery', 'Officework', 'Pet Sitting', 'Schoolwork'],
+                title: model.selectedCategory,
+                onItemSelected: model.setSelectedCategory,
               ),
             ],
           ),
@@ -44,7 +75,7 @@ class CreatePostView extends StatelessWidget {
           child: !model.busy ? Icon(Icons.add, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: () {
             if (!model.busy) {
-              model.addPost(title: titleController.text);
+              model.addPost(title: titleController.text, reward: rewardController.text, description: descriptionController.text);
             }
           },
           backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,

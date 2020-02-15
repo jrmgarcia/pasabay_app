@@ -30,7 +30,8 @@ class PostsView extends StatelessWidget {
                 child: model.posts != null ?
                 ListView.builder(
                   itemCount: model.posts.length,
-                  itemBuilder: (context, index) => GestureDetector(
+                  itemBuilder: (context, index) => 
+                  GestureDetector(
                     onTap: () => model.editPost(index),
                     child: PostItem(
                       post: model.posts[index],
