@@ -21,3 +21,17 @@ const EdgeInsets largeFieldPadding =
 // Text Variables
 const TextStyle buttonTitleTextStyle =
     const TextStyle(fontWeight: FontWeight.w700, color: Colors.white);
+
+// Text Styles
+final kTitleStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 26.0,
+  height: 1.5,
+  fontWeight: FontWeight.bold,
+);
+
+final kSubtitleStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 18.0,
+  height: 1.2,
+);
