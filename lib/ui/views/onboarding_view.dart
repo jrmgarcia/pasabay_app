@@ -109,13 +109,13 @@ class _OnboardingViewState extends State<OnboardingView> {
                             verticalSpaceLarge,
                             Text(
                               'Get your tasks done!',
-                              style: kTitleStyle,
+                              style: myTitleStyle1,
                               textAlign: TextAlign.center,
                             ),
                             verticalSpaceMedium,
                             Text(
                               'Post what you need to get done, how to do it, and how much you are willing to pay for it.',
-                              style: kSubtitleStyle,
+                              style: mySubtitleStyle1,
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -132,13 +132,13 @@ class _OnboardingViewState extends State<OnboardingView> {
                             verticalSpaceLarge,
                             Text(
                               'Make extra income!',
-                              style: kTitleStyle,
+                              style: myTitleStyle1,
                               textAlign: TextAlign.center,
                             ),
                             verticalSpaceMedium,
                             Text(
                               'Get things done and earn some cash.',
-                              style: kSubtitleStyle,
+                              style: mySubtitleStyle1,
                               textAlign: TextAlign.center,
                             ),
                           ],
