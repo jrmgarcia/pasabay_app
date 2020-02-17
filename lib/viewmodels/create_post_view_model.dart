@@ -41,10 +41,10 @@ class CreatePostViewModel extends BaseModel {
       ));
     } else {
       result = await _firestoreService.updatePost(Post(
-        title: _editingPost.title,
+        title: title,
         userId: _editingPost.userId,
-        reward: _editingPost.reward,
-        description: _editingPost.description,
+        reward: reward,
+        description: description,
         category: _editingPost.category,
         documentId: _editingPost.documentId,
       ));
