@@ -45,7 +45,7 @@ class CreatePostViewModel extends BaseModel {
         userId: _editingPost.userId,
         reward: reward,
         description: description,
-        category: _editingPost.category,
+        category: _selectedCategory,
         documentId: _editingPost.documentId,
       ));
     }
