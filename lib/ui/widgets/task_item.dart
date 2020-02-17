@@ -13,7 +13,7 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      margin: const EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
       alignment: Alignment.center,
       child: Row(
         children: <Widget>[
@@ -39,11 +39,12 @@ class TaskItem extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-          color: Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
-          ]),
+        color: Theme.of(context).accentColor,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
+        ]
+      ),
     );
   }
 }

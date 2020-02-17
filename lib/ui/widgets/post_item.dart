@@ -35,11 +35,12 @@ class PostItem extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
-          ]),
+        color: Theme.of(context).accentColor,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
+        ]
+      ),
     );
   }
 }
