@@ -13,7 +13,7 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+      margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
       alignment: Alignment.center,
       child: Row(
         children: <Widget>[
