@@ -23,14 +23,14 @@ const TextStyle buttonTitleTextStyle =
     const TextStyle(fontWeight: FontWeight.w700, color: Colors.white);
 
 // Text Styles
-final kTitleStyle = TextStyle(
+final myTitleStyle1 = TextStyle(
+  fontWeight: FontWeight.bold,
   color: Colors.white,
   fontSize: 26.0,
   height: 1.5,
-  fontWeight: FontWeight.bold,
 );
 
-final kSubtitleStyle = TextStyle(
+final mySubtitleStyle1 = TextStyle(
   color: Colors.white,
   fontSize: 18.0,
   height: 1.2,
