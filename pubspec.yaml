@@ -44,6 +44,7 @@ dependencies:
   image_picker: ^0.6.3+1
   cached_network_image: ^2.0.0
   google_fonts: ^0.3.8
+  pull_to_refresh: ^1.5.7
 
 dev_dependencies:
   flutter_test:
