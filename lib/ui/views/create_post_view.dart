@@ -31,7 +31,7 @@ class CreatePostView extends StatelessWidget {
       },
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Create a Post"),
+          title: editingPost != null ? Text("Edit a Post") : Text("Create a Post"),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Padding(
@@ -72,7 +72,7 @@ class CreatePostView extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          child: !model.busy ? Icon(Icons.add, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
+          child: !model.busy ? Icon(editingPost != null ? Icons.edit : Icons.arrow_forward, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: () {
             if (!model.busy) {
               model.addPost(title: titleController.text, reward: rewardController.text, description: descriptionController.text);
