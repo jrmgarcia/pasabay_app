@@ -5,12 +5,18 @@ import 'package:pasabay_app/ui/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/ui/views/login_view.dart';
+import 'package:pasabay_app/ui/views/onboarding_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
 import 'package:pasabay_app/ui/views/profile_view.dart';
 import 'package:pasabay_app/ui/views/tasks_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case OnboardingViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: OnboardingView(),
+      );
     case LoginViewRoute:
       return _getPageRoute(
         routeName: settings.name,

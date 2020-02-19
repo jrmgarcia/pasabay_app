@@ -1,8 +1,8 @@
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pasabay_app/ui/views/onboarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/services/dialog_service.dart';
+import 'package:pasabay_app/ui/views/startup_view.dart';
 import 'managers/dialog_manager.dart';
 import 'ui/router.dart';
 import 'locator.dart';
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: OnboardingView(),
+      home: StartUpView(),
       onGenerateRoute: generateRoute,
     );
   }
