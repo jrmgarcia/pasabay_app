@@ -3,7 +3,7 @@ import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
 
-class HomeViewModel extends BaseModel {
+class BrowseViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
 
   List<Post> _posts;

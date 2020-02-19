@@ -5,7 +5,7 @@ import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/widgets/task_item.dart';
-import 'package:pasabay_app/viewmodels/home_view_model.dart';
+import 'package:pasabay_app/viewmodels/browse_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -15,8 +15,8 @@ RefreshController _refreshController = RefreshController(initialRefresh: false);
 List<Post> _posts;
 List<Post> get posts => _posts;
 
-class HomeView extends StatelessWidget {
-  const HomeView({Key key}) : super(key: key);
+class BrowseView extends StatelessWidget {
+  const BrowseView({Key key}) : super(key: key);
 
   void _onRefresh() async{
     // monitor network fetch
@@ -34,8 +34,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModel: HomeViewModel(),
+    return ViewModelProvider<BrowseViewModel>.withConsumer(
+      viewModel: BrowseViewModel(),
       onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
