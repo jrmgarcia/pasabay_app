@@ -31,8 +31,9 @@ class CreatePostView extends StatelessWidget {
       },
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: editingPost != null ? Text("Edit a Post") : Text("Create a Post"),
+          title: editingPost != null ? Text("Edit a Post", style: TextStyle(color: Colors.white)) : Text("Create a Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Padding(
           padding: const EdgeInsets.all(30.0),

@@ -18,8 +18,8 @@ class MyDrawer extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
             ),
-            accountName: Text(_authenticationService.currentUser.displayName ?? ' '),
-            accountEmail: Text(_authenticationService.currentUser.email ?? ' '),
+            accountName: Text(_authenticationService.currentUser.displayName ?? ' ', style: TextStyle(color: Colors.white)),
+            accountEmail: Text(_authenticationService.currentUser.email ?? ' ', style: TextStyle(color: Colors.white)),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
                 _authenticationService.currentUser.photoUrl ?? 'https://lh3.googleusercontent.com/-cXXaVVq8nMM/AAAAAAAAAAI/AAAAAAAAAKI/_Y1WfBiSnRI/photo.jpg?sz=50',
@@ -29,45 +29,45 @@ class MyDrawer extends StatelessWidget {
             )
           ),
           ListTile(
-            title: Text("Profile"),
-            leading: Icon(Icons.account_circle),
+            title: Text("Profile", style: TextStyle(color: Theme.of(context).primaryColor)),
+            leading: Icon(Icons.account_circle, color: Theme.of(context).primaryColor),
             onTap: () {
               _navigationService.navigateTo(ProfileViewRoute);
             },
-            trailing: Icon(Icons.arrow_right),
+            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
           ),
           ListTile(
-            title: Text("Posts"),
-            leading: Icon(Icons.list),
+            title: Text("Posts", style: TextStyle(color: Theme.of(context).primaryColor)),
+            leading: Icon(Icons.list, color: Theme.of(context).primaryColor),
             onTap: () {
               _navigationService.navigateTo(PostsViewRoute);
             },
-            trailing: Icon(Icons.arrow_right),
+            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
           ),
           ListTile(
-            title: Text("Tasks"),
-            leading: Icon(Icons.directions_run),
+            title: Text("Tasks", style: TextStyle(color: Theme.of(context).primaryColor)),
+            leading: Icon(Icons.directions_run, color: Theme.of(context).primaryColor),
             onTap: () {
               _navigationService.navigateTo(TasksViewRoute);
             },
-            trailing: Icon(Icons.arrow_right),
+            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
           ),
           ListTile(
-            title: Text("Blacklist"),
-            leading: Icon(Icons.block),
+            title: Text("Blacklist", style: TextStyle(color: Theme.of(context).primaryColor)),
+            leading: Icon(Icons.block, color: Theme.of(context).primaryColor),
             onTap: () {
               _navigationService.navigateTo(BlacklistViewRoute);
             },
-            trailing: Icon(Icons.arrow_right),
+            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
           ),
           ListTile(
-            title: Text("Sign out"),
-            leading: Icon(Icons.exit_to_app),
+            title: Text("Sign out", style: TextStyle(color: Theme.of(context).primaryColor)),
+            leading: Icon(Icons.exit_to_app, color: Theme.of(context).primaryColor),
             onTap: () {
               _authenticationService.signOutGoogle();
               _navigationService.navigateTo(LoginViewRoute);
             },
-            trailing: Icon(Icons.arrow_right),
+            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
           ),
         ],
       ),

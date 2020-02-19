@@ -12,8 +12,9 @@ class BlacklistView extends StatelessWidget {
       viewModel: BlacklistViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Blacklist"),
+          title: Text("Blacklist", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         endDrawer: MyDrawer(),
         body: Center(child: Text('Blacklist Page'),),

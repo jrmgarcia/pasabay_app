@@ -39,8 +39,9 @@ class BrowseView extends StatelessWidget {
       onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Browse"),
+          title: Text("Browse", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         drawer: MyDrawer(),
         body: SmartRefresher(

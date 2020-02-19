@@ -15,8 +15,9 @@ class PostsView extends StatelessWidget {
       onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Posts"),
+          title: Text("Posts", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         endDrawer: MyDrawer(),
         body: Padding(

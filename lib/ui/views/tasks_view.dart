@@ -12,8 +12,9 @@ class TasksView extends StatelessWidget {
       viewModel: TasksViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Tasks"),
+          title: Text("Tasks", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         endDrawer: MyDrawer(),
         body: Center(child: Text('Tasks Page'),),
