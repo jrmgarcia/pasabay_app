@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Post {
@@ -7,6 +8,7 @@ class Post {
   final String reward;
   final String description;
   final String category;
+  final String timestamp;
 
   Post({
     @required this.userId,
@@ -15,6 +17,7 @@ class Post {
     this.documentId,
     this.reward,
     this.description,
+    this.timestamp,
   });
 
   Map<String, dynamic> toMap() {
@@ -25,6 +28,7 @@ class Post {
       'reward': reward, 
       'description': description, 
       'category': category,
+      'timestamp': FieldValue.serverTimestamp(),
     };
   }
 
