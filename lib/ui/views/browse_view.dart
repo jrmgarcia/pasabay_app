@@ -1,7 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pasabay_app/locator.dart';
-import 'package:pasabay_app/models/post.dart';
-import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/widgets/task_item.dart';
@@ -9,11 +6,7 @@ import 'package:pasabay_app/viewmodels/browse_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-final FirestoreService _firestoreService = locator<FirestoreService>();
 RefreshController _refreshController = RefreshController(initialRefresh: false);
-
-List<Post> _posts;
-List<Post> get posts => _posts;
 
 class BrowseView extends StatelessWidget {
   const BrowseView({Key key}) : super(key: key);
@@ -28,7 +21,6 @@ class BrowseView extends StatelessWidget {
   void _onLoading() async{
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    listenToPosts();
     _refreshController.loadComplete();
   }
 
@@ -82,14 +74,5 @@ class BrowseView extends StatelessWidget {
       ),
       )
     );
-  }
-
-  void listenToPosts() {
-    _firestoreService.listenToPostsRealTime().listen((postsData) {
-      List<Post> updatedPosts = postsData;
-      if (updatedPosts != null && updatedPosts.length > 0) {
-        _posts = updatedPosts;
-      }
-    });
   }
 }
