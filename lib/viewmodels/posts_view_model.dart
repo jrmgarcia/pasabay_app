@@ -1,36 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/services/dialog_service.dart';
-import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
+import 'package:pasabay_app/ui/widgets/post_item.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
 
 class PostsViewModel extends BaseModel {
-  final NavigationService _navigationService = locator<NavigationService>();
-  final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
-  List<Post> _posts;
-  List<Post> get posts => _posts;
-
-  void listenToPosts() {
-    setBusy(true);
-
-    _firestoreService.listenToPostsRealTime().listen((postsData) {
-      List<Post> updatedPosts = postsData;
-      if (updatedPosts != null && updatedPosts.length > 0) {
-        _posts = updatedPosts;
-        notifyListeners();
-      }
-
-      setBusy(false);
-    });
+  Future navigateToCreateView() async {
+    await _navigationService.navigateTo(CreatePostViewRoute);
   }
-  
-  Future deletePost(int index) async {
-    var postToDelete = _posts[index];
-    var postToDeleteTitle = postToDelete.title;
+
+  PostItem buildItem(DocumentSnapshot doc) {
+    return PostItem(
+      post: Post.fromMap(doc.data, doc.documentID),
+      onDeleteItem: () => deletePost(doc),
+    );
+  }
+
+  void updatePost(DocumentSnapshot doc) async {
+    _navigationService.navigateTo(CreatePostViewRoute, arguments: Post.fromMap(doc.data, doc.documentID));
+  }
+
+  void deletePost(DocumentSnapshot doc) async {
+    var postToDelete = doc;
+    var postToDeleteTitle = postToDelete.data['title'];
     
     var dialogResponse = await _dialogService.showConfirmationDialog(
       title: 'Are you sure?',
@@ -40,18 +38,7 @@ class PostsViewModel extends BaseModel {
     );
 
     if (dialogResponse.confirmed) {
-      setBusy(true);
-      await _firestoreService.deletePost(postToDelete.documentId);
-      setBusy(false);
+      await Firestore.instance.collection('posts').document(doc.documentID).delete();
     }
-  }
-
-  void editPost(int index) {
-    _navigationService.navigateTo(CreatePostViewRoute,
-        arguments: _posts[index]);
-  }
-
-  Future navigateToCreateView() async {
-    await _navigationService.navigateTo(CreatePostViewRoute);
   }
 }
