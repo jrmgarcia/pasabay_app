@@ -1,6 +1,6 @@
 const String OnboardingViewRoute = "OnboardingView";
 const String LoginViewRoute = "LoginView";
-const String SignUpViewRoute = "SignUp";
+const String HomeViewRoute = "HomeView";
 const String BrowseViewRoute = "BrowseView";
 const String ProfileViewRoute = "ProfileView";
 const String PostsViewRoute = "PostsView";

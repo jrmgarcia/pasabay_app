@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/widgets/task_item.dart';
 import 'package:pasabay_app/viewmodels/browse_view_model.dart';
@@ -30,12 +29,6 @@ class BrowseView extends StatelessWidget {
       viewModel: BrowseViewModel(),
       onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          title: Text("Browse", style: TextStyle(color: Colors.white)),
-          backgroundColor: Theme.of(context).primaryColor,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-        drawer: MyDrawer(),
         body: SmartRefresher(
         enablePullDown: true,
         enablePullUp: true,

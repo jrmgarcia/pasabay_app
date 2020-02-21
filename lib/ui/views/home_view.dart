@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:pasabay_app/ui/shared/my_drawer.dart';
+import 'package:pasabay_app/ui/views/browse_view.dart';
+import 'package:pasabay_app/ui/views/posts_view.dart';
+
+void main() => runApp(MaterialApp(home: HomeView()));
+
+class HomeView extends StatefulWidget {
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  int pageIndex = 0;
+
+  // Initialize all pages
+  final PostsView _postsView = PostsView();
+  final BrowseView _browseView = BrowseView();
+
+  Widget _showPage = new BrowseView();
+
+  Widget _pageChooser(int page) {
+    switch(page) {
+      case 0:
+        return _postsView;
+        break;
+      case 1:
+        return _browseView;
+        break;
+      default:
+        return new Container(
+          child: new Center(
+            child: new Text(
+              'No page found.'
+            )
+          ),
+        );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home", style: TextStyle(color: Colors.white)),
+        backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      drawer: MyDrawer(),
+      body: Container(
+        color: Colors.white,
+        child: Center(
+          child: _showPage,
+        ),
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        index: 0,
+        items: <Widget>[
+          Icon(Icons.add, size: 30, color: Colors.white),
+          Icon(Icons.list, size: 30, color: Colors.white),
+          Icon(Icons.compare_arrows, size: 30, color: Colors.white),
+        ],
+        color: Theme.of(context).primaryColor,
+        buttonBackgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Colors.white,
+        animationDuration: Duration(milliseconds: 300),
+        onTap: (index) {
+          setState(() {
+            _showPage = _pageChooser(index);
+          });
+        },
+      )
+    );
+  }
+}

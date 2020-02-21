@@ -37,22 +37,6 @@ class MyDrawer extends StatelessWidget {
             trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
           ),
           ListTile(
-            title: Text("Posts", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(Icons.list, color: Theme.of(context).primaryColor),
-            onTap: () {
-              _navigationService.navigateTo(PostsViewRoute);
-            },
-            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
-          ),
-          ListTile(
-            title: Text("Tasks", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(Icons.directions_run, color: Theme.of(context).primaryColor),
-            onTap: () {
-              _navigationService.navigateTo(TasksViewRoute);
-            },
-            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
-          ),
-          ListTile(
             title: Text("Blacklist", style: TextStyle(color: Theme.of(context).primaryColor)),
             leading: Icon(Icons.block, color: Theme.of(context).primaryColor),
             onTap: () {
