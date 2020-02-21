@@ -56,15 +56,22 @@ class BrowseView extends StatelessWidget {
         controller: _refreshController,
         onRefresh: _onRefresh,
         onLoading: _onLoading,
-        child: ListView.builder(
-          itemCount: model.posts.length,
-          itemBuilder: (context, index) {
-          return TaskItem(
-              post: model.posts[index],
-            );
-          }
+        child: model.posts != null
+            ? ListView.builder(
+                itemCount: model.posts.length,
+                itemBuilder: (context, index) {
+                return TaskItem(
+                    post: model.posts[index],
+                  );
+                }
+              )
+            : Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(
+                      Theme.of(context).accentColor),
+                ),
+              ),
         ),
-      ),
       )
     );
   }
