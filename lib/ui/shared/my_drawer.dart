@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
@@ -30,28 +31,28 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text("Profile", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(Icons.account_circle, color: Theme.of(context).primaryColor),
+            leading: Icon(FontAwesomeIcons.user, color: Theme.of(context).primaryColor),
             onTap: () {
               _navigationService.navigateTo(ProfileViewRoute);
             },
-            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
+            trailing: Icon(FontAwesomeIcons.caretRight, color: Theme.of(context).primaryColor),
           ),
           ListTile(
             title: Text("Blacklist", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(Icons.block, color: Theme.of(context).primaryColor),
+            leading: Icon(FontAwesomeIcons.ban, color: Theme.of(context).primaryColor),
             onTap: () {
               _navigationService.navigateTo(BlacklistViewRoute);
             },
-            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
+            trailing: Icon(FontAwesomeIcons.caretRight, color: Theme.of(context).primaryColor),
           ),
           ListTile(
             title: Text("Sign out", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(Icons.exit_to_app, color: Theme.of(context).primaryColor),
+            leading: Icon(FontAwesomeIcons.signOutAlt, color: Theme.of(context).primaryColor),
             onTap: () {
               _authenticationService.signOutGoogle();
               _navigationService.navigateTo(LoginViewRoute);
             },
-            trailing: Icon(Icons.arrow_right, color: Theme.of(context).primaryColor),
+            trailing: Icon(FontAwesomeIcons.caretRight, color: Theme.of(context).primaryColor),
           ),
         ],
       ),

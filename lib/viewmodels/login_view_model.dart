@@ -19,7 +19,7 @@ class LoginViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(BrowseViewRoute);
+        _navigationService.navigateTo(HomeViewRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Sign In Failure'

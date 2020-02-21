@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:pasabay_app/ui/views/browse_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
@@ -55,11 +56,11 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        index: 0,
+        index: 1,
         items: <Widget>[
-          Icon(Icons.add, size: 30, color: Colors.white),
-          Icon(Icons.list, size: 30, color: Colors.white),
-          Icon(Icons.compare_arrows, size: 30, color: Colors.white),
+          Icon(FontAwesomeIcons.plus, color: Colors.white),
+          Icon(FontAwesomeIcons.tasks, color: Colors.white),
+          Icon(FontAwesomeIcons.comments, color: Colors.white),
         ],
         color: Theme.of(context).primaryColor,
         buttonBackgroundColor: Theme.of(context).accentColor,

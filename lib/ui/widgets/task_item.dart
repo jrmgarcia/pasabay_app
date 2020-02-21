@@ -19,6 +19,7 @@ class TaskItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ListTile(
+              leading: Icon(Icons.account_circle, color: Colors.white, size: 50),
               title: Text(post.title.toUpperCase(), style: GoogleFonts.titilliumWeb(
                   fontSize: 26,
                   fontWeight: FontWeight.w700,
@@ -33,7 +34,6 @@ class TaskItem extends StatelessWidget {
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              leading: Icon(Icons.account_circle, color: Colors.white, size: 50),
             )
           ),
         ],

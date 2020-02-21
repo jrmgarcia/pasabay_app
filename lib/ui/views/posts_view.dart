@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class PostsView extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
-          child: !model.busy ? Icon(Icons.add, color: Colors.white) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
+          child: !model.busy ? Icon(FontAwesomeIcons.plus, color: Colors.white) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: model.navigateToCreateView,
         ),
       )

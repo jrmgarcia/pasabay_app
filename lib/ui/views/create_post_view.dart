@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/ui/widgets/expansion_list.dart';
 import 'package:pasabay_app/ui/widgets/input_field.dart';
@@ -73,7 +74,7 @@ class CreatePostView extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          child: !model.busy ? Icon(editingPost != null ? Icons.edit : Icons.arrow_forward, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
+          child: !model.busy ? Icon(editingPost != null ? FontAwesomeIcons.edit : FontAwesomeIcons.check, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: () {
             if (!model.busy) {
               model.addPost(title: titleController.text, reward: rewardController.text, description: descriptionController.text);
