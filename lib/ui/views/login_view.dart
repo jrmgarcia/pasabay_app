@@ -27,11 +27,11 @@ class LoginView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  child: Image.asset('assets/images/pasabay_logo.png', color: Colors.white),
+                  child: Image.asset('assets/images/pasabay_logo.png', height: 90),
                 ),
                 verticalSpaceLarge,
                 SizedBox(
-                  child: Image.asset('assets/images/pasabay_icon.png'),
+                  child: Image.asset('assets/images/pasabay_icon.png', height: 210),
                 ),
                 verticalSpaceLarge,
                 RaisedButton(
