@@ -31,7 +31,7 @@ class PostsViewModel extends BaseModel {
     var postToDeleteTitle = postToDelete.data['title'];
     
     var dialogResponse = await _dialogService.showConfirmationDialog(
-      title: 'Are you sure?',
+      title: 'Delete a post',
       description: 'Do you really want to delete \'$postToDeleteTitle\'?',
       confirmationTitle: 'Yes',
       cancelTitle: 'No',

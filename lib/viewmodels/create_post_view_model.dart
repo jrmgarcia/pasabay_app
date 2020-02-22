@@ -59,7 +59,7 @@ class CreatePostViewModel extends BaseModel {
       );
     } else {
       await _dialogService.showDialog(
-        title: 'Post successfully added',
+        title: 'Create a post',
         description: 'Your post has been created.',
       );
     }
