@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -30,11 +31,12 @@ class _OnboardingViewState extends State<OnboardingView> {
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       margin: EdgeInsets.symmetric(horizontal: 8.0),
-      height: 8.0,
+      height: 16.0,
       width: isActive ? 24.0 : 16.0,
       decoration: BoxDecoration(
-        color: isActive ? Colors.white : Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(12)),
+        color: isActive ? Colors.white : Colors.transparent,
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+        border: Border.all(color: Colors.white, width: 2)
       ),
     );
   }
@@ -88,23 +90,24 @@ class _OnboardingViewState extends State<OnboardingView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
-                              child: Image.asset('assets/images/pasabay_logo.png', color: Colors.white),
+                              child: Image.asset('assets/images/pasabay_logo.png', height: 90),
                             ),
                             verticalSpaceLarge,
                             SizedBox(
-                              child: Image.asset('assets/images/pasabay_icon.png'),
+                              child: Image.asset('assets/images/pasabay_icon.png', height: 210),
                             ),
                             verticalSpaceLarge,
                           ],
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(40.0),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 60),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Center(
-                              child: Icon(Icons.check_circle, color: Colors.white, size: 300.0),
+                              child: Icon(FontAwesomeIcons.tasks, color: Colors.white, size: 256.0),
                             ),
                             verticalSpaceLarge,
                             Text(
@@ -122,12 +125,13 @@ class _OnboardingViewState extends State<OnboardingView> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(40.0),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 100),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Center(
-                              child: Icon(Icons.attach_money, color: Colors.white, size: 300.0),
+                              child: Icon(FontAwesomeIcons.dollarSign, color: Colors.white, size: 256.0),
                             ),
                             verticalSpaceLarge,
                             Text(
@@ -160,16 +164,15 @@ class _OnboardingViewState extends State<OnboardingView> {
           ? Container(
               height: 100.0,
               width: double.infinity,
-              color: Colors.white,
               child: GestureDetector(
                 onTap: () => _navigationService.navigateTo(LoginViewRoute),
                 child: Center(
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 30.0),
                     child: Text(
-                      'Get started',
+                      'Get started!',
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).primaryColorLight,
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
