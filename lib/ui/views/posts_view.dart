@@ -24,7 +24,7 @@ class PostsView extends StatelessWidget {
                 .where('userId', isEqualTo: _authenticationService.currentUser.uid.toString())
                 .snapshots(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (snapshot.hasData && snapshot.data.documents.length > 0) {
                   return Column(
                     children: snapshot.data.documents.map((doc) => 
                       GestureDetector(
@@ -34,7 +34,10 @@ class PostsView extends StatelessWidget {
                     ).toList()
                   );
                 } else {
-                  return SizedBox();
+                  return Column(children: <Widget>[
+                    SizedBox(height: 256), 
+                    Text('Create a post!')
+                  ]);
                 }
               },
             )

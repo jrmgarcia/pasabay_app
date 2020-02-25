@@ -19,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
   final PostsView _postsView = PostsView();
   final BrowseView _browseView = BrowseView();
 
-  Widget _showPage = new BrowseView();
+  Widget _showPage = BrowseView();
 
   Widget _pageChooser(int page) {
     switch(page) {
@@ -30,9 +30,9 @@ class _HomeViewState extends State<HomeView> {
         return _browseView;
         break;
       default:
-        return new Container(
-          child: new Center(
-            child: new Text(
+        return Container(
+          child: Center(
+            child: Text(
               'No page found.'
             )
           ),

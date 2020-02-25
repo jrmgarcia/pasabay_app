@@ -35,24 +35,21 @@ class BrowseView extends StatelessWidget {
         body: SmartRefresher(
           enablePullDown: true,
           enablePullUp: true,
-          header: WaterDropHeader(),
+          header: WaterDropHeader(waterDropColor: Theme.of(context).accentColor),
           footer: CustomFooter(
             builder: (BuildContext context,LoadStatus mode){
-              Widget body ;
-              if(mode==LoadStatus.idle){
-                body =  Text("pull up load");
-              }
-              else if(mode==LoadStatus.loading){
+              Widget body;
+              if(mode==LoadStatus.loading){
                 body =  CupertinoActivityIndicator();
               }
               else if(mode == LoadStatus.failed){
                 body = Text("load failed");
               }
               else if(mode == LoadStatus.canLoading){
-                  body = Text("release to load more");
+                body = Text("release to load more");
               }
               else{
-                body = Text("no more data");
+                body = Text("end of list");
               }
               return Container(
                 height: 55.0,
@@ -69,14 +66,17 @@ class BrowseView extends StatelessWidget {
               StreamBuilder<QuerySnapshot>(
                 stream: Firestore.instance.collection('posts').snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData && snapshot.data.documents.length > 0) {
                     return Column(
                       children: snapshot.data.documents.map((doc) => 
                         doc.data['userId'] == _authenticationService.currentUser.uid.toString() ? SizedBox.shrink() : model.buildItem(doc)
                       ).toList()
                     );
                   } else {
-                    return SizedBox();
+                    return Column(children: <Widget>[
+                      SizedBox(height: 256), 
+                      Text('No posts yet!')
+                    ]);
                   }
                 },
               )

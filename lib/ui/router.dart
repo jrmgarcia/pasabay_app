@@ -9,7 +9,6 @@ import 'package:pasabay_app/ui/views/login_view.dart';
 import 'package:pasabay_app/ui/views/onboarding_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
 import 'package:pasabay_app/ui/views/profile_view.dart';
-import 'package:pasabay_app/ui/views/tasks_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -42,11 +41,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: PostsView(),
-      );
-    case TasksViewRoute:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: TasksView(),
       );
     case CreatePostViewRoute:
       var postToEdit = settings.arguments as Post;
