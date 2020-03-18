@@ -9,6 +9,7 @@ import 'package:pasabay_app/ui/views/login_view.dart';
 import 'package:pasabay_app/ui/views/onboarding_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
 import 'package:pasabay_app/ui/views/profile_view.dart';
+import 'package:pasabay_app/ui/views/view_post_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -48,6 +49,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: CreatePostView(
           editingPost: postToEdit,
+        ),
+      );
+    case ViewPostViewRoute:
+      var postToView = settings.arguments as Post;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ViewPostView(
+          viewingPost: postToView,
         ),
       );
     case BlacklistViewRoute:

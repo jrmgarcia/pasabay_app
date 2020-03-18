@@ -69,7 +69,12 @@ class BrowseView extends StatelessWidget {
                   if (snapshot.hasData && snapshot.data.documents.length > 0) {
                     return Column(
                       children: snapshot.data.documents.map((doc) => 
-                        doc.data['userId'] == _authenticationService.currentUser.uid.toString() ? SizedBox.shrink() : model.buildItem(doc)
+                        doc.data['userId'] == _authenticationService.currentUser.uid.toString()
+                        ? SizedBox.shrink()
+                        : GestureDetector(
+                          onTap: () => model.viewPost(doc), 
+                          child: model.buildItem(doc)
+                        )
                       ).toList()
                     );
                   } else {
