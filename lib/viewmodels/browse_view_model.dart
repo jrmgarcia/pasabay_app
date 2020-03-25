@@ -3,15 +3,15 @@ import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
-import 'package:pasabay_app/ui/widgets/task_item.dart';
+import 'package:pasabay_app/ui/widgets/browse_item.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
 
 class BrowseViewModel extends BaseModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
 
-  TaskItem buildItem(DocumentSnapshot doc) {
-    return TaskItem(
+  BrowseItem buildItem(DocumentSnapshot doc) {
+    return BrowseItem(
       post: Post.fromMap(doc.data, doc.documentID),
     );
   }

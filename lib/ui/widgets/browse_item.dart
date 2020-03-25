@@ -10,9 +10,9 @@ final FirestoreService _firestoreService = locator<FirestoreService>();
 User _postUser;
 User get postUser => _postUser;
 
-class TaskItem extends StatelessWidget {
+class BrowseItem extends StatelessWidget {
   final Post post;
-  const TaskItem({
+  const BrowseItem({
     Key key, 
     this.post, 
   }) : super(key: key);
@@ -27,7 +27,7 @@ class TaskItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ListTile(
-              leading: getUserPhoto(post.userId) != null
+              leading: getUserPhoto(post.userId) != null 
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: CachedNetworkImage(
