@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:pasabay_app/ui/views/browse_view.dart';
+import 'package:pasabay_app/ui/views/dashboard_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
 
 void main() => runApp(MaterialApp(home: HomeView()));
@@ -17,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
 
   // Initialize all pages
   final PostsView _postsView = PostsView();
-  final BrowseView _browseView = BrowseView();
+  final DashboardView _dashboardView = DashboardView();
 
   Widget _showPage = BrowseView();
 
@@ -27,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
         return _postsView;
         break;
       case 1:
-        return _browseView;
+        return _dashboardView;
         break;
       default:
         return Container(

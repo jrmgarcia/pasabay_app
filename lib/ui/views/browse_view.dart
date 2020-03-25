@@ -32,6 +32,11 @@ class BrowseView extends StatelessWidget {
     return ViewModelProvider<BrowseViewModel>.withConsumer(
       viewModel: BrowseViewModel(),
       builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title: Text("Browse", style: TextStyle(color: Colors.white)),
+          backgroundColor: Theme.of(context).primaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
         body: SmartRefresher(
           enablePullDown: true,
           enablePullUp: true,
