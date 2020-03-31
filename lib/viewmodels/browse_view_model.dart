@@ -34,6 +34,8 @@ class BrowseViewModel extends BaseModel {
   }
 
   Future getPostUser(String uid) async {
+    setBusy(true);
     _postUser = await _firestoreService.getUser(uid);
+    setBusy(false);
   }
 }

@@ -21,7 +21,7 @@ class PostsView extends StatelessWidget {
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance.collection('posts')
-                .where('userId', isEqualTo: _authenticationService.currentUser.uid.toString())
+                .where('userId', isEqualTo: _authenticationService.currentUser.uid)
                 .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data.documents.length > 0) {
