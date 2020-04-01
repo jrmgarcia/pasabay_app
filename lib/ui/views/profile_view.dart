@@ -6,7 +6,6 @@ import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:pasabay_app/viewmodels/profile_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProfileView extends StatelessWidget {
   final User viewingUser;
@@ -87,7 +86,7 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  _launchURL('mailto:smith@example.org?subject=News&body=New%20plugin');
+                  // _launchURL('mailto:smith@example.org?subject=News&body=New%20plugin');
                 }
               ),
             ],
@@ -98,10 +97,10 @@ class ProfileView extends StatelessWidget {
   }
 }
 
-_launchURL(var url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
+// _launchURL(var url) async {
+//   if (await canLaunch(url)) {
+//     await launch(url);
+//   } else {
+//     throw 'Could not launch $url';
+//   }
+// }
