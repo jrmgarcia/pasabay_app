@@ -35,3 +35,11 @@ final mySubtitleStyle1 = TextStyle(
   fontSize: 18.0,
   height: 1.2,
 );
+
+final myBoxDecoration = BoxDecoration(
+  color: Color(0xFFF6DB7F),
+  borderRadius: BorderRadius.circular(10),
+  boxShadow: [
+    BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
+  ]
+);

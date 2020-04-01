@@ -1,11 +1,12 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/ui/shared/shared_styles.dart';
 
 class PostItem extends StatelessWidget {
   final Post post;
   final Function onDeleteItem;
-  const PostItem({
+  PostItem({
     Key key, 
     this.post, 
     this.onDeleteItem,
@@ -15,7 +16,7 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
       alignment: Alignment.center,
       child: Row(
         children: <Widget>[
@@ -42,13 +43,7 @@ class PostItem extends StatelessWidget {
           ),
         ],
       ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
-        ]
-      ),
+      decoration: myBoxDecoration,
     );
   }
 

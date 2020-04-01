@@ -3,11 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/models/user.dart';
+import 'package:pasabay_app/ui/shared/shared_styles.dart';
 
 class BrowseItem extends StatelessWidget {
   final Post post;
   final User user;
-  const BrowseItem({
+  BrowseItem({
     Key key, 
     this.post, 
     this.user,
@@ -17,7 +18,7 @@ class BrowseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
       alignment: Alignment.center,
       child: Row(
         children: <Widget>[
@@ -65,13 +66,7 @@ class BrowseItem extends StatelessWidget {
           ),
         ],
       ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
-        ]
-      ),
+      decoration: myBoxDecoration,
     );
   }
 }
