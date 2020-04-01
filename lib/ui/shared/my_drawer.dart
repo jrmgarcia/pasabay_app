@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
+import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 
@@ -33,7 +34,7 @@ class MyDrawer extends StatelessWidget {
             title: Text("Profile", style: TextStyle(color: Theme.of(context).primaryColor)),
             leading: Icon(FontAwesomeIcons.user, color: Theme.of(context).primaryColor),
             onTap: () {
-              _navigationService.navigateTo(ProfileViewRoute);
+              _navigationService.navigateTo(ProfileViewRoute, arguments: _authenticationService.currentUser);
             },
             trailing: Icon(FontAwesomeIcons.caretRight, color: Theme.of(context).primaryColor),
           ),

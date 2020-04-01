@@ -33,7 +33,8 @@ class AuthenticationService {
         uid: user.uid,
         displayName: user.displayName,
         email: user.email,
-        photoUrl: user.photoUrl
+        photoUrl: user.photoUrl,
+        rating: 5.00
       );
       await _firestoreService.createUser(_currentUser);
 

@@ -1,4 +1,5 @@
 import 'package:pasabay_app/models/post.dart';
+import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/ui/views/blacklist_view.dart';
 import 'package:pasabay_app/ui/views/browse_view.dart';
 import 'package:pasabay_app/ui/views/create_post_view.dart';
@@ -34,9 +35,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: BrowseView(),
       );
     case ProfileViewRoute:
+      var userToView = settings.arguments as User;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: ProfileView(),
+        viewToShow: ProfileView(viewingUser: userToView),
       );
     case PostsViewRoute:
       return _getPageRoute(
