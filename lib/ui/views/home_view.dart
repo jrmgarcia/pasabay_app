@@ -20,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
   final PostsView _postsView = PostsView();
   final DashboardView _dashboardView = DashboardView();
 
-  Widget _showPage = BrowseView();
+  Widget _showPage = DashboardView();
 
   Widget _pageChooser(int page) {
     switch(page) {
