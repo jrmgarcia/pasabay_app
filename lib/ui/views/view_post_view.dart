@@ -98,7 +98,10 @@ class ViewPostView extends StatelessWidget {
 
     final bottomContentText = Text(
       viewingPost.description,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(
+        color: Color(0xFF888888),
+        fontSize: 16.0
+      ),
     );
 
     final chatButton = FloatingActionButton(
@@ -140,7 +143,7 @@ class ViewPostView extends StatelessWidget {
         return FontAwesomeIcons.broom;
         break;
       case 'Delivery': 
-        return FontAwesomeIcons.truck;
+        return FontAwesomeIcons.shoppingBasket;
         break;
       case 'Officework': 
         return FontAwesomeIcons.briefcase;
@@ -149,7 +152,7 @@ class ViewPostView extends StatelessWidget {
         return FontAwesomeIcons.paw;
         break;
       case 'Schoolwork': 
-        return FontAwesomeIcons.graduationCap;
+        return FontAwesomeIcons.book;
         break;
       default: 
         return FontAwesomeIcons.bug;

@@ -22,17 +22,15 @@ class PostItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ListTile(
-              leading: Icon(categoryIcon(post.category), color: Colors.white),
+              leading: Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
               title: Text(post.title, style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
+                  color: Color(0xFF888888),
                   fontSize: 16,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
               trailing: IconButton(
-                icon: Icon(FontAwesomeIcons.times, color: Colors.white),
+                icon: Icon(FontAwesomeIcons.times, color: Theme.of(context).accentColor),
                 onPressed: () {
                   if (onDeleteItem != null) {
                     onDeleteItem();
@@ -53,7 +51,7 @@ class PostItem extends StatelessWidget {
         return FontAwesomeIcons.broom;
         break;
       case 'Delivery': 
-        return FontAwesomeIcons.truck;
+        return FontAwesomeIcons.shoppingBasket;
         break;
       case 'Officework': 
         return FontAwesomeIcons.briefcase;
@@ -62,7 +60,7 @@ class PostItem extends StatelessWidget {
         return FontAwesomeIcons.paw;
         break;
       case 'Schoolwork': 
-        return FontAwesomeIcons.graduationCap;
+        return FontAwesomeIcons.book;
         break;
       default: 
         return FontAwesomeIcons.bug;
