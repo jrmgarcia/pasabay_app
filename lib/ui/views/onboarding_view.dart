@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -107,9 +106,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Center(
-                              child: Icon(FontAwesomeIcons.tasks, color: Colors.white, size: 256.0),
+                              child: SizedBox(
+                                child: Image.asset('assets/images/onboarding-1.PNG', height: 360),
+                              ),
                             ),
-                            verticalSpaceLarge,
                             Text(
                               'Get your tasks done!',
                               style: myTitleStyle1,
@@ -131,9 +131,11 @@ class _OnboardingViewState extends State<OnboardingView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Center(
-                              child: Icon(FontAwesomeIcons.dollarSign, color: Colors.white, size: 256.0),
+                              child: SizedBox(
+                                child: Image.asset('assets/images/onboarding-2.PNG', height: 360),
+                              ),
                             ),
-                            verticalSpaceLarge,
+
                             Text(
                               'Make extra income!',
                               style: myTitleStyle1,
