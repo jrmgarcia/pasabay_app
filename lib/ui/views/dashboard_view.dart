@@ -40,7 +40,6 @@ class DashboardView extends StatelessWidget {
     return ViewModelProvider<DashboardViewModel>.withConsumer(
       viewModel: DashboardViewModel(),
       builder: (context, model, child) => Scaffold(
-        endDrawer: MyDrawer(),
         body: Container(
         padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
         child: GridView.count(
