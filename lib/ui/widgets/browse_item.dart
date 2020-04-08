@@ -10,8 +10,8 @@ class BrowseItem extends StatelessWidget {
   final User user;
   BrowseItem({
     Key key, 
-    this.post, 
-    this.user,
+    this.post,
+    this.user
   }) : super(key: key);
 
   @override
@@ -24,34 +24,11 @@ class BrowseItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ListTile(
-              leading: user.photoUrl.isNotEmpty
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: CachedNetworkImage(
-                          placeholder: (context, url) => Container(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1.0,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                            width: 50.0,
-                            height: 50.0,
-                            padding: EdgeInsets.all(15.0),
-                          ),
-                          imageUrl: user.photoUrl,
-                          width: 50.0,
-                          height: 50.0,
-                          fit: BoxFit.cover,
-                        ),
-                    )
-                    : Icon(
-                        Icons.account_circle,
-                        size: 50.0,
-                        color: Colors.white,
-                      ),
+              leading: _buildChild(post.userId, user.photoUrl),
               title: Text(post.title.toUpperCase(), style: GoogleFonts.titilliumWeb(
                   fontSize: 26,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
                   height: 1,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -69,4 +46,25 @@ class BrowseItem extends StatelessWidget {
       decoration: myBoxDecoration,
     );
   }
+}
+
+Widget _buildChild(String uid, String photoUrl) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(10),
+    child: CachedNetworkImage(
+      placeholder: (context, url) => Container(
+        child: CircularProgressIndicator(
+          strokeWidth: 1.0,
+          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+        ),
+        width: 50.0,
+        height: 50.0,
+        padding: EdgeInsets.all(15.0),
+      ),
+      imageUrl: photoUrl,
+      width: 50.0,
+      height: 50.0,
+      fit: BoxFit.cover,
+    ),
+  );
 }
