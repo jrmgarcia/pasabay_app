@@ -9,10 +9,11 @@ class DashboardView extends StatelessWidget {
   Card makeDashboardItem(String title, String fileName, Future Function() function) {
     return Card(
       elevation: 1.0,
-      margin: new EdgeInsets.all(8.0),
+      margin: EdgeInsets.all(8.0),
       child: Container(
         decoration: myBoxDecoration,
-        child: new InkWell(
+        child: InkWell(
+          customBorder: CircleBorder(),
           onTap: function,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

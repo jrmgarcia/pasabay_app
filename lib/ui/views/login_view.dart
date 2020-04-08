@@ -40,7 +40,7 @@ class LoginView extends StatelessWidget {
                     model.signIn();
                   },
                   color: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   highlightElevation: 0,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),

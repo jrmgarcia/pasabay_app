@@ -95,7 +95,12 @@ class _OnboardingViewState extends State<OnboardingView> {
                             SizedBox(
                               child: Image.asset('assets/images/pasabay_icon.png', height: 210),
                             ),
-                            verticalSpaceLarge,
+                            verticalSpaceMedium,
+                            Text(
+                              'This platform is only available for UPLB community at this moment.',
+                              style: mySubtitleStyle1,
+                              textAlign: TextAlign.center,
+                            ),
                           ],
                         ),
                       ),
