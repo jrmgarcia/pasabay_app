@@ -25,16 +25,12 @@ class BrowseView extends StatelessWidget {
   const BrowseView({Key key}) : super(key: key);
 
   void _onRefresh() async{
-    // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
   void _onLoading() async{
-    // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
     _refreshController.loadComplete();
   }
 
@@ -97,47 +93,47 @@ class BrowseView extends StatelessWidget {
                                 );
                               } else {
                                 return Container(
-                                      height: 80,
-                                      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                                      alignment: Alignment.center,
-                                      decoration: myBoxDecoration,
-                                      child: ListTile(
-                                        leading: Shimmer.fromColors(
-                                            baseColor: Colors.grey[300],
-                                            highlightColor: Colors.grey[100],
-                                            child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10), 
-                                            child: SizedBox(
-                                              width: 50, 
-                                              height: 50, 
-                                              child: DecoratedBox(
-                                                decoration: BoxDecoration(color: Colors.grey[200])
-                                              )
-                                            )
-                                          ),
-                                        ),
-                                        title: Shimmer.fromColors(
-                                          baseColor: Colors.grey[300],
-                                          highlightColor: Colors.grey[100],
-                                          child: SizedBox(
-                                            height: 26, 
-                                            child: DecoratedBox(
-                                              decoration: BoxDecoration(color: Colors.grey[200])
-                                            )
+                                  height: 80,
+                                  margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                                  alignment: Alignment.center,
+                                  decoration: myBoxDecoration,
+                                  child: ListTile(
+                                    leading: Shimmer.fromColors(
+                                        baseColor: Colors.grey[300],
+                                        highlightColor: Colors.grey[100],
+                                        child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10), 
+                                        child: SizedBox(
+                                          width: 50, 
+                                          height: 50, 
+                                          child: DecoratedBox(
+                                            decoration: BoxDecoration(color: Colors.grey[200])
                                           )
-                                        ),
-                                        subtitle: Shimmer.fromColors(
-                                          baseColor: Colors.grey[300],
-                                          highlightColor: Colors.grey[100],
-                                          child: SizedBox(
-                                            height: 16, 
-                                            child: DecoratedBox(
-                                              decoration: BoxDecoration(color: Colors.grey[200])
-                                            )
-                                          )
-                                        ),
+                                        )
+                                      ),
+                                    ),
+                                    title: Shimmer.fromColors(
+                                      baseColor: Colors.grey[300],
+                                      highlightColor: Colors.grey[100],
+                                      child: SizedBox(
+                                        height: 26, 
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(color: Colors.grey[200])
+                                        )
                                       )
-                                    );
+                                    ),
+                                    subtitle: Shimmer.fromColors(
+                                      baseColor: Colors.grey[300],
+                                      highlightColor: Colors.grey[100],
+                                      child: SizedBox(
+                                        height: 16, 
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(color: Colors.grey[200])
+                                        )
+                                      )
+                                    ),
+                                  )
+                                );
                               }
                             }
                           )
