@@ -1,4 +1,3 @@
-import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/viewmodels/dashboard_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
