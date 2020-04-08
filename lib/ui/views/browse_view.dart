@@ -87,7 +87,7 @@ class BrowseView extends StatelessWidget {
                             future: Future.wait([getPostUser(doc.data['userId']),]),
                             builder: (context, snapshot) {
                               if(snapshot.hasData) {
-                                return GestureDetector(
+                                return InkWell(
                                   onTap: () => model.viewPost(doc), 
                                   child: _buildItem(doc, postUser)
                                 );

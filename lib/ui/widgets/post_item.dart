@@ -16,30 +16,24 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       alignment: Alignment.center,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: ListTile(
-              leading: Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
-              title: Text(post.title, style: TextStyle(
-                  color: Color(0xFF888888),
-                  fontSize: 16,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: IconButton(
-                icon: Icon(FontAwesomeIcons.times, color: Theme.of(context).accentColor),
-                onPressed: () {
-                  if (onDeleteItem != null) {
-                    onDeleteItem();
-                  }
-                },
-              ),
-            )
+      child: ListTile(
+        leading: Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
+        title: Text(post.title, style: TextStyle(
+            color: Color(0xFF888888),
+            fontSize: 16,
           ),
-        ],
+          overflow: TextOverflow.ellipsis,
+        ),
+        trailing: IconButton(
+          icon: Tooltip(message: 'Delete', child: Icon(FontAwesomeIcons.times, color: Theme.of(context).accentColor)),
+          onPressed: () {
+            if (onDeleteItem != null) {
+              onDeleteItem();
+            }
+          },
+        ),
       ),
       decoration: myBoxDecoration,
     );

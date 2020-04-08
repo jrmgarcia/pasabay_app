@@ -27,7 +27,7 @@ class PostsView extends StatelessWidget {
                 if (snapshot.hasData && snapshot.data.documents.length > 0) {
                   return Column(
                     children: snapshot.data.documents.map((doc) => 
-                      GestureDetector(
+                      InkWell(
                         onTap: () => model.updatePost(doc), 
                         child: model.buildItem(doc)
                       )
@@ -44,6 +44,7 @@ class PostsView extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
+          tooltip: 'Add post',
           elevation: 0,
           backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
           child: !model.busy ? Icon(FontAwesomeIcons.plus, color: Colors.white) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),

@@ -18,7 +18,7 @@ class BrowseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       alignment: Alignment.center,
       child: ListTile(
         leading: _buildChild(post.userId, user.photoUrl),

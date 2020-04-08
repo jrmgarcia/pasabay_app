@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:pasabay_app/viewmodels/login_view_model.dart';
@@ -35,13 +36,11 @@ class LoginView extends StatelessWidget {
                 ),
                 verticalSpaceLarge,
                 RaisedButton(
-                  splashColor: Theme.of(context).accentColor,
                   onPressed: () {
                     model.signIn();
                   },
                   color: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  highlightElevation: 0,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                     child: Row(
@@ -56,10 +55,7 @@ class LoginView extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 10),
                           child: Text(
                             'Sign in with Google',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
+                            style: mySubtitleStyle2,
                           ),
                         )
                       ],

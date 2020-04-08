@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:pasabay_app/ui/views/dashboard_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
-import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 
 void main() => runApp(MaterialApp(home: HomeView()));
 
@@ -56,8 +55,8 @@ class _HomeViewState extends State<HomeView> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
         actions: <Widget>[
-          Icon(FontAwesomeIcons.questionCircle),
-          horizontalSpaceSmall,
+          Tooltip(message: 'Info', child: Icon(FontAwesomeIcons.questionCircle)),
+          SizedBox(width: 15.0)
         ],
       ),
       drawer: MyDrawer(),

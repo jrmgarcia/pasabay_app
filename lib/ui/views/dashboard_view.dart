@@ -6,32 +6,34 @@ import 'package:pasabay_app/ui/shared/shared_styles.dart';
 class DashboardView extends StatelessWidget {
   const DashboardView({Key key}) : super(key: key);
 
-  Card makeDashboardItem(String title, String fileName, Future Function() function) {
-    return Card(
-      elevation: 1.0,
-      margin: EdgeInsets.all(8.0),
-      child: Container(
-        decoration: myBoxDecoration,
-        child: InkWell(
-          customBorder: CircleBorder(),
-          onTap: function,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            verticalDirection: VerticalDirection.down,
-            children: <Widget>[
-              Center(
-                child: SizedBox(
-                  child: Image.asset('assets/images/' + fileName, height: 150),
+  Widget makeDashboardItem(String title, String fileName, Future Function() function) {
+    return InkWell(
+      onTap: () {},
+      child: Card(
+        elevation: 1.0,
+        margin: EdgeInsets.all(8.0),
+        child: Container(
+          decoration: myBoxDecoration,
+          child: GestureDetector(
+            onTap: function,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              verticalDirection: VerticalDirection.down,
+              children: <Widget>[
+                Center(
+                  child: SizedBox(
+                    child: Image.asset('assets/images/' + fileName, height: 150),
+                  )
+                ),
+                Center(
+                  child: Text(title, style: TextStyle(fontSize: 14.0, color: Color(0xFF888888))),
                 )
-              ),
-              Center(
-                child: Text(title, style: TextStyle(fontSize: 14.0, color: Color(0xFF888888))),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
-      )
+        )
+      ),
     );
   }
 
