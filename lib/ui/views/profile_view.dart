@@ -31,21 +31,21 @@ class ProfileView extends StatelessWidget {
           verticalSpaceSmall,
           Text(
             viewingUser.displayName,
-            style: myTitleStyle1,
+            style: myTitleStyle2,
           ),
           RatingBarIndicator(
               rating: viewingUser.rating,
               itemBuilder: (context, index) => Icon(
                   Icons.star,
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
               ),
               itemCount: 5,
-              itemSize: 50.0,
+              itemSize: 60.0,
               direction: Axis.horizontal,
           ),
           Text(
             viewingUser.rating.toString(),
-            style: mySubtitleStyle1,
+            style: mySubtitleStyle2,
           ),
           verticalSpaceMedium
         ]
@@ -77,11 +77,11 @@ class ProfileView extends StatelessWidget {
                   child: ListTile(
                     leading: Icon(
                       Icons.email,
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
                     ),
                     title:Text(
                       viewingUser.email,
-                      style: mySubtitleStyle1,
+                      style: mySubtitleStyle2,
                     ),
                   ),
                 ),

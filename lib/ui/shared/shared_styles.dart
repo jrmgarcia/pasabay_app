@@ -30,8 +30,21 @@ final myTitleStyle1 = TextStyle(
   height: 1.5,
 );
 
+final myTitleStyle2 = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Color(0xFF888888),
+  fontSize: 26.0,
+  height: 1.5,
+);
+
 final mySubtitleStyle1 = TextStyle(
   color: Colors.white,
+  fontSize: 18.0,
+  height: 1.2,
+);
+
+final mySubtitleStyle2 = TextStyle(
+  color: Color(0xFF888888),
   fontSize: 18.0,
   height: 1.2,
 );
