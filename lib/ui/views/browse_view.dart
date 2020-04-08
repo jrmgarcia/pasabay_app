@@ -6,10 +6,12 @@ import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
+import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/widgets/browse_item.dart';
 import 'package:pasabay_app/viewmodels/browse_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
@@ -94,7 +96,48 @@ class BrowseView extends StatelessWidget {
                                   child: _buildItem(doc, postUser)
                                 );
                               } else {
-                                return SizedBox.shrink();
+                                return Container(
+                                      height: 80,
+                                      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                                      alignment: Alignment.center,
+                                      decoration: myBoxDecoration,
+                                      child: ListTile(
+                                        leading: Shimmer.fromColors(
+                                            baseColor: Colors.grey[300],
+                                            highlightColor: Colors.grey[100],
+                                            child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10), 
+                                            child: SizedBox(
+                                              width: 50, 
+                                              height: 50, 
+                                              child: DecoratedBox(
+                                                decoration: BoxDecoration(color: Colors.grey[200])
+                                              )
+                                            )
+                                          ),
+                                        ),
+                                        title: Shimmer.fromColors(
+                                          baseColor: Colors.grey[300],
+                                          highlightColor: Colors.grey[100],
+                                          child: SizedBox(
+                                            height: 26, 
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(color: Colors.grey[200])
+                                            )
+                                          )
+                                        ),
+                                        subtitle: Shimmer.fromColors(
+                                          baseColor: Colors.grey[300],
+                                          highlightColor: Colors.grey[100],
+                                          child: SizedBox(
+                                            height: 16, 
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(color: Colors.grey[200])
+                                            )
+                                          )
+                                        ),
+                                      )
+                                    );
                               }
                             }
                           )
@@ -119,7 +162,13 @@ class BrowseView extends StatelessWidget {
 Widget _buildItem(DocumentSnapshot doc, User postUser) {
   return BrowseItem(
     post: Post.fromMap(doc.data, doc.documentID),
-    user: User(displayName: postUser.displayName, email: postUser.email, photoUrl: postUser.photoUrl, rating: postUser.rating, uid: postUser.uid)
+    user: User(
+      displayName: postUser.displayName, 
+      email: postUser.email, 
+      photoUrl: postUser.photoUrl, 
+      rating: postUser.rating, 
+      uid: postUser.uid
+    )
   );
 }
 

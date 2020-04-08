@@ -20,28 +20,22 @@ class BrowseItem extends StatelessWidget {
       height: 80,
       margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
       alignment: Alignment.center,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: ListTile(
-              leading: _buildChild(post.userId, user.photoUrl),
-              title: Text(post.title.toUpperCase(), style: GoogleFonts.titilliumWeb(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w700,
-                  color: Theme.of(context).accentColor,
-                  height: 1,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text(post.description, style: TextStyle(
-                  color: Color(0xFF888888),
-                  fontSize: 16,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            )
+      child: ListTile(
+        leading: _buildChild(post.userId, user.photoUrl),
+        title: Text(post.title.toUpperCase(), style: GoogleFonts.titilliumWeb(
+            fontSize: 26,
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).accentColor,
+            height: 1,
           ),
-        ],
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Text(post.description, style: TextStyle(
+            color: Color(0xFF888888),
+            fontSize: 16,
+          ),
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
       decoration: myBoxDecoration,
     );

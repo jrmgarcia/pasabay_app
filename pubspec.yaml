@@ -48,6 +48,7 @@ dependencies:
   curved_navigation_bar: ^0.3.2
   font_awesome_flutter: ^8.7.0
   flutter_rating_bar: ^3.0.1+1
+  shimmer: ^1.1.1
 
 dev_dependencies:
   flutter_test:
