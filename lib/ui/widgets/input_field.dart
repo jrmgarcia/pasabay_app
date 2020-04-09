@@ -20,7 +20,7 @@ class InputField extends StatefulWidget {
   final TextInputAction textInputAction;
   final String additionalNote;
   final Function(String) onChanged;
-  final TextInputFormatter formatter;
+  final List<TextInputFormatter> formatter;
   final int maxLines;
 
   InputField(
@@ -77,7 +77,7 @@ class _InputFieldState extends State<InputField> {
                   textInputAction: widget.textInputAction,
                   onChanged: widget.onChanged,
                   inputFormatters:
-                      widget.formatter != null ? [widget.formatter] : null,
+                      widget.formatter != null ? widget.formatter : null,
                   onEditingComplete: () {
                     if (widget.enterPressed != null) {
                       FocusScope.of(context).requestFocus(FocusNode());
@@ -93,7 +93,7 @@ class _InputFieldState extends State<InputField> {
                   readOnly: widget.isReadOnly,
                   decoration: InputDecoration.collapsed(
                       hintText: widget.placeholder,
-                      hintStyle: TextStyle(fontSize: 15)),
+                      hintStyle: TextStyle(fontSize: 16)),
                 ),
               ),
               GestureDetector(
@@ -118,7 +118,7 @@ class _InputFieldState extends State<InputField> {
             widget.validationMessage,
             color: Colors.red,
           ),
-        if (widget.additionalNote != null) verticalSpace(5),
+        if (widget.additionalNote != null) verticalSpaceTiny,
         if (widget.additionalNote != null) NoteText(widget.additionalNote),
         verticalSpaceSmall
       ],

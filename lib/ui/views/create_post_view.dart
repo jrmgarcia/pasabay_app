@@ -1,5 +1,7 @@
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/models/post.dart';
+import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:pasabay_app/ui/widgets/expansion_list.dart';
 import 'package:pasabay_app/ui/widgets/input_field.dart';
 import 'package:pasabay_app/viewmodels/create_post_view_model.dart';
@@ -43,10 +45,20 @@ class CreatePostView extends StatelessWidget {
             spacing: 8.0, // gap between adjacent chips
             runSpacing: 4.0, // gap between lines
             children: <Widget>[
+              ExpansionList<String>(
+                items: ['Cleaning', 'Delivery', 'Officework', 'Pet Sitting', 'Schoolwork'],
+                title: model.selectedCategory,
+                onItemSelected: model.setSelectedCategory,
+              ),
+              verticalSpaceTiny,
               InputField(
+                autoFocus: true,
                 placeholder: 'Title',
                 controller: titleController,
-                autoFocus: true,
+                formatter: [
+                  LengthLimitingTextInputFormatter(16),
+                  BlacklistingTextInputFormatter.singleLineFormatter
+                ],
                 nextFocusNode: focusReward,
               ),
               InputField(
@@ -54,6 +66,11 @@ class CreatePostView extends StatelessWidget {
                 placeholder: 'Reward',
                 controller: rewardController,
                 textInputType: TextInputType.number,
+                formatter: [
+                  LengthLimitingTextInputFormatter(6),
+                  WhitelistingTextInputFormatter.digitsOnly,
+                  BlacklistingTextInputFormatter.singleLineFormatter,
+                ],
                 nextFocusNode: focusDescription,
               ),
               InputField(
@@ -64,11 +81,9 @@ class CreatePostView extends StatelessWidget {
                 maxLines: null,
                 largeVersion: true,
                 textInputAction: TextInputAction.newline,
-              ),
-              ExpansionList<String>(
-                items: ['Cleaning', 'Delivery', 'Officework', 'Pet Sitting', 'Schoolwork'],
-                title: model.selectedCategory,
-                onItemSelected: model.setSelectedCategory,
+                formatter: [
+                  LengthLimitingTextInputFormatter(1000)
+                ],
               ),
             ],
           ),
