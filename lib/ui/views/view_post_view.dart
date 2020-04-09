@@ -57,7 +57,7 @@ class ViewPostView extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 120.0),
+          verticalSpaceMassive,
           Icon(
             categoryIcon(viewingPost.category),
             color: Colors.white,
@@ -67,13 +67,13 @@ class ViewPostView extends StatelessWidget {
             width: 90.0,
             child: Divider(color: Colors.white),
           ),
-          SizedBox(height: 10.0),
+          verticalSpaceSmall,
           Text(
             viewingPost.title,
             style: myTitleStyle1,
             overflow: TextOverflow.ellipsis
           ),
-          SizedBox(height: 30.0),
+          verticalSpaceSmall,
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -155,7 +155,6 @@ class ViewPostView extends StatelessWidget {
                 children: <Widget>[
                   topContent(postUser),
                   DraggableScrollableSheet(
-                    initialChildSize: 0.4,
                     builder: (context, scrollController) {
                       return Container(
                         decoration: BoxDecoration(
