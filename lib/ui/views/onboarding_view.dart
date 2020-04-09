@@ -89,11 +89,11 @@ class _OnboardingViewState extends State<OnboardingView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
-                              child: Image.asset('assets/images/pasabay_logo.png', height: 90),
+                              child: Image.asset('assets/images/onboarding-0.PNG', height: 256),
                             ),
-                            verticalSpaceLarge,
+                            verticalSpaceMedium,
                             SizedBox(
-                              child: Image.asset('assets/images/pasabay_icon.png', height: 210),
+                              child: Image.asset('assets/images/pasabay_logo.png', height: 90),
                             ),
                             verticalSpaceMedium,
                             Text(
