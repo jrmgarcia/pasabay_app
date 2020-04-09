@@ -1,10 +1,18 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/models/user.dart';
+import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:pasabay_app/viewmodels/view_post_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+
+final FirestoreService _firestoreService = locator<FirestoreService>();
+
+User _postUser;
+User get postUser => _postUser;
 
 class ViewPostView extends StatelessWidget {
   
@@ -27,74 +35,84 @@ class ViewPostView extends StatelessWidget {
       ),
     );
 
-    final taskOwner = Text(
-      "John", 
-      style: TextStyle(color: Colors.white)
-    );
+    Widget taskOwner(User user) {
+      return Text(
+        user.displayName.substring(0, user.displayName.indexOf(' ')) ?? ' ', 
+        style: TextStyle(color: Colors.white)
+      );
+    }
 
-    final taskOwnerRating = Row(
-      children: <Widget>[
-        Text("4.5", style: TextStyle(color: Colors.white)),
-        horizontalSpaceTiny,
-        Icon(FontAwesomeIcons.solidStar, color: Colors.white, size: 10)
-      ]
-    );
+    Widget taskOwnerRating(User user) {
+      return Row(
+        children: <Widget>[
+          Text(user.rating.toString() ?? ' ', style: TextStyle(color: Colors.white)),
+          horizontalSpaceTiny,
+          Icon(FontAwesomeIcons.solidStar, color: Colors.white, size: 10)
+        ]
+      );
+    }
 
 
-    final topContentText = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(height: 120.0),
-        Icon(
-          categoryIcon(viewingPost.category),
-          color: Colors.white,
-          size: 40.0,
-        ),
-        Container(
-          width: 90.0,
-          child: Divider(color: Colors.white),
-        ),
-        SizedBox(height: 10.0),
-        Text(
-          viewingPost.title,
-          style: myTitleStyle1,
-          overflow: TextOverflow.ellipsis
-        ),
-        SizedBox(height: 30.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Expanded(flex: 1, child: taskOwner),
-            Expanded(flex: 2, child: taskOwnerRating),
-            Expanded(flex: 1, child: taskReward)
-          ],
-        ),
-      ],
-    );
-
-    final topContent = Stack(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(left: 10.0),
-          height: MediaQuery.of(context).size.height * 0.5,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("post_image"),
-              fit: BoxFit.cover,
-            ),
-          )
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.5,
-          padding: EdgeInsets.all(40.0),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Colors.grey),
-          child: Center(
-            child: topContentText,
+    Widget topContentText(User user) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 120.0),
+          Icon(
+            categoryIcon(viewingPost.category),
+            color: Colors.white,
+            size: 40.0,
           ),
-        ),
-      ],
-    );
+          Container(
+            width: 90.0,
+            child: Divider(color: Colors.white),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            viewingPost.title,
+            style: myTitleStyle1,
+            overflow: TextOverflow.ellipsis
+          ),
+          SizedBox(height: 30.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(flex: 1, child: taskOwner(user)),
+              Expanded(flex: 2, child: taskOwnerRating(user)),
+              Expanded(flex: 1, child: taskReward)
+            ],
+          ),
+        ],
+      );
+    }
+
+    Widget topContent(User user) {
+      return Stack(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(left: 10.0),
+            height: MediaQuery.of(context).size.height * 0.5,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  user.photoUrl ?? 'https://lh3.googleusercontent.com/-cXXaVVq8nMM/AAAAAAAAAAI/AAAAAAAAAKI/_Y1WfBiSnRI/photo.jpg?sz=50',
+                ),
+                fit: BoxFit.cover,
+              ),
+            )
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            padding: EdgeInsets.all(40.0),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(color: Colors.grey[400].withOpacity(0.6)),
+            child: Center(
+              child: topContentText(user),
+            ),
+          ),
+        ],
+      );
+    } 
 
     final bottomContentText = Text(
       viewingPost.description,
@@ -129,11 +147,39 @@ class ViewPostView extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        body: Column(
-          children: <Widget>[topContent, bottomContent],
+        body: FutureBuilder(
+          future: Future.wait([getPostUser(viewingPost.userId),]),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Stack(
+                children: <Widget>[
+                  topContent(postUser),
+                  DraggableScrollableSheet(
+                    initialChildSize: 0.4,
+                    builder: (context, scrollController) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: SingleChildScrollView(
+                          controller: scrollController,
+                          child: Container(
+                            child: bottomContent
+                          )
+                        ),
+                      );
+                    }
+                  ),
+                ]
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          }
         ),
-        floatingActionButton: chatButton,
-      ),
+        floatingActionButton: Tooltip(message: 'Chat', child: chatButton),
+      )
     );
   }
 
@@ -158,4 +204,9 @@ class ViewPostView extends StatelessWidget {
         return FontAwesomeIcons.bug;
     }
   }
+
+  Future getPostUser(String uid) async {
+    _postUser = await _firestoreService.getUser(uid);
+  }
 }
+
