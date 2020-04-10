@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Post {
@@ -28,7 +27,7 @@ class Post {
       'reward': reward, 
       'description': description, 
       'category': category,
-      'timestamp': FieldValue.serverTimestamp(),
+      'timestamp': DateTime.now().toString(),
     };
   }
 
@@ -41,6 +40,7 @@ class Post {
       reward: map['reward'],
       description: map['description'],
       category: map['category'],
+      timestamp: map['timestamp'],
       documentId: documentId,
     );
   }
