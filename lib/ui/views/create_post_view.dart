@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/models/post.dart';
+import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:pasabay_app/ui/widgets/expansion_list.dart';
 import 'package:pasabay_app/ui/widgets/input_field.dart';
@@ -20,6 +21,8 @@ class CreatePostView extends StatelessWidget {
   final focusDescription = FocusNode();
   final focusReward = FocusNode();
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<CreatePostViewModel>.withConsumer(
@@ -33,6 +36,7 @@ class CreatePostView extends StatelessWidget {
         model.setEditingPost(editingPost);
       },
       builder: (context, model, child) => Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: editingPost != null ? Text("Edit a Post", style: TextStyle(color: Colors.white)) : Text("Create a Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
@@ -91,8 +95,18 @@ class CreatePostView extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: !model.busy ? Icon(editingPost != null ? FontAwesomeIcons.edit : FontAwesomeIcons.check, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: () {
-            if (!model.busy) {
+            if (!model.busy && model.selectedCategory != 'Select Category' && titleController.text.isNotEmpty && rewardController.text.isNotEmpty && descriptionController.text.isNotEmpty) {
               model.addPost(title: titleController.text, reward: rewardController.text, description: descriptionController.text);
+            } else {
+              if (model.selectedCategory == 'Select Category') {
+                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please select a category.')); 
+              } else if (titleController.text.isEmpty) {
+                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please enter a title.')); 
+              } else if (rewardController.text.isEmpty) {
+                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please enter a reward.')); 
+              } else if (descriptionController.text.isEmpty) {
+                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please enter a description.')); 
+              } 
             }
           },
           backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,

@@ -56,3 +56,11 @@ final myBoxDecoration = BoxDecoration(
     BoxShadow(blurRadius: 9, color: Colors.grey[200], spreadRadius: 3)
   ]
 );
+
+Widget mySnackBar(String message) {
+  return SnackBar(
+    content: Text(message, style: mySubtitleStyle1),
+    backgroundColor: Color(0xFFF6DB7F),
+    duration: Duration(milliseconds : 1000),
+  );
+}
