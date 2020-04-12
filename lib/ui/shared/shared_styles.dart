@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Box Decorations
 
@@ -64,3 +65,11 @@ Widget mySnackBar(String message) {
     duration: Duration(milliseconds : 1000),
   );
 }
+
+Widget myBackButton(BuildContext context) {
+  return IconButton(
+    tooltip: 'Back', 
+    icon: Icon(FontAwesomeIcons.chevronLeft), 
+    onPressed: () => Navigator.of(context).pop()
+  );
+} 

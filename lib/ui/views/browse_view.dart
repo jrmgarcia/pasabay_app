@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
@@ -43,6 +44,10 @@ class BrowseView extends StatelessWidget {
           title: Text("Browse", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
+          leading: myBackButton(context),
+          actions: <Widget>[
+            IconButton(tooltip: 'Search', icon: Icon(FontAwesomeIcons.search), onPressed: () {})
+          ],
         ),
         body: SmartRefresher(
           enablePullDown: true,

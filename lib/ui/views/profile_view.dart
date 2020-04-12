@@ -59,8 +59,9 @@ class ProfileView extends StatelessWidget {
           title: Text("Profile", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
+          leading: myBackButton(context)
         ),
-        endDrawer: MyDrawer(),
+        drawer: MyDrawer(),
         body: Container(
           margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
           child: Column(
@@ -86,7 +87,7 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  // _launchURL('mailto:smith@example.org?subject=News&body=New%20plugin');
+
                 }
               ),
             ],
@@ -96,11 +97,3 @@ class ProfileView extends StatelessWidget {
     );
   }
 }
-
-// _launchURL(var url) async {
-//   if (await canLaunch(url)) {
-//     await launch(url);
-//   } else {
-//     throw 'Could not launch $url';
-//   }
-// }

@@ -41,6 +41,7 @@ class CreatePostView extends StatelessWidget {
           title: editingPost != null ? Text("Edit a Post", style: TextStyle(color: Colors.white)) : Text("Create a Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
+          leading: myBackButton(context)
         ),
         body: Padding(
           padding: const EdgeInsets.all(30.0),

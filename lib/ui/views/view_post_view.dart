@@ -146,6 +146,7 @@ class ViewPostView extends StatelessWidget {
           title: Text("View a Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
+          leading: myBackButton(context)
         ),
         body: FutureBuilder(
           future: Future.wait([getPostUser(viewingPost.userId),]),

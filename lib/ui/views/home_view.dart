@@ -55,8 +55,7 @@ class _HomeViewState extends State<HomeView> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
         actions: <Widget>[
-          Tooltip(message: 'Info', child: Icon(FontAwesomeIcons.questionCircle)),
-          SizedBox(width: 15.0)
+          IconButton(tooltip: 'Info', icon: Icon(FontAwesomeIcons.questionCircle), onPressed: () {}),
         ],
       ),
       drawer: MyDrawer(),
