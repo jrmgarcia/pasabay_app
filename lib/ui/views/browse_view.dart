@@ -32,10 +32,7 @@ class BrowseView extends StatelessWidget {
           title: Text("Browse", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
-          leading: myBackButton(context),
-          actions: <Widget>[
-            IconButton(tooltip: 'Search', icon: Icon(FontAwesomeIcons.search), onPressed: () {})
-          ],
+          leading: myBackButton(context)
         ),
         body: ListView(
           padding: EdgeInsets.all(8),
@@ -116,6 +113,13 @@ class BrowseView extends StatelessWidget {
               },
             )
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: 'Search',
+          elevation: 0,
+          backgroundColor: Theme.of(context).primaryColor,
+          child: Icon(FontAwesomeIcons.search, color: Colors.white),
+          onPressed: model.navigateToSearchView,
         ),
       )
     );

@@ -8,4 +8,5 @@ const String TasksViewRoute = "TasksView";
 const String CreatePostViewRoute = "CreatePostView";
 const String ViewPostViewRoute = "ViewPostView";
 const String BlacklistViewRoute = "BlacklistView";
+const String SearchViewRoute = "SearchView";
 // Generate the views here

@@ -12,4 +12,8 @@ class BrowseViewModel extends BaseModel {
   void viewPost(DocumentSnapshot doc) async {
     _navigationService.navigateTo(ViewPostViewRoute, arguments: Post.fromMap(doc.data, doc.documentID));
   }
+
+  void navigateToSearchView() async {
+    _navigationService.navigateTo(SearchViewRoute);
+  }
 }

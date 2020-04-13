@@ -10,6 +10,7 @@ import 'package:pasabay_app/ui/views/login_view.dart';
 import 'package:pasabay_app/ui/views/onboarding_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
 import 'package:pasabay_app/ui/views/profile_view.dart';
+import 'package:pasabay_app/ui/views/search_view.dart';
 import 'package:pasabay_app/ui/views/view_post_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -34,6 +35,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: BrowseView(browsingCategory: categoryToBrowse),
+      );
+    case SearchViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SearchView(),
       );
     case ProfileViewRoute:
       var userToView = settings.arguments as User;
