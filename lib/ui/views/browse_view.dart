@@ -42,8 +42,9 @@ class BrowseView extends StatelessWidget {
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance.collection('posts')
-              .where('category', isEqualTo: browsingCategory)
-              .snapshots(),
+                .where('category', isEqualTo: browsingCategory)
+                .orderBy('timestamp', descending: true)
+                .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data.documents.length > 0) {
                   return Column(
