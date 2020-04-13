@@ -11,10 +11,7 @@ import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/widgets/browse_item.dart';
 import 'package:pasabay_app/viewmodels/browse_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
-
-final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 final FirestoreService _firestoreService = locator<FirestoreService>();
@@ -23,17 +20,8 @@ User _postUser;
 User get postUser => _postUser;
 
 class BrowseView extends StatelessWidget {
-  const BrowseView({Key key}) : super(key: key);
-
-  void _onRefresh() async{
-    await Future.delayed(Duration(milliseconds: 1000));
-    _refreshController.refreshCompleted();
-  }
-
-  void _onLoading() async{
-    await Future.delayed(Duration(milliseconds: 1000));
-    _refreshController.loadComplete();
-  }
+  final String browsingCategory;
+  const BrowseView({Key key, this.browsingCategory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,111 +37,84 @@ class BrowseView extends StatelessWidget {
             IconButton(tooltip: 'Search', icon: Icon(FontAwesomeIcons.search), onPressed: () {})
           ],
         ),
-        body: SmartRefresher(
-          enablePullDown: true,
-          enablePullUp: true,
-          header: WaterDropHeader(waterDropColor: Theme.of(context).accentColor),
-          footer: CustomFooter(
-            builder: (BuildContext context,LoadStatus mode){
-              Widget body;
-              if(mode==LoadStatus.loading){
-                body =  CupertinoActivityIndicator();
-              }
-              else if(mode == LoadStatus.failed){
-                body = Text("load failed");
-              }
-              else if(mode == LoadStatus.canLoading){
-                body = Text("release to load more");
-              }
-              else{
-                body = Text("end of list");
-              }
-              return Container(
-                height: 55.0,
-                child: Center(child:body),
-              );
-            },
-          ),
-          controller: _refreshController,
-          onRefresh: _onRefresh,
-          onLoading: _onLoading,
-          child: ListView(
-            padding: EdgeInsets.all(8),
-            children: <Widget>[
-              StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection('posts').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data.documents.length > 0) {
-                    return Column(
-                      children: snapshot.data.documents.map((doc) => 
-                        doc.data['userId'] == _authenticationService.currentUser.uid
-                        ? SizedBox.shrink()
-                        : FutureBuilder(
-                            future: Future.wait([getPostUser(doc.data['userId']),]),
-                            builder: (context, snapshot) {
-                              if(snapshot.hasData) {
-                                return InkWell(
-                                  onTap: () => model.viewPost(doc), 
-                                  child: _buildItem(doc, postUser)
-                                );
-                              } else {
-                                return Container(
-                                  height: 80,
-                                  margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                                  alignment: Alignment.center,
-                                  decoration: myBoxDecoration,
-                                  child: ListTile(
-                                    leading: Shimmer.fromColors(
-                                        baseColor: Colors.grey[300],
-                                        highlightColor: Colors.grey[100],
-                                        child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10), 
-                                        child: SizedBox(
-                                          width: 50, 
-                                          height: 50, 
-                                          child: DecoratedBox(
-                                            decoration: BoxDecoration(color: Colors.grey[200])
-                                          )
-                                        )
-                                      ),
-                                    ),
-                                    title: Shimmer.fromColors(
+        body: ListView(
+          padding: EdgeInsets.all(8),
+          children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance.collection('posts')
+              .where('category', isEqualTo: browsingCategory)
+              .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data.documents.length > 0) {
+                  return Column(
+                    children: snapshot.data.documents.map((doc) => 
+                      doc.data['userId'] != _authenticationService.currentUser.uid
+                      ? FutureBuilder(
+                          future: Future.wait([getPostUser(doc.data['userId']),]),
+                          builder: (context, snapshot) {
+                            if(snapshot.hasData) {
+                              return InkWell(
+                                onTap: () => model.viewPost(doc), 
+                                child: _buildItem(doc, postUser)
+                              );
+                            } else {
+                              return Container(
+                                height: 80,
+                                margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                                alignment: Alignment.center,
+                                decoration: myBoxDecoration,
+                                child: ListTile(
+                                  leading: Shimmer.fromColors(
                                       baseColor: Colors.grey[300],
                                       highlightColor: Colors.grey[100],
+                                      child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10), 
                                       child: SizedBox(
-                                        height: 26, 
+                                        width: 50, 
+                                        height: 50, 
                                         child: DecoratedBox(
                                           decoration: BoxDecoration(color: Colors.grey[200])
                                         )
                                       )
                                     ),
-                                    subtitle: Shimmer.fromColors(
-                                      baseColor: Colors.grey[300],
-                                      highlightColor: Colors.grey[100],
-                                      child: SizedBox(
-                                        height: 16, 
-                                        child: DecoratedBox(
-                                          decoration: BoxDecoration(color: Colors.grey[200])
-                                        )
+                                  ),
+                                  title: Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    child: SizedBox(
+                                      height: 26, 
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(color: Colors.grey[200])
                                       )
-                                    ),
-                                  )
-                                );
-                              }
+                                    )
+                                  ),
+                                  subtitle: Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    child: SizedBox(
+                                      height: 16, 
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(color: Colors.grey[200])
+                                      )
+                                    )
+                                  ),
+                                )
+                              );
                             }
-                          )
-                      ).toList()
-                    );
-                  } else {
-                    return Column(children: <Widget>[
-                      SizedBox(height: 256), 
-                      Text('No posts yet!')
-                    ]);
-                  }
-                },
-              )
-            ],
-          ),
+                          }
+                        )
+                      : SizedBox.shrink()
+                    ).toList()
+                  );
+                } else {
+                  return Column(children: <Widget>[
+                    SizedBox(height: 256), 
+                    Text('No posts yet!')
+                  ]);
+                }
+              },
+            )
+          ],
         ),
       )
     );

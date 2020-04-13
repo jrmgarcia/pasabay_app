@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pasabay_app/constants/category_names.dart';
 
 // Box Decorations
 
@@ -73,3 +74,25 @@ Widget myBackButton(BuildContext context) {
     onPressed: () => Navigator.of(context).pop()
   );
 } 
+
+IconData categoryIcon(String category) {
+  switch(category) {
+    case Cleaning: 
+      return FontAwesomeIcons.broom;
+      break;
+    case Delivery: 
+      return FontAwesomeIcons.shoppingBasket;
+      break;
+    case Officework: 
+      return FontAwesomeIcons.briefcase;
+      break;
+    case PetSitting: 
+      return FontAwesomeIcons.paw;
+      break;
+    case Schoolwork: 
+      return FontAwesomeIcons.appleAlt;
+      break;
+    default: 
+      return FontAwesomeIcons.bug;
+  }
+}

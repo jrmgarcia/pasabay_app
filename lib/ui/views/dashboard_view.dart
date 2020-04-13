@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/constants/category_names.dart';
 import 'package:pasabay_app/viewmodels/dashboard_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
@@ -48,11 +49,11 @@ class DashboardView extends StatelessWidget {
           crossAxisCount: 2,
           padding: EdgeInsets.all(3.0),
           children: <Widget>[
-            makeDashboardItem("Cleaning", "icon_cleaning.PNG", model.browseTo),
-            makeDashboardItem("Delivery", "icon_delivery.PNG", model.browseTo),
-            makeDashboardItem("Officework", "icon_officework.PNG", model.browseTo),
-            makeDashboardItem("Pet Sitting", "icon_pet_sitting.PNG", model.browseTo),
-            makeDashboardItem("Schoolwork", "icon_schoolwork.PNG", model.browseTo),
+            makeDashboardItem(Cleaning, "icon_cleaning.PNG", model.browseCleaning),
+            makeDashboardItem(Delivery, "icon_delivery.PNG", model.browseDelivery),
+            makeDashboardItem(Officework, "icon_officework.PNG", model.browseOfficework),
+            makeDashboardItem(PetSitting, "icon_pet_sitting.PNG", model.browsePetSitting),
+            makeDashboardItem(Schoolwork, "icon_schoolwork.PNG", model.browseToSchoolwork),
             makeDashboardItem("Post Task", "icon_post_task.PNG", model.navigateToCreateView)
           ],
         ),

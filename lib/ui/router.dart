@@ -30,9 +30,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: HomeView(),
       );
     case BrowseViewRoute:
+      var categoryToBrowse = settings.arguments as String;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: BrowseView(),
+        viewToShow: BrowseView(browsingCategory: categoryToBrowse),
       );
     case ProfileViewRoute:
       var userToView = settings.arguments as User;

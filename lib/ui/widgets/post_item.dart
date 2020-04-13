@@ -38,26 +38,4 @@ class PostItem extends StatelessWidget {
       decoration: myBoxDecoration,
     );
   }
-
-  IconData categoryIcon(String category) {
-    switch(category) {
-      case 'Cleaning': 
-        return FontAwesomeIcons.broom;
-        break;
-      case 'Delivery': 
-        return FontAwesomeIcons.shoppingBasket;
-        break;
-      case 'Officework': 
-        return FontAwesomeIcons.briefcase;
-        break;
-      case 'Pet Sitting': 
-        return FontAwesomeIcons.paw;
-        break;
-      case 'Schoolwork': 
-        return FontAwesomeIcons.book;
-        break;
-      default: 
-        return FontAwesomeIcons.bug;
-    }
-  }
 }
