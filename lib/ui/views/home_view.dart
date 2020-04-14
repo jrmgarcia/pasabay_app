@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
+import 'package:pasabay_app/ui/views/chat_view.dart';
 import 'package:pasabay_app/ui/views/dashboard_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
 
@@ -18,6 +19,8 @@ class _HomeViewState extends State<HomeView> {
   // Initialize all pages
   final PostsView _postsView = PostsView();
   final DashboardView _dashboardView = DashboardView();
+  final ChatView _chatView = ChatView();
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Widget _showPage = DashboardView();
@@ -29,6 +32,9 @@ class _HomeViewState extends State<HomeView> {
         break;
       case 1:
         return _dashboardView;
+        break;
+      case 2:
+        return _chatView;
         break;
       default:
         return Container(

@@ -2,6 +2,7 @@ import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/ui/views/blacklist_view.dart';
 import 'package:pasabay_app/ui/views/browse_view.dart';
+import 'package:pasabay_app/ui/views/chat_view.dart';
 import 'package:pasabay_app/ui/views/create_post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/route_names.dart';
@@ -40,6 +41,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: SearchView(),
+      );
+    case ChatViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ChatView(),
       );
     case ProfileViewRoute:
       var userToView = settings.arguments as User;
