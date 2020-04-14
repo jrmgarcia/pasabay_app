@@ -25,43 +25,29 @@ const TextStyle buttonTitleTextStyle =
     const TextStyle(fontWeight: FontWeight.w700, color: Colors.white);
 
 // Text Styles
-final myTitleStyle1 = TextStyle(
+final myTitleStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.white,
   fontSize: 26.0,
   height: 1.5,
 );
 
-final myTitleStyle2 = TextStyle(
-  fontWeight: FontWeight.bold,
-  color: Color(0xFF888888),
-  fontSize: 26.0,
-  height: 1.5,
-);
-
-final mySubtitleStyle1 = TextStyle(
+final mySubtitleStyle = TextStyle(
   color: Colors.white,
   fontSize: 18.0,
   height: 1.2,
 );
 
-final mySubtitleStyle2 = TextStyle(
-  color: Color(0xFF888888),
-  fontSize: 18.0,
-  height: 1.2,
-);
-
-final myBoxDecoration = BoxDecoration(
-  color: Colors.white,
-  borderRadius: BorderRadius.circular(10),
-  boxShadow: [
-    BoxShadow(blurRadius: 9, color: Colors.grey[200], spreadRadius: 3)
-  ]
-);
+myBoxDecoration(BuildContext context) {
+  return BoxDecoration(
+    color: Theme.of(context).cardColor,
+    borderRadius: BorderRadius.circular(10),
+  );
+}
 
 Widget mySnackBar(String message) {
   return SnackBar(
-    content: Text(message, style: mySubtitleStyle1),
+    content: Text(message, style: mySubtitleStyle),
     backgroundColor: Color(0xFFF6DB7F),
     duration: Duration(milliseconds : 1000),
   );
@@ -96,3 +82,5 @@ IconData categoryIcon(String category) {
       return FontAwesomeIcons.bug;
   }
 }
+
+final myGradient = [Color(0xFFFDA085), Color(0xFFF6D365)];

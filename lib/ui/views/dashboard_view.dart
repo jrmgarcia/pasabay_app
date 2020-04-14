@@ -7,14 +7,17 @@ import 'package:pasabay_app/ui/shared/shared_styles.dart';
 class DashboardView extends StatelessWidget {
   const DashboardView({Key key}) : super(key: key);
 
-  Widget makeDashboardItem(String title, String fileName, Future Function() function) {
+  Widget makeDashboardItem(BuildContext context, String title, String fileName, Future Function() function) {
     return InkWell(
       onTap: () {},
       child: Card(
-        elevation: 1.0,
-        margin: EdgeInsets.all(8.0),
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: EdgeInsets.all(8),
         child: Container(
-          decoration: myBoxDecoration,
+          decoration: myBoxDecoration(context),
           child: GestureDetector(
             onTap: function,
             child: Column(
@@ -28,7 +31,7 @@ class DashboardView extends StatelessWidget {
                   )
                 ),
                 Center(
-                  child: Text(title, style: TextStyle(fontSize: 14.0, color: Color(0xFF888888))),
+                  child: Text(title, style: Theme.of(context).textTheme.subtitle),
                 )
               ],
             ),
@@ -49,12 +52,12 @@ class DashboardView extends StatelessWidget {
           crossAxisCount: 2,
           padding: EdgeInsets.all(3.0),
           children: <Widget>[
-            makeDashboardItem(Cleaning, "icon_cleaning.PNG", model.browseCleaning),
-            makeDashboardItem(Delivery, "icon_delivery.PNG", model.browseDelivery),
-            makeDashboardItem(Officework, "icon_officework.PNG", model.browseOfficework),
-            makeDashboardItem(PetSitting, "icon_pet_sitting.PNG", model.browsePetSitting),
-            makeDashboardItem(Schoolwork, "icon_schoolwork.PNG", model.browseToSchoolwork),
-            makeDashboardItem("Post Task", "icon_post_task.PNG", model.navigateToCreateView)
+            makeDashboardItem(context, Cleaning, "icon_cleaning.PNG", model.browseCleaning),
+            makeDashboardItem(context, Delivery, "icon_delivery.PNG", model.browseDelivery),
+            makeDashboardItem(context, Officework, "icon_officework.PNG", model.browseOfficework),
+            makeDashboardItem(context, PetSitting, "icon_pet_sitting.PNG", model.browsePetSitting),
+            makeDashboardItem(context, Schoolwork, "icon_schoolwork.PNG", model.browseToSchoolwork),
+            makeDashboardItem(context, "Post Task", "icon_post_task.PNG", model.navigateToCreateView)
           ],
         ),
       ),

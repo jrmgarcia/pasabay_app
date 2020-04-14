@@ -19,7 +19,7 @@ class LoginView extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Theme.of(context).primaryColorDark, Theme.of(context).primaryColorLight]
+              colors: myGradient
             )
           ),
           child: Center(
@@ -48,14 +48,14 @@ class LoginView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SizedBox(
-                          height: 30,
+                          height: 24,
                           child: Image.asset('assets/images/google_logo.png'),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
                           child: Text(
                             'Sign in with Google',
-                            style: mySubtitleStyle2,
+                            style: Theme.of(context).textTheme.subtitle.apply(color: Color(0xFF888888)),
                           ),
                         )
                       ],

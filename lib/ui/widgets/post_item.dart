@@ -14,28 +14,33 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      alignment: Alignment.center,
-      child: ListTile(
-        leading: Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
-        title: Text(post.title, style: TextStyle(
-            color: Color(0xFF888888),
-            fontSize: 16,
-          ),
-          overflow: TextOverflow.ellipsis,
-        ),
-        trailing: IconButton(
-          icon: Tooltip(message: 'Delete', child: Icon(FontAwesomeIcons.times, color: Theme.of(context).accentColor)),
-          onPressed: () {
-            if (onDeleteItem != null) {
-              onDeleteItem();
-            }
-          },
-        ),
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-      decoration: myBoxDecoration,
+      margin: EdgeInsets.all(8),
+      child: Container(
+        height: 60,
+        alignment: Alignment.center,
+        child: ListTile(
+          leading: Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
+          title: Text(
+            post.title, 
+            style: Theme.of(context).textTheme.subhead,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: IconButton(
+            icon: Tooltip(message: 'Delete', child: Icon(FontAwesomeIcons.times, color: Theme.of(context).accentColor)),
+            onPressed: () {
+              if (onDeleteItem != null) {
+                onDeleteItem();
+              }
+            },
+          ),
+        ),
+        decoration: myBoxDecoration(context),
+      ),
     );
   }
 }

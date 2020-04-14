@@ -30,7 +30,7 @@ class ViewPostView extends StatelessWidget {
       child: Center(
         child: Text(
           "PHP " + viewingPost.reward,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.title.apply(color: Colors.white),
         ),
       ),
     );
@@ -38,14 +38,14 @@ class ViewPostView extends StatelessWidget {
     Widget taskOwner(User user) {
       return Text(
         user.displayName.substring(0, user.displayName.indexOf(' ')) ?? ' ', 
-        style: TextStyle(color: Colors.white)
+        style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)
       );
     }
 
     Widget taskOwnerRating(User user) {
       return Row(
         children: <Widget>[
-          Text(user.rating.toString() ?? ' ', style: TextStyle(color: Colors.white)),
+          Text(user.rating.toString() ?? ' ', style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)),
           horizontalSpaceTiny,
           Icon(FontAwesomeIcons.solidStar, color: Colors.white, size: 10)
         ]
@@ -70,7 +70,7 @@ class ViewPostView extends StatelessWidget {
           verticalSpaceSmall,
           Text(
             viewingPost.title,
-            style: myTitleStyle1,
+            style: Theme.of(context).textTheme.headline.apply(color: Colors.white),
             overflow: TextOverflow.ellipsis
           ),
           verticalSpaceSmall,
@@ -116,10 +116,7 @@ class ViewPostView extends StatelessWidget {
 
     final bottomContentText = Text(
       viewingPost.description,
-      style: TextStyle(
-        color: Color(0xFF888888),
-        fontSize: 16.0
-      ),
+      style: Theme.of(context).textTheme.body1,
     );
 
     final chatButton = FloatingActionButton(
@@ -157,16 +154,17 @@ class ViewPostView extends StatelessWidget {
                   topContent(postUser),
                   DraggableScrollableSheet(
                     builder: (context, scrollController) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: SingleChildScrollView(
-                          controller: scrollController,
-                          child: Container(
-                            child: bottomContent
-                          )
+                        child: Container(
+                          child: SingleChildScrollView(
+                            controller: scrollController,
+                            child: Container(
+                              child: bottomContent
+                            )
+                          ),
                         ),
                       );
                     }

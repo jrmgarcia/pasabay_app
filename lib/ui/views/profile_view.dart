@@ -16,7 +16,7 @@ class ProfileView extends StatelessWidget {
     var profile = Container(
       margin: EdgeInsets.all(8),
       width : double.infinity,
-      decoration: myBoxDecoration,
+      decoration: myBoxDecoration(context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -31,7 +31,7 @@ class ProfileView extends StatelessWidget {
           verticalSpaceSmall,
           Text(
             viewingUser.displayName,
-            style: myTitleStyle2,
+            style: Theme.of(context).textTheme.headline,
           ),
           RatingBarIndicator(
               rating: viewingUser.rating,
@@ -40,12 +40,12 @@ class ProfileView extends StatelessWidget {
                   color: Theme.of(context).accentColor,
               ),
               itemCount: 5,
-              itemSize: 60.0,
+              itemSize: 50.0,
               direction: Axis.horizontal,
           ),
           Text(
             viewingUser.rating.toString(),
-            style: mySubtitleStyle2,
+            style: Theme.of(context).textTheme.subhead,
           ),
           verticalSpaceMedium
         ]
@@ -73,7 +73,7 @@ class ProfileView extends StatelessWidget {
               ),
               InkWell(
                 child: Container(
-                  decoration: myBoxDecoration,
+                  decoration: myBoxDecoration(context),
                   margin: EdgeInsets.all(8),
                   child: ListTile(
                     leading: Icon(
@@ -82,7 +82,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     title:Text(
                       viewingUser.email,
-                      style: mySubtitleStyle2,
+                      style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
                 ),

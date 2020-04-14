@@ -50,7 +50,7 @@ class _OnboardingViewState extends State<OnboardingView> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Theme.of(context).primaryColorDark, Theme.of(context).primaryColorLight]
+              colors: myGradient
             )
           ),
           child: Padding(
@@ -98,7 +98,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                             verticalSpaceMedium,
                             Text(
                               'This platform is only available for UPLB community at this moment.',
-                              style: mySubtitleStyle1,
+                              style: mySubtitleStyle,
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -117,13 +117,13 @@ class _OnboardingViewState extends State<OnboardingView> {
                             ),
                             Text(
                               'Get your tasks done!',
-                              style: myTitleStyle1,
+                              style: myTitleStyle,
                               textAlign: TextAlign.center,
                             ),
                             verticalSpaceMedium,
                             Text(
                               'Post what you need to get done, how to do it, and how much you are willing to pay for it.',
-                              style: mySubtitleStyle1,
+                              style: mySubtitleStyle,
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -143,13 +143,13 @@ class _OnboardingViewState extends State<OnboardingView> {
 
                             Text(
                               'Make extra income!',
-                              style: myTitleStyle1,
+                              style: myTitleStyle,
                               textAlign: TextAlign.center,
                             ),
                             verticalSpaceMedium,
                             Text(
                               'Get things done and earn some cash.',
-                              style: mySubtitleStyle1,
+                              style: mySubtitleStyle,
                               textAlign: TextAlign.center,
                             ),
                           ],

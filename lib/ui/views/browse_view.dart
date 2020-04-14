@@ -60,7 +60,7 @@ class BrowseView extends StatelessWidget {
                                 height: 80,
                                 margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                                 alignment: Alignment.center,
-                                decoration: myBoxDecoration,
+                                decoration: myBoxDecoration(context),
                                 child: ListTile(
                                   leading: Shimmer.fromColors(
                                       baseColor: Colors.grey[300],
@@ -77,12 +77,12 @@ class BrowseView extends StatelessWidget {
                                     ),
                                   ),
                                   title: Shimmer.fromColors(
-                                    baseColor: Colors.grey[300],
-                                    highlightColor: Colors.grey[100],
+                                    baseColor: Theme.of(context).scaffoldBackgroundColor,
+                                    highlightColor: Theme.of(context).cardColor,
                                     child: SizedBox(
                                       height: 26, 
                                       child: DecoratedBox(
-                                        decoration: BoxDecoration(color: Colors.grey[200])
+                                        decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor)
                                       )
                                     )
                                   ),

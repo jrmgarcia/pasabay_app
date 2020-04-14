@@ -74,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
         ],
         color: Theme.of(context).primaryColor,
         buttonBackgroundColor: Theme.of(context).accentColor,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
           setState(() {

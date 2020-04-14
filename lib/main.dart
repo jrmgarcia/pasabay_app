@@ -25,14 +25,29 @@ class MyApp extends StatelessWidget {
             builder: (context) => DialogManager(child: child)),
       ),
       navigatorKey: locator<NavigationService>().navigationKey,
+      // LIGHT THEME
       theme: ThemeData(
+        brightness: Brightness.light,
         primarySwatch: Colors.orange,
         primaryColor: Color(0xFFEAB971),
-        primaryColorDark: Color(0xFFFDA085),
-        primaryColorLight: Color(0xFFF6D365),
         accentColor: Color(0xFFF6DB7F),
         textTheme: GoogleFonts.poppinsTextTheme(
-          Theme.of(context).textTheme,
+          Theme.of(context).textTheme.apply(
+            bodyColor: Color(0xFF888888),
+          )
+        ),
+      ),
+      // DARK THEME
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Color(0xFF212121),
+        accentColor: Colors.amber,
+        scaffoldBackgroundColor: Color(0xFF303030),
+        cardColor: Color(0xFF424242),
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme.apply(
+            bodyColor: Colors.white,
+          )
         ),
       ),
       home: StartUpView(),

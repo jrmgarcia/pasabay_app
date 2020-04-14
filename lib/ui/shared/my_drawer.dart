@@ -30,29 +30,29 @@ class MyDrawer extends StatelessWidget {
             )
           ),
           ListTile(
-            title: Text("Profile", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(FontAwesomeIcons.user, color: Theme.of(context).primaryColor),
+            title: Text("Profile"),
+            leading: Icon(FontAwesomeIcons.user),
             onTap: () {
               _navigationService.navigateTo(ProfileViewRoute, arguments: _authenticationService.currentUser);
             },
-            trailing: Icon(FontAwesomeIcons.caretRight, color: Theme.of(context).primaryColor),
+            trailing: Icon(FontAwesomeIcons.caretRight),
           ),
           ListTile(
-            title: Text("Blacklist", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(FontAwesomeIcons.ban, color: Theme.of(context).primaryColor),
+            title: Text("Blacklist"),
+            leading: Icon(FontAwesomeIcons.ban),
             onTap: () {
               _navigationService.navigateTo(BlacklistViewRoute);
             },
-            trailing: Icon(FontAwesomeIcons.caretRight, color: Theme.of(context).primaryColor),
+            trailing: Icon(FontAwesomeIcons.caretRight),
           ),
           ListTile(
-            title: Text("Sign out", style: TextStyle(color: Theme.of(context).primaryColor)),
-            leading: Icon(FontAwesomeIcons.signOutAlt, color: Theme.of(context).primaryColor),
+            title: Text("Sign out"),
+            leading: Icon(FontAwesomeIcons.signOutAlt),
             onTap: () {
               _authenticationService.signOutGoogle();
               _navigationService.navigateTo(LoginViewRoute);
             },
-            trailing: Icon(FontAwesomeIcons.caretRight, color: Theme.of(context).primaryColor),
+            trailing: Icon(FontAwesomeIcons.caretRight),
           ),
         ],
       ),

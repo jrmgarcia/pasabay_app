@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/models/user.dart';
@@ -17,49 +16,44 @@ class BrowseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 80,
-      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      alignment: Alignment.center,
-      child: Stack(
-        overflow: Overflow.clip,
-        children: <Widget>[
-          ListTile(
-            leading: userPhotoUrl(post.userId, user.photoUrl),
-            title: Text(
-              post.title.toUpperCase(),
-              style: GoogleFonts.titilliumWeb(
-                fontSize: 26,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).accentColor,
-                height: 1,
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: EdgeInsets.all(8),
+      child: Container(
+        height: 80,
+        alignment: Alignment.center,
+        child: Stack(
+          overflow: Overflow.clip,
+          children: <Widget>[
+            ListTile(
+              leading: userPhotoUrl(post.userId, user.photoUrl),
+              title: Text(
+                post.title.toUpperCase(),
+                style: Theme.of(context).textTheme.title,
+                overflow: TextOverflow.ellipsis,
               ),
-              overflow: TextOverflow.ellipsis,
+              subtitle: Text(
+                post.description, 
+                style: Theme.of(context).textTheme.body1,
+                overflow: TextOverflow.ellipsis,
+              )
             ),
-            subtitle: Text(
-              post.description, 
-              style: TextStyle(
-                color: Color(0xFF888888),
-                fontSize: 16,
-              ),
-              overflow: TextOverflow.ellipsis,
-            )
-          ),
-          Positioned(right: 50, child: VerticalDivider()),
-          Positioned(
-            top: 5, 
-            right: 10,
-            child: Text(
-              timeAgo(post.timestamp) ?? ' ', 
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontSize: 14
+            Positioned(right: 50, child: VerticalDivider()),
+            Positioned(
+              top: 5, 
+              right: 10,
+              child: Text(
+                timeAgo(post.timestamp) ?? ' ', 
+                style: Theme.of(context).textTheme.body2.apply(color: Theme.of(context).accentColor)
               )
             )
-          )
-        ]
+          ]
+        ),
+        decoration: myBoxDecoration(context),
       ),
-      decoration: myBoxDecoration,
     );
   }
 }
