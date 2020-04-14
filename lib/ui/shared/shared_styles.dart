@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/category_names.dart';
+import 'package:shimmer/shimmer.dart';
 
 // Box Decorations
-
 BoxDecoration fieldDecortaion = BoxDecoration(
     borderRadius: BorderRadius.circular(5), color: Colors.grey[200]);
 
@@ -45,10 +45,10 @@ myBoxDecoration(BuildContext context) {
   );
 }
 
-Widget mySnackBar(String message) {
+Widget mySnackBar(BuildContext context, String message) {
   return SnackBar(
-    content: Text(message, style: mySubtitleStyle),
-    backgroundColor: Color(0xFFF6DB7F),
+    content: Text(message, style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)),
+    backgroundColor: Theme.of(context).accentColor,
     duration: Duration(milliseconds : 1000),
   );
 }
@@ -84,3 +84,17 @@ IconData categoryIcon(String category) {
 }
 
 final myGradient = [Color(0xFFFDA085), Color(0xFFF6D365)];
+
+shimmerEffect(Brightness brightness, double height, [double width]) {
+  return Shimmer.fromColors(
+    baseColor: brightness == Brightness.dark ? Colors.black45 : Colors.grey[300],
+    highlightColor: brightness == Brightness.dark ? Colors.black : Colors.grey[100],
+    child: SizedBox(
+      height: height, 
+      width: width,
+      child: DecoratedBox(
+        decoration: BoxDecoration(color: brightness == Brightness.dark ? Colors.black38 : Colors.grey[200])
+      )
+    )
+  );
+} 

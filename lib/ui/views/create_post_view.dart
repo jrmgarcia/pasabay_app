@@ -100,13 +100,13 @@ class CreatePostView extends StatelessWidget {
               model.addPost(title: titleController.text, reward: rewardController.text, description: descriptionController.text);
             } else {
               if (model.selectedCategory == 'Select Category') {
-                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please select a category.')); 
+                _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please select a category.')); 
               } else if (titleController.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please enter a title.')); 
+                _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please enter a title.')); 
               } else if (rewardController.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please enter a reward.')); 
+                _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please enter a reward.')); 
               } else if (descriptionController.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(mySnackBar('Please enter a description.')); 
+                _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please enter a description.')); 
               } 
             }
           },

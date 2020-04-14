@@ -11,7 +11,6 @@ import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/widgets/browse_item.dart';
 import 'package:pasabay_app/viewmodels/browse_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 final FirestoreService _firestoreService = locator<FirestoreService>();
@@ -62,39 +61,17 @@ class BrowseView extends StatelessWidget {
                                 alignment: Alignment.center,
                                 decoration: myBoxDecoration(context),
                                 child: ListTile(
-                                  leading: Shimmer.fromColors(
-                                      baseColor: Colors.grey[300],
-                                      highlightColor: Colors.grey[100],
-                                      child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10), 
-                                      child: SizedBox(
-                                        width: 50, 
-                                        height: 50, 
-                                        child: DecoratedBox(
-                                          decoration: BoxDecoration(color: Colors.grey[200])
-                                        )
-                                      )
-                                    ),
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: shimmerEffect(MediaQuery.of(context).platformBrightness, 50, 50)
                                   ),
-                                  title: Shimmer.fromColors(
-                                    baseColor: Theme.of(context).scaffoldBackgroundColor,
-                                    highlightColor: Theme.of(context).cardColor,
-                                    child: SizedBox(
-                                      height: 26, 
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor)
-                                      )
-                                    )
+                                  title: Padding(
+                                    padding: EdgeInsets.only(top: 2),
+                                    child: shimmerEffect(MediaQuery.of(context).platformBrightness, 26)
                                   ),
-                                  subtitle: Shimmer.fromColors(
-                                    baseColor: Colors.grey[300],
-                                    highlightColor: Colors.grey[100],
-                                    child: SizedBox(
-                                      height: 16, 
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(color: Colors.grey[200])
-                                      )
-                                    )
+                                  subtitle: Padding(
+                                    padding: EdgeInsets.only(top: 6),
+                                    child: shimmerEffect(MediaQuery.of(context).platformBrightness, 16)
                                   ),
                                 )
                               );

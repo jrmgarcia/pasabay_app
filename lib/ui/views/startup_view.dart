@@ -11,7 +11,7 @@ class StartUpView extends StatelessWidget {
       viewModel: StartUpViewModel(),
       onModelReady: (model) => model.handleStartUpLogic(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -19,13 +19,13 @@ class StartUpView extends StatelessWidget {
               SizedBox(
                 width: 300,
                 height: 100,
-                child: Image.asset('assets/images/pasabay_logo.png', color: Theme.of(context).primaryColor),
+                child: Image.asset('assets/images/pasabay_logo.png', color: Colors.white),
               ),
               SizedBox(height: 50),
               CircularProgressIndicator(
                 strokeWidth: 3, 
                 valueColor: AlwaysStoppedAnimation(
-                  Theme.of(context).accentColor
+                  Colors.white
                 )
               )
             ]
