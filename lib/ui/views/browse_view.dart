@@ -2,13 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/locator.dart';
-import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
-import 'package:pasabay_app/ui/widgets/browse_item.dart';
 import 'package:pasabay_app/viewmodels/browse_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 
@@ -52,7 +50,7 @@ class BrowseView extends StatelessWidget {
                             if(snapshot.hasData) {
                               return InkWell(
                                 onTap: () => model.viewPost(doc), 
-                                child: _buildItem(doc, postUser)
+                                child: model.buildItem(doc, postUser)
                               );
                             } else {
                               return Container(
@@ -101,19 +99,6 @@ class BrowseView extends StatelessWidget {
       )
     );
   }
-}
-
-Widget _buildItem(DocumentSnapshot doc, User postUser) {
-  return BrowseItem(
-    post: Post.fromMap(doc.data, doc.documentID),
-    user: User(
-      displayName: postUser.displayName, 
-      email: postUser.email, 
-      photoUrl: postUser.photoUrl, 
-      rating: postUser.rating, 
-      uid: postUser.uid
-    )
-  );
 }
 
 Future getPostUser(String uid) async {
