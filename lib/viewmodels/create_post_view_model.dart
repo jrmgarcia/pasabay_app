@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/services/dialog_service.dart';

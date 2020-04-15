@@ -119,13 +119,6 @@ class ViewPostView extends StatelessWidget {
       style: Theme.of(context).textTheme.body1,
     );
 
-    final chatButton = FloatingActionButton(
-      elevation: 0,
-      backgroundColor: Theme.of(context).primaryColor,
-      child: Icon(FontAwesomeIcons.commentAlt, color: Colors.white),
-      onPressed: () => {},
-    );
-
     final bottomContent = Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(40.0),
@@ -176,7 +169,16 @@ class ViewPostView extends StatelessWidget {
             }
           }
         ),
-        floatingActionButton: Tooltip(message: 'Chat', child: chatButton),
+        floatingActionButton: Tooltip(
+          message: 'Chat', 
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColor,
+            child: Icon(FontAwesomeIcons.commentAlt, color: Colors.white),
+            onPressed: () {
+              model.addChat(postId: viewingPost.documentId, userId: postUser.uid);
+            },
+          )
+        ),
       )
     );
   }

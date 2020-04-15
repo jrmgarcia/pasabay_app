@@ -15,7 +15,7 @@ class ChatView extends StatelessWidget {
         padding: EdgeInsets.all(8),
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection('users')
+              stream: Firestore.instance.collection('chats')
                 .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data.documents.length > 0) {
