@@ -53,26 +53,7 @@ class BrowseView extends StatelessWidget {
                                 child: model.buildItem(doc, postUser)
                               );
                             } else {
-                              return Container(
-                                height: 80,
-                                margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                                alignment: Alignment.center,
-                                decoration: myBoxDecoration(context),
-                                child: ListTile(
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: shimmerEffect(MediaQuery.of(context).platformBrightness, 50, 50)
-                                  ),
-                                  title: Padding(
-                                    padding: EdgeInsets.only(top: 2),
-                                    child: shimmerEffect(MediaQuery.of(context).platformBrightness, 26)
-                                  ),
-                                  subtitle: Padding(
-                                    padding: EdgeInsets.only(top: 6),
-                                    child: shimmerEffect(MediaQuery.of(context).platformBrightness, 16)
-                                  ),
-                                )
-                              );
+                              return shimmerCard(context);
                             }
                           }
                         )
