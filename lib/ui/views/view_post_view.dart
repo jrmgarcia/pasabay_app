@@ -175,7 +175,7 @@ class ViewPostView extends StatelessWidget {
             backgroundColor: Theme.of(context).primaryColor,
             child: Icon(FontAwesomeIcons.commentAlt, color: Colors.white),
             onPressed: () {
-              model.addChat(postId: viewingPost.documentId, userId: postUser.uid);
+              model.addChat(postId: viewingPost.documentId, userId: viewingPost.userId);
             },
           )
         ),

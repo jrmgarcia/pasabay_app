@@ -52,4 +52,11 @@ class FirestoreService {
       }
     } catch (e) {}
   }
+
+  Future getPost(String pid) async {
+    try {
+      var postData = await _postsCollectionReference.document(pid).get();
+      return Post.fromData(postData.data);
+    } catch (e) {}
+  }
 }

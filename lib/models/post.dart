@@ -19,6 +19,15 @@ class Post {
     this.timestamp,
   });
 
+  Post.fromData(Map<String, dynamic> data)
+      : title = data['title'],
+        userId = data['userId'],
+        documentId = data['documentId'],
+        reward = data['reward'],
+        description = data['description'],
+        category = data['category'],
+        timestamp = data['timestamp'];
+
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
