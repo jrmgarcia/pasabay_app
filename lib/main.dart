@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFFF6DB7F),
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme.apply(
-            bodyColor: Color(0xFF888888),
+            bodyColor: Colors.black54,
           )
         ),
       ),
