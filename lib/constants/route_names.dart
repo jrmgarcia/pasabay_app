@@ -10,4 +10,5 @@ const String ViewPostViewRoute = "ViewPostView";
 const String BlacklistViewRoute = "BlacklistView";
 const String SearchViewRoute = "SearchView";
 const String ChatViewRoute = "ChatView";
+const String MessageViewRoute = "MessageView";
 // Generate the views here

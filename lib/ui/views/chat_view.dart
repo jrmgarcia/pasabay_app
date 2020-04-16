@@ -39,6 +39,7 @@ class ChatView extends StatelessWidget {
                         builder: (context, snapshot) {
                           if(snapshot.hasData) {
                             return InkWell(
+                              onTap: () => model.viewMessage(doc),
                               child: model.buildItem(context, post, postUser)
                             );
                           } else {

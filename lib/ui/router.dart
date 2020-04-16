@@ -1,3 +1,4 @@
+import 'package:pasabay_app/models/chat.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/ui/views/blacklist_view.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/ui/views/home_view.dart';
 import 'package:pasabay_app/ui/views/login_view.dart';
+import 'package:pasabay_app/ui/views/message_view.dart';
 import 'package:pasabay_app/ui/views/onboarding_view.dart';
 import 'package:pasabay_app/ui/views/posts_view.dart';
 import 'package:pasabay_app/ui/views/profile_view.dart';
@@ -46,6 +48,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: ChatView(),
+      );
+    case MessageViewRoute:
+      var chatToView = settings.arguments as Chat;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: MessageView(viewingChat: chatToView),
       );
     case ProfileViewRoute:
       var userToView = settings.arguments as User;

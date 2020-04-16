@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/chat.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
@@ -17,15 +18,17 @@ class ViewPostViewModel extends BaseModel {
 
     setBusy(true);
 
-    await _firestoreService.addChat(Chat(
+    var chat = Chat(
       postId: postId, 
       userId: userId,
       doerId: currentUser.uid
-    ));
+    );
+
+    await _firestoreService.addChat(chat);
     
     setBusy(false);
 
-    _navigationService.pop();
+    _navigationService.navigateTo(MessageViewRoute, arguments: chat);
   }
 
 }
