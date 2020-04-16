@@ -19,13 +19,19 @@ class StartUpView extends StatelessWidget {
               SizedBox(
                 width: 300,
                 height: 100,
-                child: Image.asset('assets/images/pasabay_logo.png', color: Theme.of(context).accentColor),
+                child: Image.asset(
+                  'assets/images/pasabay_logo.png', 
+                  color: MediaQuery.of(context).platformBrightness == Brightness.dark
+                   ? Theme.of(context).accentColor 
+                   : Colors.white),
               ),
               SizedBox(height: 50),
               CircularProgressIndicator(
                 strokeWidth: 3, 
                 valueColor: AlwaysStoppedAnimation(
-                  Theme.of(context).accentColor
+                  MediaQuery.of(context).platformBrightness == Brightness.dark
+                   ? Theme.of(context).accentColor 
+                   : Colors.white
                 )
               )
             ]
