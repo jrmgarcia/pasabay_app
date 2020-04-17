@@ -1,9 +1,9 @@
-import 'package:pasabay_app/models/chat.dart';
+import 'package:pasabay_app/models/transaction.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/ui/views/blacklist_view.dart';
 import 'package:pasabay_app/ui/views/browse_view.dart';
-import 'package:pasabay_app/ui/views/chat_view.dart';
+import 'package:pasabay_app/ui/views/transaction_view.dart';
 import 'package:pasabay_app/ui/views/create_post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/route_names.dart';
@@ -44,16 +44,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: SearchView(),
       );
-    case ChatViewRoute:
+    case TransactionViewRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: ChatView(),
+        viewToShow: TransactionView(),
       );
     case MessageViewRoute:
-      var chatToView = settings.arguments as Chat;
+      var transactionToView = settings.arguments as TransactionHistory;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: MessageView(viewingChat: chatToView),
+        viewToShow: MessageView(viewingTransaction: transactionToView),
       );
     case ProfileViewRoute:
       var userToView = settings.arguments as User;

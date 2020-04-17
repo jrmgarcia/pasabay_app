@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pasabay_app/models/chat.dart';
+import 'package:pasabay_app/models/transaction.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
 
@@ -10,8 +10,8 @@ class FirestoreService {
       Firestore.instance.collection('users');
   final CollectionReference _postsCollectionReference =
       Firestore.instance.collection('posts');
-  final CollectionReference _chatCollectionReference = 
-      Firestore.instance.collection('chats');
+  final CollectionReference _transactionCollectionReference = 
+      Firestore.instance.collection('transactions');
 
   Future createUser(User user) async {
     try {
@@ -40,15 +40,15 @@ class FirestoreService {
     } catch (e) {}
   }
 
-  Future addChat(Chat chat) async {
+  Future createTransaction(TransactionHistory transaction) async {
     try {
-      QuerySnapshot duplicate = await _chatCollectionReference
-            .where('postId', isEqualTo: chat.postId)
-            .where('userId', isEqualTo: chat.userId)
-            .where('doerId', isEqualTo: chat.doerId)
+      QuerySnapshot duplicate = await _transactionCollectionReference
+            .where('postId', isEqualTo: transaction.postId)
+            .where('userId', isEqualTo: transaction.userId)
+            .where('doerId', isEqualTo: transaction.doerId)
             .getDocuments();
       if (duplicate.documents.length == 0) {
-        await _chatCollectionReference.add(chat.toMap());
+        await _transactionCollectionReference.add(transaction.toMap());
       }
     } catch (e) {}
   }

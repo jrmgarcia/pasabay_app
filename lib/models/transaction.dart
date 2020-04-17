@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-class Chat {
+class TransactionHistory {
   final String postId;
   final String userId;
   final String doerId;
 
-  Chat({
+  TransactionHistory({
     @required this.postId,
     @required this.userId,
     @required this.doerId
@@ -19,10 +19,10 @@ class Chat {
     };
   }
 
-  static Chat fromMap(Map<String, dynamic> map, String documentId) {
+  static TransactionHistory fromMap(Map<String, dynamic> map, String documentId) {
     if (map == null) return null;
 
-    return Chat(
+    return TransactionHistory(
       postId: map['postId'],
       userId: map['userId'],
       doerId: map['doerId']

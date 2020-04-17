@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
-import 'package:pasabay_app/models/chat.dart';
+import 'package:pasabay_app/models/transaction.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
 
-class ChatViewModel extends BaseModel {
+class TransactionViewModel extends BaseModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -21,13 +21,13 @@ class ChatViewModel extends BaseModel {
   }
 
   void viewMessage(DocumentSnapshot doc) async {
-    var chat = Chat(
+    var transaction = TransactionHistory(
       postId: doc.data['postId'], 
       userId: doc.data['userId'],
       doerId: doc.data['doerId']
     );
 
-    _navigationService.navigateTo(MessageViewRoute, arguments: chat);
+    _navigationService.navigateTo(MessageViewRoute, arguments: transaction);
   }
   
 }

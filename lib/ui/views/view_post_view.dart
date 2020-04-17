@@ -170,12 +170,12 @@ class ViewPostView extends StatelessWidget {
           }
         ),
         floatingActionButton: Tooltip(
-          message: 'Chat', 
+          message: 'Transaction', 
           child: FloatingActionButton(
             backgroundColor: Theme.of(context).primaryColor,
             child: Icon(FontAwesomeIcons.commentAlt, color: Colors.white),
             onPressed: () {
-              model.addChat(postId: viewingPost.documentId, userId: viewingPost.userId);
+              model.createTransaction(postId: viewingPost.documentId, userId: viewingPost.userId);
             },
           )
         ),

@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pasabay_app/locator.dart';
-import 'package:pasabay_app/models/chat.dart';
+import 'package:pasabay_app/models/transaction.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +21,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 
 class MessageView extends StatelessWidget {
-  final Chat viewingChat;
-  const MessageView({Key key, this.viewingChat}) : super(key: key);
+  final TransactionHistory viewingTransaction;
+  const MessageView({Key key, this.viewingTransaction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +30,16 @@ class MessageView extends StatelessWidget {
       viewModel: MessageViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text(viewingChat.userId, style: TextStyle(color: Colors.white)),
+          title: Text(viewingTransaction.userId, style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
           leading: myBackButton(context)
         ),
         drawer: MyDrawer(),
         body: ChatScreen(
-          postId: viewingChat.postId,
-          userId: viewingChat.userId,
-          doerId: viewingChat.doerId
+          postId: viewingTransaction.postId,
+          userId: viewingTransaction.userId,
+          doerId: viewingTransaction.doerId
         )
       )
     );
