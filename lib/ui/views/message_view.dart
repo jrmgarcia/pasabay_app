@@ -315,8 +315,8 @@ class ChatScreenState extends State<ChatScreen> {
                         : Container(
                             child: new Image.asset(
                               'assets/images/${document['content']}.PNG',
-                              width: 100.0,
-                              height: 100.0,
+                              width: 150.0,
+                              height: 150.0,
                               fit: BoxFit.cover,
                             ),
                             margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
