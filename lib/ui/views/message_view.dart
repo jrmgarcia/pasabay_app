@@ -12,8 +12,6 @@ import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/views/full_photo.dart';
-import 'package:pasabay_app/viewmodels/message_view_model.dart';
-import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,21 +24,18 @@ class MessageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<MessageViewModel>.withConsumer(
-      viewModel: MessageViewModel(),
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          title: Text(viewingTransaction.userId, style: TextStyle(color: Colors.white)),
-          backgroundColor: Theme.of(context).primaryColor,
-          iconTheme: IconThemeData(color: Colors.white),
-          leading: myBackButton(context)
-        ),
-        drawer: MyDrawer(),
-        body: ChatScreen(
-          postId: viewingTransaction.postId,
-          userId: viewingTransaction.userId,
-          doerId: viewingTransaction.doerId
-        )
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(viewingTransaction.userId, style: TextStyle(color: Colors.white)),
+        backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: myBackButton(context)
+      ),
+      drawer: MyDrawer(),
+      body: ChatScreen(
+        postId: viewingTransaction.postId,
+        userId: viewingTransaction.userId,
+        doerId: viewingTransaction.doerId
       )
     );
   }
@@ -245,9 +240,9 @@ class ChatScreenState extends State<ChatScreen> {
                   // Sticker
                   : Container(
                       child: new Image.asset(
-                        'assets/images/${document['content']}.gif',
-                        width: 100.0,
-                        height: 100.0,
+                        'assets/images/${document['content']}.PNG',
+                        width: 150.0,
+                        height: 150.0,
                         fit: BoxFit.cover,
                       ),
                       margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
@@ -319,7 +314,7 @@ class ChatScreenState extends State<ChatScreen> {
                           )
                         : Container(
                             child: new Image.asset(
-                              'assets/images/${document['content']}.gif',
+                              'assets/images/${document['content']}.PNG',
                               width: 100.0,
                               height: 100.0,
                               fit: BoxFit.cover,
@@ -410,27 +405,27 @@ class ChatScreenState extends State<ChatScreen> {
           Row(
             children: <Widget>[
               FlatButton(
-                onPressed: () => onSendMessage('mimi1', 2),
+                onPressed: () => onSendMessage('pega1', 2),
                 child: new Image.asset(
-                  'assets/images/mimi1.gif',
+                  'assets/images/pega1.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
                 ),
               ),
               FlatButton(
-                onPressed: () => onSendMessage('mimi2', 2),
+                onPressed: () => onSendMessage('pega2', 2),
                 child: new Image.asset(
-                  'assets/images/mimi2.gif',
+                  'assets/images/pega2.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
                 ),
               ),
               FlatButton(
-                onPressed: () => onSendMessage('mimi3', 2),
+                onPressed: () => onSendMessage('pega3', 2),
                 child: new Image.asset(
-                  'assets/images/mimi3.gif',
+                  'assets/images/pega3.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
@@ -442,27 +437,27 @@ class ChatScreenState extends State<ChatScreen> {
           Row(
             children: <Widget>[
               FlatButton(
-                onPressed: () => onSendMessage('mimi4', 2),
+                onPressed: () => onSendMessage('pega4', 2),
                 child: new Image.asset(
-                  'assets/images/mimi4.gif',
+                  'assets/images/pega4.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
                 ),
               ),
               FlatButton(
-                onPressed: () => onSendMessage('mimi5', 2),
+                onPressed: () => onSendMessage('pega5', 2),
                 child: new Image.asset(
-                  'assets/images/mimi5.gif',
+                  'assets/images/pega5.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
                 ),
               ),
               FlatButton(
-                onPressed: () => onSendMessage('mimi6', 2),
+                onPressed: () => onSendMessage('pega6', 2),
                 child: new Image.asset(
-                  'assets/images/mimi6.gif',
+                  'assets/images/pega6.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
@@ -474,27 +469,27 @@ class ChatScreenState extends State<ChatScreen> {
           Row(
             children: <Widget>[
               FlatButton(
-                onPressed: () => onSendMessage('mimi7', 2),
+                onPressed: () => onSendMessage('pega7', 2),
                 child: new Image.asset(
-                  'assets/images/mimi7.gif',
+                  'assets/images/pega7.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
                 ),
               ),
               FlatButton(
-                onPressed: () => onSendMessage('mimi8', 2),
+                onPressed: () => onSendMessage('pega8', 2),
                 child: new Image.asset(
-                  'assets/images/mimi8.gif',
+                  'assets/images/pega8.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
                 ),
               ),
               FlatButton(
-                onPressed: () => onSendMessage('mimi9', 2),
+                onPressed: () => onSendMessage('pega9', 2),
                 child: new Image.asset(
-                  'assets/images/mimi9.gif',
+                  'assets/images/pega9.PNG',
                   width: 50.0,
                   height: 50.0,
                   fit: BoxFit.cover,
