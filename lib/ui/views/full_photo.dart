@@ -10,11 +10,13 @@ class FullPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text('', style: TextStyle(color: Colors.white)),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.white),
-        leading: myBackButton(context)
+        leading: myBackButton(context),
+        elevation: 0
       ),
       body: FullPhotoScreen(url: url)
     );
