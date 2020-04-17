@@ -529,7 +529,7 @@ class ChatScreenState extends State<ChatScreen> {
           Material(
             child: Container(
               child: IconButton(
-                icon: Icon(FontAwesomeIcons.fileImage),
+                icon: Icon(FontAwesomeIcons.images),
                 onPressed: getImage,
                 color: Theme.of(context).accentColor,
               ),
