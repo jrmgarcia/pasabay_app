@@ -349,7 +349,7 @@ class ChatScreenState extends State<ChatScreen> {
   }
 
   bool isLastMessageLeft(int index) {
-    if ((index > 0 && listMessage != null && listMessage[index - 1]['idFrom'] == doerId) || index == 0) {
+    if ((index > 0 && listMessage != null && listMessage[index - 1]['idFrom'] == _authenticationService.currentUser.uid) || index == 0) {
       return true;
     } else {
       return false;
