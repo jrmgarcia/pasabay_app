@@ -32,10 +32,13 @@ class MessageView extends StatelessWidget {
         leading: myBackButton(context)
       ),
       drawer: MyDrawer(),
-      body: ChatScreen(
-        postId: viewingTransaction.postId,
-        userId: viewingTransaction.userId,
-        doerId: viewingTransaction.doerId
+      body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: ChatScreen(
+          postId: viewingTransaction.postId,
+          userId: viewingTransaction.userId,
+          doerId: viewingTransaction.doerId
+        ),
       )
     );
   }
@@ -82,7 +85,7 @@ class ChatScreenState extends State<ChatScreen> {
     isShowSticker = false;
     imageUrl = '';
 
-    readLocal();
+    generateGroupChatId();
   }
 
   void onFocusChange() {
@@ -94,18 +97,14 @@ class ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  readLocal() async {
+  generateGroupChatId() async {
     if (doerId.hashCode <= userId.hashCode) {
       groupChatId = '$postId-$doerId-$userId';
     } else {
       groupChatId = '$postId-$userId-$doerId';
     }
 
-    print('groupChatId: ' + groupChatId);
-
     Firestore.instance.collection('users').document(doerId).updateData({'chattingWith': userId});
-
-    setState(() {});
   }
 
   Future getImage() async {
