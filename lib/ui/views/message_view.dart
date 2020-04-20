@@ -28,15 +28,14 @@ class MessageView extends StatelessWidget {
       appBar: AppBar(
         title: ListTile(
           title: Text(
-            viewingTask.title.toUpperCase(),
+            peerUser(viewingTask),
             style: Theme.of(context).textTheme.title,
             overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
+            viewingTask.title + " • " + 
             viewingTask.category + " • " + 
-            viewingTask.reward + " PHP" + " • " +
-            viewingTask.userName.substring(0, viewingTask.userName.indexOf(' ')) + " " + 
-            viewingTask.userRating.toString() + " ★",
+            viewingTask.reward + " PHP",
             style: Theme.of(context).textTheme.body1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -52,7 +51,7 @@ class MessageView extends StatelessWidget {
           postId: viewingTask.postId,
           userId: viewingTask.userId,
           doerId: viewingTask.doerId,
-          userAvatar: viewingTask.photoUrl
+          peerAvatar: _authenticationService.currentUser.uid == viewingTask.userId ? viewingTask.doerAvatar : viewingTask.userAvatar
         ),
       )
     );
@@ -63,21 +62,21 @@ class ChatScreen extends StatefulWidget {
   final String postId;
   final String userId;
   final String doerId;
-  final String userAvatar;
+  final String peerAvatar;
 
-  ChatScreen({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.userAvatar}) : super(key: key);
+  ChatScreen({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.peerAvatar}) : super(key: key);
 
   @override
-  State createState() => ChatScreenState(postId: postId, userId: userId, doerId: doerId, userAvatar: userAvatar);
+  State createState() => ChatScreenState(postId: postId, userId: userId, doerId: doerId, peerAvatar: peerAvatar);
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  ChatScreenState({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.userAvatar});
+  ChatScreenState({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.peerAvatar});
 
   String postId;
   String userId;
   String doerId;
-  String userAvatar;
+  String peerAvatar;
 
   var listMessage;
   String groupChatId;
@@ -285,7 +284,7 @@ class ChatScreenState extends State<ChatScreen> {
                         height: 35.0,
                         padding: EdgeInsets.all(10.0),
                       ),
-                      imageUrl: userAvatar,
+                      imageUrl: peerAvatar,
                       width: 35.0,
                       height: 35.0,
                       fit: BoxFit.cover,

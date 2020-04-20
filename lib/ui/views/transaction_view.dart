@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/task.dart';
+import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
+
+final AuthenticationService _authenticationService = locator<AuthenticationService>();
 
 class TransactionView extends StatelessWidget {
 
@@ -19,6 +22,7 @@ class TransactionView extends StatelessWidget {
         if (taskDoc["userId"] != null) {
           var userSnapshot = await Firestore.instance.collection('users').document(taskDoc['userId']).get();
           var postSnapshot = await Firestore.instance.collection('posts').document(taskDoc['postId']).get();
+          var doerSnapshot = await Firestore.instance.collection('users').document(taskDoc['doerId']).get();
           task = Task(
             taskDoc["postId"],
             taskDoc["userId"],
@@ -28,10 +32,13 @@ class TransactionView extends StatelessWidget {
             postSnapshot["reward"], 
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
-            userSnapshot["rating"]
+            userSnapshot["rating"],
+            doerSnapshot["photoUrl"], 
+            doerSnapshot["displayName"], 
+            doerSnapshot["rating"]
           );
         }
-        else task = Task(null, null, null, null, null, null, null, null, null);
+        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null);
         tasks.add(task);
       }
       yield tasks;
@@ -60,7 +67,7 @@ class TransactionView extends StatelessWidget {
                   child: InkWell(
                     onTap: () => _navigationService.navigateTo(MessageViewRoute, arguments: task),
                     child: ListTile(
-                      leading: userPhotoUrl(task.photoUrl),
+                      leading: userPhotoUrl(_authenticationService.currentUser.uid == task.userId ? task.doerAvatar : task.userAvatar),
                       title: Text(
                         task.title.toUpperCase(),
                         style: Theme.of(context).textTheme.title,
@@ -68,9 +75,8 @@ class TransactionView extends StatelessWidget {
                       ),
                       subtitle: Text(
                         task.category + " • " + 
-                        task.reward + " PHP" + " • " +
-                        task.userName.substring(0, task.userName.indexOf(' ')) + " " + 
-                        task.userRating.toString() + " ★",
+                        task.reward + " PHP" + "\n" + 
+                        peerUser(task),
                         style: Theme.of(context).textTheme.body1,
                         overflow: TextOverflow.ellipsis,
                       ),

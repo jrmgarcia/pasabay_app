@@ -5,9 +5,12 @@ class Task {
   final title;
   final category;
   final reward;
-  final photoUrl;
+  final userAvatar;
   final userName;
   final userRating;
+  final doerAvatar;
+  final doerName;
+  final doerRating;
   
   Task(
     this.postId, 
@@ -16,8 +19,11 @@ class Task {
     this.title, 
     this.category, 
     this.reward, 
-    this.photoUrl, 
+    this.userAvatar, 
     this.userName, 
-    this.userRating
+    this.userRating,
+    this.doerAvatar, 
+    this.doerName, 
+    this.doerRating
   );
 }

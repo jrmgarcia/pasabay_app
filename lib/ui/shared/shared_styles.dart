@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/category_names.dart';
+import 'package:pasabay_app/locator.dart';
+import 'package:pasabay_app/models/task.dart';
+import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:shimmer/shimmer.dart';
 
 // Box Decorations
@@ -142,4 +145,12 @@ Widget userPhotoUrl(String photoUrl) {
       fit: BoxFit.cover,
     ),
   );
+}
+
+final AuthenticationService _authenticationService = locator<AuthenticationService>();
+
+peerUser(Task task) {
+  if (task.userId == _authenticationService.currentUser.uid) {
+    return task.doerName.substring(0, task.doerName.indexOf(' ')) + " " + task.doerRating.toString() + " ★";
+  } else return task.userName.substring(0, task.userName.indexOf(' ')) + " " + task.userRating.toString() + " ★";
 }
