@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pasabay_app/locator.dart';
-import 'package:pasabay_app/models/transaction.dart';
+import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +19,28 @@ import 'package:fluttertoast/fluttertoast.dart';
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 
 class MessageView extends StatelessWidget {
-  final TransactionHistory viewingTransaction;
-  const MessageView({Key key, this.viewingTransaction}) : super(key: key);
+  final Task viewingTask;
+  const MessageView({Key key, this.viewingTask}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(viewingTransaction.userId, style: TextStyle(color: Colors.white)),
+        title: ListTile(
+          title: Text(
+            viewingTask.title.toUpperCase(),
+            style: Theme.of(context).textTheme.title,
+            overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Text(
+            viewingTask.category + " • " + 
+            viewingTask.reward + " PHP" + " • " +
+            viewingTask.userName.substring(0, viewingTask.userName.indexOf(' ')) + " " + 
+            viewingTask.userRating.toString() + " ★",
+            style: Theme.of(context).textTheme.body1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         backgroundColor: Theme.of(context).primaryColor,
         iconTheme: IconThemeData(color: Colors.white),
         leading: myBackButton(context)
@@ -35,9 +49,10 @@ class MessageView extends StatelessWidget {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: ChatScreen(
-          postId: viewingTransaction.postId,
-          userId: viewingTransaction.userId,
-          doerId: viewingTransaction.doerId
+          postId: viewingTask.postId,
+          userId: viewingTask.userId,
+          doerId: viewingTask.doerId,
+          userAvatar: viewingTask.photoUrl
         ),
       )
     );
@@ -48,19 +63,21 @@ class ChatScreen extends StatefulWidget {
   final String postId;
   final String userId;
   final String doerId;
+  final String userAvatar;
 
-  ChatScreen({Key key, @required this.postId, @required this.userId, @required this.doerId}) : super(key: key);
+  ChatScreen({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.userAvatar}) : super(key: key);
 
   @override
-  State createState() => ChatScreenState(postId: postId, userId: userId, doerId: doerId);
+  State createState() => ChatScreenState(postId: postId, userId: userId, doerId: doerId, userAvatar: userAvatar);
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  ChatScreenState({Key key, @required this.postId, @required this.userId, @required this.doerId});
+  ChatScreenState({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.userAvatar});
 
   String postId;
   String userId;
   String doerId;
+  String userAvatar;
 
   var listMessage;
   String groupChatId;
@@ -256,6 +273,29 @@ class ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             Row(
               children: <Widget>[
+                isLastMessageLeft(index)
+                ? Material(
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) => Container(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1.0,
+                          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+                        ),
+                        width: 35.0,
+                        height: 35.0,
+                        padding: EdgeInsets.all(10.0),
+                      ),
+                      imageUrl: userAvatar,
+                      width: 35.0,
+                      height: 35.0,
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(18.0),
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                  )
+                : Container(width: 35.0),
                 document['type'] == 0
                     ? Container(
                         child: Text(document['content']),

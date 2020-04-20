@@ -1,4 +1,4 @@
-import 'package:pasabay_app/models/transaction.dart';
+import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/ui/views/blacklist_view.dart';
@@ -50,10 +50,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: TransactionView(),
       );
     case MessageViewRoute:
-      var transactionToView = settings.arguments as TransactionHistory;
+      var taskToView = settings.arguments as Task;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: MessageView(viewingTransaction: transactionToView),
+        viewToShow: MessageView(viewingTask: taskToView),
       );
     case ProfileViewRoute:
       var userToView = settings.arguments as User;

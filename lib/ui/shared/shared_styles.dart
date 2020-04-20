@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/category_names.dart';
@@ -119,5 +120,26 @@ shimmerCard(BuildContext context) {
         child: shimmerEffect(MediaQuery.of(context).platformBrightness, 16)
       ),
     )
+  );
+}
+
+Widget userPhotoUrl(String photoUrl) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(10),
+    child: CachedNetworkImage(
+      placeholder: (context, url) => Container(
+        child: CircularProgressIndicator(
+          strokeWidth: 1.0,
+          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+        ),
+        width: 50.0,
+        height: 50.0,
+        padding: EdgeInsets.all(15.0),
+      ),
+      imageUrl: photoUrl,
+      width: 50.0,
+      height: 50.0,
+      fit: BoxFit.cover,
+    ),
   );
 }
