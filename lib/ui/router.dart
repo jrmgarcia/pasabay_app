@@ -75,7 +75,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
     case ViewPostViewRoute:
-      var postToView = settings.arguments as Post;
+      var postToView = settings.arguments as Task;
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: ViewPostView(

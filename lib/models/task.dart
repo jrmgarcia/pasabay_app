@@ -5,6 +5,8 @@ class Task {
   final title;
   final category;
   final reward;
+  final description;
+  final timestamp;
   final userAvatar;
   final userName;
   final userRating;
@@ -19,6 +21,8 @@ class Task {
     this.title, 
     this.category, 
     this.reward, 
+    this.description, 
+    this.timestamp, 
     this.userAvatar, 
     this.userName, 
     this.userRating,

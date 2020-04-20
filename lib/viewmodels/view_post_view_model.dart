@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
+import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/models/transaction.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -12,23 +13,21 @@ class ViewPostViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future createTransaction({
-    @required String postId, 
-    @required String userId
+    @required Task task
   }) async {
-
     setBusy(true);
 
     var transaction = TransactionHistory(
-      postId: postId, 
-      userId: userId,
-      doerId: currentUser.uid
+      postId: task.postId, 
+      userId: task.userId,
+      doerId: task.doerId
     );
 
     await _firestoreService.createTransaction(transaction);
     
     setBusy(false);
 
-    _navigationService.navigateTo(MessageViewRoute, arguments: transaction);
+    _navigationService.navigateTo(MessageViewRoute, arguments: task);
   }
 
 }

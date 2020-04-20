@@ -1,22 +1,15 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pasabay_app/locator.dart';
-import 'package:pasabay_app/models/post.dart';
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/models/user.dart';
-import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:pasabay_app/viewmodels/view_post_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
-final FirestoreService _firestoreService = locator<FirestoreService>();
-
-User _postUser;
-User get postUser => _postUser;
-
 class ViewPostView extends StatelessWidget {
   
-  final Post viewingPost;
+  final Task viewingPost;
   ViewPostView({Key key, this.viewingPost}) : super(key: key);
 
   @override
@@ -119,12 +112,21 @@ class ViewPostView extends StatelessWidget {
       style: Theme.of(context).textTheme.body1,
     );
 
+    final timestamp = Text(
+      viewingPost.timestamp,
+      style: Theme.of(context).textTheme.overline,
+    );
+
     final bottomContent = Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(40.0),
       child: Center(
         child: Column(
-          children: <Widget>[bottomContentText],
+          children: <Widget>[
+            bottomContentText,
+            verticalSpaceMedium,
+            timestamp
+          ],
         ),
       ),
     );
@@ -138,53 +140,40 @@ class ViewPostView extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           leading: myBackButton(context)
         ),
-        body: FutureBuilder(
-          future: Future.wait([getPostUser(viewingPost.userId),]),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Stack(
-                children: <Widget>[
-                  topContent(postUser),
-                  DraggableScrollableSheet(
-                    builder: (context, scrollController) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                          child: SingleChildScrollView(
-                            controller: scrollController,
-                            child: Container(
-                              child: bottomContent
-                            )
-                          ),
-                        ),
-                      );
-                    }
+        body: Stack(
+          children: <Widget>[
+            topContent(User(displayName: viewingPost.userName, rating: viewingPost.userRating, photoUrl: viewingPost.userAvatar)),
+            DraggableScrollableSheet(
+              builder: (context, scrollController) {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ]
-              );
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          }
+                  child: Container(
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      child: Container(
+                        child: bottomContent
+                      )
+                    ),
+                  ),
+                );
+              }
+            ),
+          ]
         ),
         floatingActionButton: Tooltip(
-          message: 'Transaction', 
+          message: 'Chat', 
           child: FloatingActionButton(
             backgroundColor: Theme.of(context).primaryColor,
             child: Icon(FontAwesomeIcons.commentAlt, color: Colors.white),
             onPressed: () {
-              model.createTransaction(postId: viewingPost.documentId, userId: viewingPost.userId);
+              model.createTransaction(task: viewingPost);
             },
           )
         ),
       )
     );
-  }
-
-  Future getPostUser(String uid) async {
-    _postUser = await _firestoreService.getUser(uid);
   }
 }
 

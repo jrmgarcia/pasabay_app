@@ -1,84 +1,107 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
-import 'package:pasabay_app/models/user.dart';
-import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
+import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
-import 'package:pasabay_app/viewmodels/browse_view_model.dart';
-import 'package:provider_architecture/viewmodel_provider.dart';
-
-final AuthenticationService _authenticationService = locator<AuthenticationService>();
-final FirestoreService _firestoreService = locator<FirestoreService>();
-
-User _postUser;
-User get postUser => _postUser;
+import 'package:timeago/timeago.dart' as timeago;
 
 class BrowseView extends StatelessWidget {
   final String browsingCategory;
-  const BrowseView({Key key, this.browsingCategory}) : super(key: key);
+  BrowseView({Key key, this.browsingCategory}) : super(key: key);
+
+  final AuthenticationService _authenticationService = locator<AuthenticationService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<BrowseViewModel>.withConsumer(
-      viewModel: BrowseViewModel(),
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          title: Text("Browse", style: TextStyle(color: Colors.white)),
-          backgroundColor: Theme.of(context).primaryColor,
-          iconTheme: IconThemeData(color: Colors.white),
-          leading: myBackButton(context)
-        ),
-        body: ListView(
-          padding: EdgeInsets.all(8),
-          children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection('posts')
-                .where('category', isEqualTo: browsingCategory)
-                .orderBy('timestamp', descending: true)
-                .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data.documents.length > 0) {
-                  return Column(
-                    children: snapshot.data.documents.map((doc) => 
-                      doc.data['userId'] != _authenticationService.currentUser.uid
-                      ? FutureBuilder(
-                          future: Future.wait([getPostUser(doc.data['userId']),]),
-                          builder: (context, snapshot) {
-                            if(snapshot.hasData) {
-                              return model.buildItem(doc, postUser);
-                            } else {
-                              return shimmerCard(context);
-                            }
-                          }
-                        )
-                      : SizedBox.shrink()
-                    ).toList()
-                  );
-                } else {
-                  return Column(children: <Widget>[
-                    SizedBox(height: 256), 
-                    Text('No posts yet!')
-                  ]);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Browse", style: TextStyle(color: Colors.white)),
+        backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: myBackButton(context)
+      ),
+      body: StreamBuilder<List<Task>>(
+        stream: _firestoreService.getBrowseData(browsingCategory),
+        builder: (BuildContext context, AsyncSnapshot<List<Task>> messagesSnapshot) {
+          if (messagesSnapshot.hasError)
+            return Text('Error: ${messagesSnapshot.error}');
+          switch (messagesSnapshot.connectionState) {
+            case ConnectionState.waiting: return Center(child: CircularProgressIndicator());
+            default:
+              return ListView(
+                padding: EdgeInsets.all(8),
+                children: messagesSnapshot.data.map((Task task) {
+                  if (task.userId == _authenticationService.currentUser.uid) {
+                    return SizedBox();
+                  } else {
+                    return Card(
+                      elevation: 1,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: EdgeInsets.all(8),
+                      child: InkWell(
+                        onTap: () => _navigationService.navigateTo(ViewPostViewRoute, arguments: task),
+                        child: Stack(
+                          overflow: Overflow.clip,
+                          children: <Widget>[
+                            ListTile(
+                              leading: userPhotoUrl(task.userAvatar ?? ' '),
+                              title: Text(
+                                task.title.toUpperCase() ?? ' ',
+                                style: Theme.of(context).textTheme.title,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              subtitle: Text(
+                                task.category + " • " + 
+                                task.reward + " PHP • " +
+                                task.userName.substring(0, task.userName.indexOf(' ')) + " " + task.userRating.toString() + " ★\n" +
+                                task.description, 
+                                style: Theme.of(context).textTheme.body1,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            ),
+                            Positioned(right: 50, child: VerticalDivider()),
+                            Positioned(
+                              top: 5, 
+                              right: 10,
+                              child: Text(
+                                timeAgo(task.timestamp) ?? ' ', 
+                                style: Theme.of(context).textTheme.body2.apply(color: Theme.of(context).accentColor)
+                              )
+                            )
+                          ]
+                        ),
+                      ),
+                    );
+                  }
                 }
-              },
-            )
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          tooltip: 'Search',
-          elevation: 0,
-          backgroundColor: Theme.of(context).primaryColor,
-          child: Icon(FontAwesomeIcons.search, color: Colors.white),
-          onPressed: model.navigateToSearchView,
-        ),
-      )
+              ).toList()
+            );
+          }
+        }
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Search',
+        elevation: 0,
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(FontAwesomeIcons.search, color: Colors.white),
+        onPressed: () => _navigationService.navigateTo(SearchViewRoute),
+      ),
     );
   }
 }
 
-Future getPostUser(String uid) async {
-  _postUser = await _firestoreService.getUser(uid);
+String timeAgo(String formattedString) {
+  final timestamp = DateTime.parse(formattedString);
+  final difference = DateTime.now().difference(timestamp);
+  final timeAgo = DateTime.now().subtract(Duration(minutes: difference.inMinutes));
+  return timeago.format(timeAgo, locale: 'en_short');
 }

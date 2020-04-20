@@ -1,54 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
 
-final AuthenticationService _authenticationService = locator<AuthenticationService>();
-
 class TransactionView extends StatelessWidget {
 
+  final AuthenticationService _authenticationService = locator<AuthenticationService>();
   final NavigationService _navigationService = locator<NavigationService>();
-
-  Stream<List<Task>> getData() async* {
-    var tasksStream = Firestore.instance.collection('transactions').snapshots();
-    var tasks = List<Task>();
-    await for (var tasksSnapshot in tasksStream) {
-      for (var taskDoc in tasksSnapshot.documents) {
-        var task;
-        if (taskDoc["userId"] != null) {
-          var userSnapshot = await Firestore.instance.collection('users').document(taskDoc['userId']).get();
-          var postSnapshot = await Firestore.instance.collection('posts').document(taskDoc['postId']).get();
-          var doerSnapshot = await Firestore.instance.collection('users').document(taskDoc['doerId']).get();
-          task = Task(
-            taskDoc["postId"],
-            taskDoc["userId"],
-            taskDoc["doerId"],
-            postSnapshot["title"], 
-            postSnapshot["category"], 
-            postSnapshot["reward"], 
-            userSnapshot["photoUrl"], 
-            userSnapshot["displayName"], 
-            userSnapshot["rating"],
-            doerSnapshot["photoUrl"], 
-            doerSnapshot["displayName"], 
-            doerSnapshot["rating"]
-          );
-        }
-        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null);
-        tasks.add(task);
-      }
-      yield tasks;
-    }
-  }
+  final FirestoreService _firestoreService = locator<FirestoreService>();
 
   @override
   Widget build(BuildContext context) {
     var streamBuilder = StreamBuilder<List<Task>>(
-      stream: getData(),
+      stream: _firestoreService.getChatData(),
       builder: (BuildContext context, AsyncSnapshot<List<Task>> messagesSnapshot) {
         if (messagesSnapshot.hasError)
           return Text('Error: ${messagesSnapshot.error}');
