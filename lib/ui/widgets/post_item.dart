@@ -6,10 +6,12 @@ import 'package:pasabay_app/ui/shared/shared_styles.dart';
 class PostItem extends StatelessWidget {
   final Post post;
   final Function onDeleteItem;
+  final Function onTap;
   PostItem({
     Key key, 
     this.post, 
-    this.onDeleteItem,
+    this.onDeleteItem, 
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -20,9 +22,8 @@ class PostItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       margin: EdgeInsets.all(8),
-      child: Container(
-        height: 60,
-        alignment: Alignment.center,
+      child: InkWell(
+        onTap: onTap,
         child: ListTile(
           leading: Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
           title: Text(
@@ -39,7 +40,6 @@ class PostItem extends StatelessWidget {
             },
           ),
         ),
-        decoration: myBoxDecoration(context),
       ),
     );
   }

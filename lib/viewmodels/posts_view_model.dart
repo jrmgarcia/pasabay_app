@@ -19,6 +19,7 @@ class PostsViewModel extends BaseModel {
     return PostItem(
       post: Post.fromMap(doc.data, doc.documentID),
       onDeleteItem: () => deletePost(doc),
+      onTap: () => updatePost(doc)
     );
   }
 

@@ -2,42 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/category_names.dart';
 import 'package:pasabay_app/viewmodels/dashboard_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
-import 'package:pasabay_app/ui/shared/shared_styles.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({Key key}) : super(key: key);
 
   Widget makeDashboardItem(BuildContext context, String title, String fileName, Future Function() function) {
-    return InkWell(
-      onTap: () {},
-      child: Card(
-        elevation: 1,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        margin: EdgeInsets.all(8),
-        child: Container(
-          decoration: myBoxDecoration(context),
-          child: GestureDetector(
-            onTap: function,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
-              children: <Widget>[
-                Center(
-                  child: SizedBox(
-                    child: Image.asset('assets/images/' + fileName, height: 150),
-                  )
-                ),
-                Center(
-                  child: Text(title, style: Theme.of(context).textTheme.subtitle),
-                )
-              ],
-            ),
-          ),
-        )
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
+      margin: EdgeInsets.all(8),
+      child: InkWell(
+        customBorder: CircleBorder(),
+        onTap: function,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          verticalDirection: VerticalDirection.down,
+          children: <Widget>[
+            Center(
+              child: SizedBox(
+                child: Image.asset('assets/images/' + fileName, height: 150),
+              )
+            ),
+            Center(
+              child: Text(title, style: Theme.of(context).textTheme.subtitle),
+            )
+          ],
+        ),
+      )
     );
   }
 

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/models/user.dart';
@@ -8,10 +7,12 @@ import 'package:timeago/timeago.dart' as timeago;
 class BrowseItem extends StatelessWidget {
   final Post post;
   final User user;
+  final Function onTap;
   BrowseItem({
     Key key, 
     this.post,
-    this.user
+    this.user,
+    this.onTap
   }) : super(key: key);
 
   @override
@@ -22,14 +23,13 @@ class BrowseItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       margin: EdgeInsets.all(8),
-      child: Container(
-        height: 80,
-        alignment: Alignment.center,
+      child: InkWell(
+        onTap: onTap,
         child: Stack(
           overflow: Overflow.clip,
           children: <Widget>[
             ListTile(
-              leading: userPhotoUrl(post.userId, user.photoUrl),
+              leading: userPhotoUrl(user.photoUrl),
               title: Text(
                 post.title.toUpperCase(),
                 style: Theme.of(context).textTheme.title,
@@ -52,7 +52,6 @@ class BrowseItem extends StatelessWidget {
             )
           ]
         ),
-        decoration: myBoxDecoration(context),
       ),
     );
   }
@@ -63,25 +62,4 @@ String timeAgo(String formattedString) {
   final difference = DateTime.now().difference(timestamp);
   final timeAgo = DateTime.now().subtract(Duration(minutes: difference.inMinutes));
   return timeago.format(timeAgo, locale: 'en_short');
-}
-
-Widget userPhotoUrl(String uid, String photoUrl) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(10),
-    child: CachedNetworkImage(
-      placeholder: (context, url) => Container(
-        child: CircularProgressIndicator(
-          strokeWidth: 1.0,
-          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
-        ),
-        width: 50.0,
-        height: 50.0,
-        padding: EdgeInsets.all(15.0),
-      ),
-      imageUrl: photoUrl,
-      width: 50.0,
-      height: 50.0,
-      fit: BoxFit.cover,
-    ),
-  );
 }

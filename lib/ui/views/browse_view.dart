@@ -48,10 +48,7 @@ class BrowseView extends StatelessWidget {
                           future: Future.wait([getPostUser(doc.data['userId']),]),
                           builder: (context, snapshot) {
                             if(snapshot.hasData) {
-                              return InkWell(
-                                onTap: () => model.viewPost(doc), 
-                                child: model.buildItem(doc, postUser)
-                              );
+                              return model.buildItem(doc, postUser);
                             } else {
                               return shimmerCard(context);
                             }

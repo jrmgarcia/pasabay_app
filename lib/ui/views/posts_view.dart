@@ -27,10 +27,7 @@ class PostsView extends StatelessWidget {
                 if (snapshot.hasData && snapshot.data.documents.length > 0) {
                   return Column(
                     children: snapshot.data.documents.map((doc) => 
-                      InkWell(
-                        onTap: () => model.updatePost(doc), 
-                        child: model.buildItem(doc)
-                      )
+                      model.buildItem(doc)
                     ).toList()
                   );
                 } else {

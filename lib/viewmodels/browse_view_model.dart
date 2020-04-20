@@ -29,7 +29,8 @@ class BrowseViewModel extends BaseModel {
         photoUrl: postUser.photoUrl, 
         rating: postUser.rating, 
         uid: postUser.uid
-      )
+      ),
+      onTap: () => viewPost(doc)
     );
   }
 }
