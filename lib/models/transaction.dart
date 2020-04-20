@@ -18,14 +18,4 @@ class TransactionHistory {
       'doerId': doerId
     };
   }
-
-  static TransactionHistory fromMap(Map<String, dynamic> map, String documentId) {
-    if (map == null) return null;
-
-    return TransactionHistory(
-      postId: map['postId'],
-      userId: map['userId'],
-      doerId: map['doerId']
-    );
-  }
 }
