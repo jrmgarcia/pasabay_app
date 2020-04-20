@@ -33,8 +33,8 @@ class MessageView extends StatelessWidget {
       ),
       drawer: MyDrawer(),
       body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: ChatScreen(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: ChatScreen(
           postId: viewingTransaction.postId,
           userId: viewingTransaction.userId,
           doerId: viewingTransaction.doerId
