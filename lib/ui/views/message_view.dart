@@ -177,7 +177,6 @@ class ChatScreenState extends State<ChatScreen> {
           documentReference,
           {
             'idFrom': doerId == _authenticationService.currentUser.uid ? doerId : _authenticationService.currentUser.uid,
-            'idTo': userId == _authenticationService.currentUser.uid ? userId : _authenticationService.currentUser.uid,
             'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
             'content': content,
             'type': type

@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/models/transaction.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
-import 'package:pasabay_app/services/authentication_service.dart';
 
 class FirestoreService {
   final CollectionReference _usersCollectionReference =
@@ -15,8 +13,6 @@ class FirestoreService {
       Firestore.instance.collection('posts');
   final CollectionReference _transactionCollectionReference = 
       Firestore.instance.collection('transactions');
-
-  final AuthenticationService _authenticationService = locator<AuthenticationService>();
 
   Future createUser(User user) async {
     try {
@@ -113,7 +109,7 @@ class FirestoreService {
           task = Task(
             taskDoc.documentID,
             taskDoc["userId"],
-            _authenticationService.currentUser.uid,
+            null,
             taskDoc["title"], 
             taskDoc["category"], 
             taskDoc["reward"], 
@@ -122,9 +118,9 @@ class FirestoreService {
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
             userSnapshot["rating"],
-            _authenticationService.currentUser.photoUrl, 
-            _authenticationService.currentUser.displayName, 
-            _authenticationService.currentUser.rating
+            null,
+            null,
+            null
           );
         }
         else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
