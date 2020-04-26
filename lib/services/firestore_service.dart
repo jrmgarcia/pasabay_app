@@ -82,13 +82,15 @@ class FirestoreService {
             postSnapshot["timestamp"], 
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
+            userSnapshot["email"], 
             userSnapshot["rating"],
             doerSnapshot["photoUrl"], 
             doerSnapshot["displayName"], 
+            doerSnapshot["email"], 
             doerSnapshot["rating"]
           );
         }
-        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tasks.add(task);
       }
       yield tasks;
@@ -117,13 +119,15 @@ class FirestoreService {
             taskDoc["timestamp"], 
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
+            userSnapshot["email"], 
             userSnapshot["rating"],
             null,
             null,
+            null, 
             null
           );
         }
-        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tasks.add(task);
       }
       yield tasks;

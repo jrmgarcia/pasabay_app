@@ -9,9 +9,11 @@ class Task {
   final timestamp;
   final userAvatar;
   final userName;
+  final userEmail;
   final userRating;
   final doerAvatar;
   final doerName;
+  final doerEmail;
   final doerRating;
   
   Task(
@@ -25,9 +27,11 @@ class Task {
     this.timestamp, 
     this.userAvatar, 
     this.userName, 
+    this.userEmail, 
     this.userRating,
     this.doerAvatar, 
     this.doerName, 
+    this.doerEmail, 
     this.doerRating
   );
 }

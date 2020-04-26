@@ -5,9 +5,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/task.dart';
+import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
@@ -17,6 +20,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
+final NavigationService _navigationService = locator<NavigationService>();
 
 class MessageView extends StatelessWidget {
   final Task viewingTask;
@@ -42,7 +46,12 @@ class MessageView extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).primaryColor,
         iconTheme: IconThemeData(color: Colors.white),
-        leading: myBackButton(context)
+        leading: myBackButton(context),
+        actions: <Widget>[
+          _authenticationService.currentUser.uid == viewingTask.userId
+          ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () {})
+          : Container()
+        ],
       ),
       drawer: MyDrawer(),
       body: GestureDetector(
@@ -51,7 +60,9 @@ class MessageView extends StatelessWidget {
           postId: viewingTask.postId,
           userId: viewingTask.userId,
           doerId: viewingTask.doerId,
-          peerAvatar: _authenticationService.currentUser.uid == viewingTask.userId ? viewingTask.doerAvatar : viewingTask.userAvatar
+          peer: _authenticationService.currentUser.uid == viewingTask.userId
+          ? User(photoUrl: viewingTask.doerAvatar, displayName: viewingTask.doerName, email: viewingTask.doerEmail, rating: viewingTask.doerRating)
+          : User(photoUrl: viewingTask.userAvatar, displayName: viewingTask.userName, email: viewingTask.userEmail, rating: viewingTask.userRating)
         ),
       )
     );
@@ -62,21 +73,21 @@ class ChatScreen extends StatefulWidget {
   final String postId;
   final String userId;
   final String doerId;
-  final String peerAvatar;
+  final User peer;
 
-  ChatScreen({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.peerAvatar}) : super(key: key);
+  ChatScreen({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.peer}) : super(key: key);
 
   @override
-  State createState() => ChatScreenState(postId: postId, userId: userId, doerId: doerId, peerAvatar: peerAvatar);
+  State createState() => ChatScreenState(postId: postId, userId: userId, doerId: doerId, peer: peer);
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  ChatScreenState({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.peerAvatar});
+  ChatScreenState({Key key, @required this.postId, @required this.userId, @required this.doerId, @required this.peer});
 
   String postId;
   String userId;
   String doerId;
-  String peerAvatar;
+  User peer;
 
   var listMessage;
   String groupChatId;
@@ -120,7 +131,7 @@ class ChatScreenState extends State<ChatScreen> {
       groupChatId = '$postId-$userId-$doerId';
     }
 
-    Firestore.instance.collection('users').document(doerId).updateData({'chattingWith': userId});
+    // Firestore.instance.collection('users').document(doerId).updateData({'chattingWith': userId});
   }
 
   Future getImage() async {
@@ -272,27 +283,34 @@ class ChatScreenState extends State<ChatScreen> {
             Row(
               children: <Widget>[
                 isLastMessageLeft(index)
-                ? Material(
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) => Container(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 1.0,
-                          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+                ? Tooltip(
+                    message: 'View Profile',
+                    child: InkWell(
+                      onTap: () {_navigationService.navigateTo(ProfileViewRoute, arguments: User(
+                        displayName: peer.displayName, email: peer.email, photoUrl: peer.photoUrl, rating: peer.rating));},
+                      child: Material(
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) => Container(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1.0,
+                              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+                            ),
+                            width: 35.0,
+                            height: 35.0,
+                            padding: EdgeInsets.all(10.0),
+                          ),
+                          imageUrl: peer.photoUrl,
+                          width: 35.0,
+                          height: 35.0,
+                          fit: BoxFit.cover,
                         ),
-                        width: 35.0,
-                        height: 35.0,
-                        padding: EdgeInsets.all(10.0),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(18.0),
+                        ),
+                        clipBehavior: Clip.hardEdge,
                       ),
-                      imageUrl: peerAvatar,
-                      width: 35.0,
-                      height: 35.0,
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(18.0),
-                    ),
-                    clipBehavior: Clip.hardEdge,
-                  )
+                  ),
+                )
                 : Container(width: 35.0),
                 document['type'] == 0
                     ? Container(
@@ -402,7 +420,7 @@ class ChatScreenState extends State<ChatScreen> {
         isShowSticker = false;
       });
     } else {
-      Firestore.instance.collection('users').document(doerId).updateData({'chattingWith': null});
+      // Firestore.instance.collection('users').document(doerId).updateData({'chattingWith': null});
       Navigator.pop(context);
     }
 

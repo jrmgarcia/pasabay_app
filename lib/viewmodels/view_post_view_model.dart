@@ -44,9 +44,11 @@ class ViewPostViewModel extends BaseModel {
         task.timestamp,
         task.userAvatar,
         task.userName,
+        task.userEmail, 
         task.userRating,
         user.photoUrl,
         user.displayName,
+        user.email, 
         user.rating
       )
     );
