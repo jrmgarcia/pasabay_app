@@ -42,6 +42,7 @@ class ViewPostViewModel extends BaseModel {
         task.reward,
         task.description,
         task.timestamp,
+        task.fulfilledBy, 
         task.userAvatar,
         task.userName,
         task.userEmail, 

@@ -80,6 +80,7 @@ class FirestoreService {
             postSnapshot["reward"], 
             postSnapshot["description"], 
             postSnapshot["timestamp"], 
+            postSnapshot["fulfilledBy"], 
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
             userSnapshot["email"], 
@@ -90,7 +91,7 @@ class FirestoreService {
             doerSnapshot["rating"]
           );
         }
-        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tasks.add(task);
       }
       yield tasks;
@@ -100,6 +101,7 @@ class FirestoreService {
   Stream<List<Task>> getBrowseData(String browsingCategory) async* {
     var tasksStream = Firestore.instance.collection('posts')
             .where('category', isEqualTo: browsingCategory)
+            .where('fulfilledBy', isNull: true)
             .orderBy('timestamp', descending: true)
             .snapshots();
     var tasks = List<Task>();
@@ -117,6 +119,7 @@ class FirestoreService {
             taskDoc["reward"], 
             taskDoc["description"], 
             taskDoc["timestamp"], 
+            taskDoc["fulfilledBy"], 
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
             userSnapshot["email"], 
@@ -127,7 +130,7 @@ class FirestoreService {
             null
           );
         }
-        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tasks.add(task);
       }
       yield tasks;

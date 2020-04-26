@@ -7,6 +7,7 @@ class Task {
   final reward;
   final description;
   final timestamp;
+  final fulfilledBy;
   final userAvatar;
   final userName;
   final userEmail;
@@ -25,6 +26,7 @@ class Task {
     this.reward, 
     this.description, 
     this.timestamp, 
+    this. fulfilledBy, 
     this.userAvatar, 
     this.userName, 
     this.userEmail, 

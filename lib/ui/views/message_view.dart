@@ -10,6 +10,7 @@ import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 final NavigationService _navigationService = locator<NavigationService>();
+final DialogService _dialogService = locator<DialogService>();
 
 class MessageView extends StatelessWidget {
   final Task viewingTask;
@@ -48,8 +50,11 @@ class MessageView extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
         leading: myBackButton(context),
         actions: <Widget>[
-          _authenticationService.currentUser.uid == viewingTask.userId
-          ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () {})
+          _authenticationService.currentUser.uid == viewingTask.userId && viewingTask.fulfilledBy == null
+          ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () => markAsDone(viewingTask.postId, viewingTask.doerId))
+          : Container(),
+          viewingTask.fulfilledBy != null
+          ? IconButton(tooltip: 'Rate', icon: Icon(FontAwesomeIcons.solidStar), onPressed: () {})
           : Container()
         ],
       ),
@@ -130,8 +135,6 @@ class ChatScreenState extends State<ChatScreen> {
     } else {
       groupChatId = '$postId-$userId-$doerId';
     }
-
-    // Firestore.instance.collection('users').document(doerId).updateData({'chattingWith': userId});
   }
 
   Future getImage() async {
@@ -211,7 +214,7 @@ class ChatScreenState extends State<ChatScreen> {
                   child: Text(document['content']),
                   padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                   width: 200.0,
-                  decoration: BoxDecoration(color: Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(10)),
+                  decoration: BoxDecoration(color: document['content'] == "Mark as done." ? Theme.of(context).primaryColor : Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(10)),
                   margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
                 )
               : document['type'] == 1
@@ -420,7 +423,6 @@ class ChatScreenState extends State<ChatScreen> {
         isShowSticker = false;
       });
     } else {
-      // Firestore.instance.collection('users').document(doerId).updateData({'chattingWith': null});
       Navigator.pop(context);
     }
 
@@ -664,5 +666,44 @@ class ChatScreenState extends State<ChatScreen> {
             ),
     );
   }
+}
 
+void markAsDone(String postId, String doerId) async {
+  var dialogResponse = await _dialogService.showConfirmationDialog(
+    title: 'Mark as done',
+    description: 'Do you really want to mark this tasks as done?',
+    confirmationTitle: 'Yes',
+    cancelTitle: 'No',
+  );
+
+  if (dialogResponse.confirmed) {
+    await Firestore.instance.collection('posts').document(postId).updateData({'fulfilledBy': doerId});
+    
+    var groupChatId = '';
+    var userId = _authenticationService.currentUser.uid;
+    
+    if (doerId.hashCode <= userId.hashCode) {
+      groupChatId = '$postId-$doerId-$userId';
+    } else {
+      groupChatId = '$postId-$userId-$doerId';
+    }
+
+    var documentReference = Firestore.instance
+          .collection('messages')
+          .document(groupChatId)
+          .collection(groupChatId)
+          .document(DateTime.now().millisecondsSinceEpoch.toString());
+
+    Firestore.instance.runTransaction((transaction) async {
+      await transaction.set(
+        documentReference,
+        {
+          'idFrom': doerId == _authenticationService.currentUser.uid ? doerId : userId,
+          'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
+          'content': "Mark as done.",
+          'type': 0
+        },
+      );
+    });
+  }
 }
