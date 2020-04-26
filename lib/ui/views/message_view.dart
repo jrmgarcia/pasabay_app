@@ -176,7 +176,7 @@ class ChatScreenState extends State<ChatScreen> {
   }
 
   void onSendMessage(String content, int type) {
-    // type: 0 = text, 1 = image, 2 = sticker
+    // type: 0 = text, 1 = image, 2 = sticker, 3 = system
     if (content.trim() != '') {
       textEditingController.clear();
 
@@ -214,7 +214,7 @@ class ChatScreenState extends State<ChatScreen> {
                   child: Text(document['content']),
                   padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                   width: 200.0,
-                  decoration: BoxDecoration(color: document['content'] == "Mark as done." ? Theme.of(context).primaryColor : Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(10)),
+                  decoration: BoxDecoration(color: Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(10)),
                   margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
                 )
               : document['type'] == 1
@@ -265,8 +265,9 @@ class ChatScreenState extends State<ChatScreen> {
                       ),
                       margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
                     )
+                  : document['type'] == 2
                   // Sticker
-                  : Container(
+                  ? Container(
                       child: new Image.asset(
                         'assets/images/${document['content']}.PNG',
                         width: 150.0,
@@ -274,7 +275,16 @@ class ChatScreenState extends State<ChatScreen> {
                         fit: BoxFit.cover,
                       ),
                       margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
-                    ),
+                    )
+                  // System
+                  : Container(
+                    child: Text(document['content'], style: Theme.of(context).textTheme.subtitle),
+                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    width: 200.0,
+                    decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(10)),
+                    margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
+                  )
+                  ,
         ],
         mainAxisAlignment: MainAxisAlignment.end,
       );
@@ -320,7 +330,7 @@ class ChatScreenState extends State<ChatScreen> {
                         child: Text(document['content']),
                         padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                         width: 200.0,
-                        decoration: BoxDecoration(color: document['content'] == "Mark as done." ? Theme.of(context).primaryColor : Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(8.0)),
+                        decoration: BoxDecoration(color: Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(8.0)),
                         margin: EdgeInsets.only(left: 10.0),
                       )
                     : document['type'] == 1
@@ -370,15 +380,23 @@ class ChatScreenState extends State<ChatScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10.0),
                           )
-                        : Container(
-                            child: new Image.asset(
-                              'assets/images/${document['content']}.PNG',
-                              width: 150.0,
-                              height: 150.0,
-                              fit: BoxFit.cover,
+                        : document['type'] == 2
+                          ? Container(
+                              child: new Image.asset(
+                                'assets/images/${document['content']}.PNG',
+                                width: 150.0,
+                                height: 150.0,
+                                fit: BoxFit.cover,
+                              ),
+                              margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
+                            )
+                          : Container(
+                              child: Text(document['content'], style: Theme.of(context).textTheme.subtitle),
+                              padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                              width: 200.0,
+                              decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(8.0)),
+                              margin: EdgeInsets.only(left: 10.0),
                             ),
-                            margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
-                          ),
               ],
             ),
 
@@ -700,8 +718,8 @@ void markAsDone(String postId, String doerId) async {
         {
           'idFrom': doerId == _authenticationService.currentUser.uid ? doerId : userId,
           'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
-          'content': "Mark as done.",
-          'type': 0
+          'content': "✓ Marked as done.",
+          'type': 3
         },
       );
     });
