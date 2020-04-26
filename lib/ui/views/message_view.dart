@@ -320,7 +320,7 @@ class ChatScreenState extends State<ChatScreen> {
                         child: Text(document['content']),
                         padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                         width: 200.0,
-                        decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(8.0)),
+                        decoration: BoxDecoration(color: document['content'] == "Mark as done." ? Theme.of(context).primaryColor : Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(8.0)),
                         margin: EdgeInsets.only(left: 10.0),
                       )
                     : document['type'] == 1
