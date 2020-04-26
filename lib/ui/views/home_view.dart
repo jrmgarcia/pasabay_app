@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -65,10 +67,13 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
       drawer: MyDrawer(),
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: _showPage,
+      body: WillPopScope(
+        onWillPop: onBackPress,
+        child: Container(
+          color: Colors.white,
+          child: Center(
+            child: _showPage,
+          ),
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
@@ -89,5 +94,89 @@ class _HomeViewState extends State<HomeView> {
         },
       )
     );
+  }
+
+  Future<bool> onBackPress() {
+    openDialog();
+    return Future.value(false);
+  }
+
+  Future<Null> openDialog() async {
+    switch (await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+            contentPadding: EdgeInsets.all(0),
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)), color: Theme.of(context).primaryColor),
+                margin: EdgeInsets.all(0),
+                padding: EdgeInsets.only(bottom: 25.0, top: 25.0),
+                height: 150.0,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: Icon(
+                        FontAwesomeIcons.signOutAlt,
+                        size: 30.0,
+                        color: Colors.white,
+                      ),
+                      margin: EdgeInsets.only(bottom: 10.0),
+                    ),
+                    Text(
+                      'Exit app',
+                      style: Theme.of(context).textTheme.title
+                    ),
+                    Text(
+                      'Are you sure to exit app?',
+                      style: Theme.of(context).textTheme.subhead
+                    ),
+                  ],
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, 0);
+                },
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Icon(
+                        FontAwesomeIcons.timesCircle,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      margin: EdgeInsets.only(right: 10.0),
+                    ),
+                    Text('CANCEL', style: Theme.of(context).textTheme.subtitle)
+                  ],
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, 1);
+                },
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Icon(
+                        FontAwesomeIcons.checkCircle,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      margin: EdgeInsets.only(right: 10.0),
+                    ),
+                    Text('YES', style: Theme.of(context).textTheme.subtitle)
+                  ],
+                ),
+              ),
+            ],
+          );
+        })) {
+      case 0:
+        break;
+      case 1:
+        exit(0);
+        break;
+    }
   }
 }
