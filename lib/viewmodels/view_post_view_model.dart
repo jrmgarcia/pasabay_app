@@ -34,6 +34,7 @@ class ViewPostViewModel extends BaseModel {
 
     _navigationService.navigateTo(MessageViewRoute, 
       arguments: Task(
+        null,
         task.postId,
         task.userId,
         user.uid,
@@ -43,6 +44,8 @@ class ViewPostViewModel extends BaseModel {
         task.description,
         task.timestamp,
         task.fulfilledBy, 
+        task.userRated,
+        task.doerRated,
         task.userAvatar,
         task.userName,
         task.userEmail, 

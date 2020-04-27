@@ -3,18 +3,22 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
+import 'package:pasabay_app/models/rating.dart';
 import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/services/dialog_service.dart';
+import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
+import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:pasabay_app/ui/views/full_photo.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,14 +26,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 final NavigationService _navigationService = locator<NavigationService>();
+final FirestoreService _firestoreService = locator<FirestoreService>();
 final DialogService _dialogService = locator<DialogService>();
 
 class MessageView extends StatelessWidget {
   final Task viewingTask;
-  const MessageView({Key key, this.viewingTask}) : super(key: key);
+  MessageView({Key key, this.viewingTask}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var peer = _authenticationService.currentUser.uid == viewingTask.userId
+      ? User(photoUrl: viewingTask.doerAvatar, displayName: viewingTask.doerName, email: viewingTask.doerEmail, rating: viewingTask.doerRating, uid: viewingTask.doerId)
+      : User(photoUrl: viewingTask.userAvatar, displayName: viewingTask.userName, email: viewingTask.userEmail, rating: viewingTask.userRating, uid: viewingTask.userId);
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -51,10 +59,14 @@ class MessageView extends StatelessWidget {
         leading: myBackButton(context),
         actions: <Widget>[
           _authenticationService.currentUser.uid == viewingTask.userId && viewingTask.fulfilledBy == null
-          ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () => markAsDone(viewingTask.postId, viewingTask.doerId))
+          ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () => markAsDone(context, viewingTask.postId, viewingTask.doerId, peer))
           : Container(),
           viewingTask.fulfilledBy != null
-          ? IconButton(tooltip: 'Rate', icon: Icon(FontAwesomeIcons.solidStar), onPressed: () {})
+          ? _authenticationService.currentUser.uid == viewingTask.userId && viewingTask.userRated == false
+            ? IconButton(tooltip: 'Rate', icon: Icon(FontAwesomeIcons.solidStar), onPressed: () => rate(context, peer, viewingTask))
+            : _authenticationService.currentUser.uid == viewingTask.doerId && viewingTask.doerRated == false
+              ? IconButton(tooltip: 'Rate', icon: Icon(FontAwesomeIcons.solidStar), onPressed: () => rate(context, peer, viewingTask))
+              : Container()
           : Container()
         ],
       ),
@@ -65,9 +77,7 @@ class MessageView extends StatelessWidget {
           postId: viewingTask.postId,
           userId: viewingTask.userId,
           doerId: viewingTask.doerId,
-          peer: _authenticationService.currentUser.uid == viewingTask.userId
-          ? User(photoUrl: viewingTask.doerAvatar, displayName: viewingTask.doerName, email: viewingTask.doerEmail, rating: viewingTask.doerRating)
-          : User(photoUrl: viewingTask.userAvatar, displayName: viewingTask.userName, email: viewingTask.userEmail, rating: viewingTask.userRating)
+          peer: peer
         ),
       )
     );
@@ -297,106 +307,106 @@ class ChatScreenState extends State<ChatScreen> {
               children: <Widget>[
                 isLastMessageLeft(index)
                 ? Tooltip(
-                    message: 'View Profile',
-                    child: InkWell(
-                      onTap: () {_navigationService.navigateTo(ProfileViewRoute, arguments: User(
-                        displayName: peer.displayName, email: peer.email, photoUrl: peer.photoUrl, rating: peer.rating));},
+                  message: 'View Profile',
+                  child: InkWell(
+                    onTap: () {_navigationService.navigateTo(ProfileViewRoute, arguments: User(
+                      displayName: peer.displayName, email: peer.email, photoUrl: peer.photoUrl, rating: peer.rating));},
+                    child: Material(
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) => Container(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+                          ),
+                          width: 35.0,
+                          height: 35.0,
+                          padding: EdgeInsets.all(10.0),
+                        ),
+                        imageUrl: peer.photoUrl,
+                        width: 35.0,
+                        height: 35.0,
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18.0),
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                    ),
+                ),
+              )
+              : Container(width: 35.0),
+              document['type'] == 0
+              ? Container(
+                  child: Text(document['content']),
+                  padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                  width: 200.0,
+                  decoration: BoxDecoration(color: Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(8.0)),
+                  margin: EdgeInsets.only(left: 10.0),
+                )
+              : document['type'] == 1
+                ? Container(
+                    child: FlatButton(
                       child: Material(
                         child: CachedNetworkImage(
                           placeholder: (context, url) => Container(
                             child: CircularProgressIndicator(
-                              strokeWidth: 1.0,
                               valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
                             ),
-                            width: 35.0,
-                            height: 35.0,
-                            padding: EdgeInsets.all(10.0),
+                            width: 200.0,
+                            height: 200.0,
+                            padding: EdgeInsets.all(70.0),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).highlightColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8.0),
+                              ),
+                            ),
                           ),
-                          imageUrl: peer.photoUrl,
-                          width: 35.0,
-                          height: 35.0,
+                          errorWidget: (context, url, error) => Material(
+                            child: Image.asset(
+                              'assets/images/img_not_available.jpeg',
+                              width: 200.0,
+                              height: 200.0,
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(8.0),
+                            ),
+                            clipBehavior: Clip.hardEdge,
+                          ),
+                          imageUrl: document['content'],
+                          width: 200.0,
+                          height: 200.0,
                           fit: BoxFit.cover,
                         ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(18.0),
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         clipBehavior: Clip.hardEdge,
                       ),
-                  ),
-                )
-                : Container(width: 35.0),
-                document['type'] == 0
-                    ? Container(
-                        child: Text(document['content']),
-                        padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                        width: 200.0,
-                        decoration: BoxDecoration(color: Theme.of(context).highlightColor, borderRadius: BorderRadius.circular(8.0)),
-                        margin: EdgeInsets.only(left: 10.0),
-                      )
-                    : document['type'] == 1
-                        ? Container(
-                            child: FlatButton(
-                              child: Material(
-                                child: CachedNetworkImage(
-                                  placeholder: (context, url) => Container(
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
-                                    ),
-                                    width: 200.0,
-                                    height: 200.0,
-                                    padding: EdgeInsets.all(70.0),
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).highlightColor,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.0),
-                                      ),
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) => Material(
-                                    child: Image.asset(
-                                      'assets/images/img_not_available.jpeg',
-                                      width: 200.0,
-                                      height: 200.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8.0),
-                                    ),
-                                    clipBehavior: Clip.hardEdge,
-                                  ),
-                                  imageUrl: document['content'],
-                                  width: 200.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                clipBehavior: Clip.hardEdge,
-                              ),
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => FullPhoto(url: document['content'])));
-                              },
-                              padding: EdgeInsets.all(0),
-                            ),
-                            margin: EdgeInsets.only(left: 10.0),
-                          )
-                        : document['type'] == 2
-                          ? Container(
-                              child: new Image.asset(
-                                'assets/images/${document['content']}.PNG',
-                                width: 150.0,
-                                height: 150.0,
-                                fit: BoxFit.cover,
-                              ),
-                              margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
-                            )
-                          : Container(
-                              child: Text(document['content'], style: Theme.of(context).textTheme.subtitle),
-                              padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                              width: 200.0,
-                              decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(8.0)),
-                              margin: EdgeInsets.only(left: 10.0),
-                            ),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => FullPhoto(url: document['content'])));
+                      },
+                      padding: EdgeInsets.all(0),
+                    ),
+                    margin: EdgeInsets.only(left: 10.0),
+                  )
+                : document['type'] == 2
+                  ? Container(
+                      child: new Image.asset(
+                        'assets/images/${document['content']}.PNG',
+                        width: 150.0,
+                        height: 150.0,
+                        fit: BoxFit.cover,
+                      ),
+                      margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
+                    )
+                  : Container(
+                      child: Text(document['content'], style: Theme.of(context).textTheme.subtitle),
+                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                      width: 200.0,
+                      decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(8.0)),
+                      margin: EdgeInsets.only(left: 10.0),
+                    ),
               ],
             ),
 
@@ -657,47 +667,59 @@ class ChatScreenState extends State<ChatScreen> {
   Widget buildListMessage() {
     return Flexible(
       child: groupChatId == ''
-          ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor)))
-          : StreamBuilder(
-              stream: Firestore.instance
-                  .collection('messages')
-                  .document(groupChatId)
-                  .collection(groupChatId)
-                  .orderBy('timestamp', descending: true)
-                  .limit(20)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor)));
-                } else {
-                  listMessage = snapshot.data.documents;
-                  return ListView.builder(
-                    padding: EdgeInsets.all(10.0),
-                    itemBuilder: (context, index) => buildItem(index, snapshot.data.documents[index]),
-                    itemCount: snapshot.data.documents.length,
-                    reverse: true,
-                    controller: listScrollController,
-                  );
-                }
-              },
-            ),
+      ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor)))
+      : StreamBuilder(
+          stream: Firestore.instance
+              .collection('messages')
+              .document(groupChatId)
+              .collection(groupChatId)
+              .orderBy('timestamp', descending: true)
+              .limit(20)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor)));
+            } else {
+              listMessage = snapshot.data.documents;
+              return ListView.builder(
+                padding: EdgeInsets.all(10.0),
+                itemBuilder: (context, index) => buildItem(index, snapshot.data.documents[index]),
+                itemCount: snapshot.data.documents.length,
+                reverse: true,
+                controller: listScrollController,
+              );
+            }
+          },
+        ),
     );
   }
 }
 
-void markAsDone(String postId, String doerId) async {
+void markAsDone(BuildContext context, String postId, String doerId, User peer) async {
+
+  var peerName = peer.displayName.substring(0, peer.displayName.indexOf(' '));
+
   var dialogResponse = await _dialogService.showConfirmationDialog(
     title: 'Mark as done',
-    description: 'Do you really want to mark this tasks as done?',
+    description: 'Is $peerName done?',
     confirmationTitle: 'Yes',
     cancelTitle: 'No',
   );
 
   if (dialogResponse.confirmed) {
     await Firestore.instance.collection('posts').document(postId).updateData({'fulfilledBy': doerId});
-    
-    var groupChatId = '';
+
+    generateSysMsg(postId, doerId, "✓ Marked as done.");
+
+    rate(context, peer);
+
+    _navigationService.navigateTo(HomeViewRoute);
+  }
+}
+
+void generateSysMsg(String postId, String doerId, String message) {
+  var groupChatId = '';
     var userId = _authenticationService.currentUser.uid;
     
     if (doerId.hashCode <= userId.hashCode) {
@@ -718,10 +740,116 @@ void markAsDone(String postId, String doerId) async {
         {
           'idFrom': doerId == _authenticationService.currentUser.uid ? doerId : userId,
           'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
-          'content': "✓ Marked as done.",
+          'content': message,
           'type': 3
         },
       );
     });
+}
+
+Future<Null> rate(BuildContext context, User peer, [Task task]) async {
+  var inputRating;
+  switch (await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      var peerName = peer.displayName.substring(0, peer.displayName.indexOf(' '));
+      return SimpleDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        contentPadding: EdgeInsets.all(0),
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)), color: Theme.of(context).primaryColor),
+            margin: EdgeInsets.all(0),
+            padding: EdgeInsets.only(bottom: 25.0, top: 25.0),
+            height: 150.0,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Rate $peerName',
+                  style: Theme.of(context).textTheme.title
+                ),
+                verticalSpaceSmall,
+                RatingBar(
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    FontAwesomeIcons.solidStar,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  onRatingUpdate: (rating) {
+                    inputRating = rating;
+                    print(inputRating);
+                  },
+                ),
+              ],
+            ),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.pop(context, 0);
+            },
+            child: Row(
+              children: <Widget>[
+                Container(
+                  child: Icon(
+                    FontAwesomeIcons.timesCircle,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  margin: EdgeInsets.only(right: 10.0),
+                ),
+                Text('NOT NOW', style: Theme.of(context).textTheme.subtitle)
+              ],
+            ),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.pop(context, 1);
+            },
+            child: Row(
+              children: <Widget>[
+                Container(
+                  child: Icon(
+                    FontAwesomeIcons.checkCircle,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  margin: EdgeInsets.only(right: 10.0),
+                ),
+                Text('SUBMIT', style: Theme.of(context).textTheme.subtitle)
+              ],
+            ),
+          ),
+        ],
+      );
+    })) {
+    case 0:
+      break;
+    case 1:
+
+      addRating(task, inputRating);
+      generateSysMsg(task.postId, peer.uid, "★ Rated $inputRating star/s.");
+
+      if (_authenticationService.currentUser.uid == task.userId) {
+        await Firestore.instance.collection('posts').document(task.postId).updateData({'userRated': true});
+      } else await Firestore.instance.collection('posts').document(task.postId).updateData({'doerRated': true});
+
+      _navigationService.navigateTo(HomeViewRoute);
+
+      break;
   }
+} 
+
+Future addRating(Task task, double rate) async {
+  try {
+    
+    var rating = Rating(
+      transactionId: task.transactionId,
+      ratingTo: _authenticationService.currentUser.uid == task.userId ? task.doerId : task.userId,
+      rate: rate
+    );
+
+    await _firestoreService.addRating(rating);
+    
+  } catch (e) {}
 }

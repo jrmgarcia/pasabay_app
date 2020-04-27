@@ -9,6 +9,8 @@ class Post {
   final String category;
   final String timestamp;
   final String fulfilledBy;
+  final bool userRated;
+  final bool doerRated;
 
   Post({
     @required this.userId,
@@ -18,7 +20,9 @@ class Post {
     this.reward,
     this.description,
     this.timestamp,
-    this.fulfilledBy
+    this.fulfilledBy,
+    this.userRated,
+    this.doerRated
   });
 
   Post.fromData(Map<String, dynamic> data)
@@ -29,7 +33,9 @@ class Post {
         description = data['description'],
         category = data['category'],
         timestamp = data['timestamp'],
-        fulfilledBy = data['fulfilledBy'];
+        fulfilledBy = data['fulfilledBy'],
+        userRated = data['userRated'],
+        doerRated = data['doerRated'];
 
   Map<String, dynamic> toMap() {
     return {
@@ -40,7 +46,9 @@ class Post {
       'description': description, 
       'category': category,
       'timestamp': DateTime.now().toString(),
-      'fulfilledBy': null
+      'fulfilledBy': null,
+      'userRated': false,
+      'doerRated': false
     };
   }
 
@@ -55,6 +63,8 @@ class Post {
       category: map['category'],
       timestamp: map['timestamp'],
       fulfilledBy: map['fulfilledBy'],
+      userRated: map['userRated'],
+      doerRated: map['doerRated'],
       documentId: documentId,
     );
   }

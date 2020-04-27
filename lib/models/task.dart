@@ -1,4 +1,5 @@
 class Task {
+  final transactionId;
   final postId;
   final userId;
   final doerId;
@@ -8,6 +9,8 @@ class Task {
   final description;
   final timestamp;
   final fulfilledBy;
+  final userRated;
+  final doerRated;
   final userAvatar;
   final userName;
   final userEmail;
@@ -18,6 +21,7 @@ class Task {
   final doerRating;
   
   Task(
+    this.transactionId,
     this.postId, 
     this.userId, 
     this.doerId, 
@@ -26,7 +30,9 @@ class Task {
     this.reward, 
     this.description, 
     this.timestamp, 
-    this. fulfilledBy, 
+    this.fulfilledBy, 
+    this.userRated, 
+    this.doerRated, 
     this.userAvatar, 
     this.userName, 
     this.userEmail, 

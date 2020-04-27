@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pasabay_app/models/rating.dart';
 import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/models/transaction.dart';
 import 'package:pasabay_app/models/post.dart';
@@ -13,6 +14,8 @@ class FirestoreService {
       Firestore.instance.collection('posts');
   final CollectionReference _transactionCollectionReference = 
       Firestore.instance.collection('transactions');
+  final CollectionReference _ratingCollectionReference = 
+      Firestore.instance.collection('ratings');
 
   Future createUser(User user) async {
     try {
@@ -62,7 +65,7 @@ class FirestoreService {
   }
 
   Stream<List<Task>> getChatData() async* {
-    var tasksStream = Firestore.instance.collection('transactions').snapshots();
+    var tasksStream = _transactionCollectionReference.snapshots();
     var tasks = List<Task>();
     await for (var tasksSnapshot in tasksStream) {
       for (var taskDoc in tasksSnapshot.documents) {
@@ -72,6 +75,7 @@ class FirestoreService {
           var userSnapshot = await _usersCollectionReference.document(taskDoc['userId']).get();
           var doerSnapshot = await _usersCollectionReference.document(taskDoc['doerId']).get();
           task = Task(
+            taskDoc.documentID,
             taskDoc["postId"],
             taskDoc["userId"],
             taskDoc["doerId"],
@@ -80,7 +84,9 @@ class FirestoreService {
             postSnapshot["reward"], 
             postSnapshot["description"], 
             postSnapshot["timestamp"], 
-            postSnapshot["fulfilledBy"], 
+            postSnapshot["fulfilledBy"],
+            postSnapshot["userRated"],
+            postSnapshot["doerRated"], 
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
             userSnapshot["email"], 
@@ -91,7 +97,7 @@ class FirestoreService {
             doerSnapshot["rating"]
           );
         }
-        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tasks.add(task);
       }
       yield tasks;
@@ -99,7 +105,7 @@ class FirestoreService {
   }
 
   Stream<List<Task>> getBrowseData(String browsingCategory) async* {
-    var tasksStream = Firestore.instance.collection('posts')
+    var tasksStream = _postsCollectionReference
             .where('category', isEqualTo: browsingCategory)
             .where('fulfilledBy', isNull: true)
             .orderBy('timestamp', descending: true)
@@ -111,6 +117,7 @@ class FirestoreService {
         if (taskDoc["userId"] != null) {
           var userSnapshot = await _usersCollectionReference.document(taskDoc['userId']).get();
           task = Task(
+            null,
             taskDoc.documentID,
             taskDoc["userId"],
             null,
@@ -120,6 +127,8 @@ class FirestoreService {
             taskDoc["description"], 
             taskDoc["timestamp"], 
             taskDoc["fulfilledBy"], 
+            taskDoc["userRated"],
+            taskDoc["doerRated"], 
             userSnapshot["photoUrl"], 
             userSnapshot["displayName"], 
             userSnapshot["email"], 
@@ -130,10 +139,16 @@ class FirestoreService {
             null
           );
         }
-        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tasks.add(task);
       }
       yield tasks;
     }
+  }
+
+  Future addRating(Rating rating) async {
+    try {
+      await _ratingCollectionReference.add(rating.toMap());
+    } catch (e) {}
   }
 }
