@@ -192,7 +192,7 @@ class _OnboardingViewState extends State<OnboardingView> {
       ),
       bottomSheet: _currentPage == _numPages - 1
           ? Container(
-              height: queryData.size.height/8,
+              height: queryData.size.height/6,
               width: double.infinity,
               child: GestureDetector(
                 onTap: () => _navigationService.navigateTo(LoginViewRoute),
