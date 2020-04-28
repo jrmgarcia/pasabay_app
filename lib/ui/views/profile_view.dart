@@ -1,4 +1,5 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +41,7 @@ class ProfileView extends StatelessWidget {
                   color: Theme.of(context).accentColor,
               ),
               itemCount: 5,
-              itemSize: 50.0,
-              direction: Axis.horizontal,
+              itemSize: 50.0
           ),
           Text(
             viewingUser.rating.toString(),
@@ -77,7 +77,7 @@ class ProfileView extends StatelessWidget {
                   margin: EdgeInsets.all(8),
                   child: ListTile(
                     leading: Icon(
-                      Icons.email,
+                      FontAwesomeIcons.solidEnvelope,
                       color: Theme.of(context).accentColor,
                     ),
                     title:Text(
@@ -86,10 +86,8 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
-                onTap: () {
-
-                }
-              ),
+                onTap: () {}
+              )
             ],
           ),
         ),

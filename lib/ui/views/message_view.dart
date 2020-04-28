@@ -771,7 +771,6 @@ Future<Null> rate(BuildContext context, User peer, [Task task]) async {
                 verticalSpaceSmall,
                 RatingBar(
                   minRating: 1,
-                  direction: Axis.horizontal,
                   itemCount: 5,
                   itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                   itemBuilder: (context, _) => Icon(
