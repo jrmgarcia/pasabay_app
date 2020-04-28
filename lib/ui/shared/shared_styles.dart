@@ -15,7 +15,6 @@ BoxDecoration disabledFieldDecortaion = BoxDecoration(
     borderRadius: BorderRadius.circular(5), color: Colors.grey[100]);
 
 // Field Variables
-
 const double fieldHeight = 55;
 const double smallFieldHeight = 40;
 const double inputFieldBottomMargin = 30;
@@ -24,24 +23,7 @@ const EdgeInsets fieldPadding = const EdgeInsets.symmetric(horizontal: 15);
 const EdgeInsets largeFieldPadding =
     const EdgeInsets.symmetric(horizontal: 15, vertical: 15);
 
-// Text Variables
-const TextStyle buttonTitleTextStyle =
-    const TextStyle(fontWeight: FontWeight.w700, color: Colors.white);
-
-// Text Styles
-final myTitleStyle = TextStyle(
-  fontWeight: FontWeight.bold,
-  color: Colors.white,
-  fontSize: 26.0,
-  height: 1.5,
-);
-
-final mySubtitleStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 18.0,
-  height: 1.2,
-);
-
+// Custome Widgets
 myBoxDecoration(BuildContext context) {
   return BoxDecoration(
     color: Theme.of(context).cardColor,

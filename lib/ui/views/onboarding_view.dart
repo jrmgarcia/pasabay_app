@@ -72,7 +72,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   ),
                 ),
                 Container(
-                  height: 600.0,
+                  height: 500,
                   child: PageView(
                     physics: ClampingScrollPhysics(),
                     controller: _pageController,
@@ -83,23 +83,32 @@ class _OnboardingViewState extends State<OnboardingView> {
                     },
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              child: Image.asset('assets/images/onboarding-0.PNG', height: 256),
+                            Flexible(
+                              flex: 3,
+                              child: SizedBox(
+                                child: Image.asset('assets/images/onboarding-0.PNG'),
+                              ),
                             ),
                             verticalSpaceMedium,
-                            SizedBox(
-                              child: Image.asset('assets/images/pasabay_logo.png', height: 90),
+                            Flexible(
+                              flex: 1,
+                              child: SizedBox(
+                                child: Image.asset('assets/images/pasabay_logo.png'),
+                              ),
                             ),
-                            verticalSpaceMedium,
-                            Text(
-                              'This platform is only available for UPLB community at this moment.',
-                              style: mySubtitleStyle,
-                              textAlign: TextAlign.center,
+                            verticalSpaceSmall,
+                            Flexible(
+                              flex: 1,
+                              child: Text(
+                                'This platform is only available for UPLB community at this moment.',
+                                style: Theme.of(context).textTheme.subhead.apply(color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ],
                         ),
@@ -110,47 +119,59 @@ class _OnboardingViewState extends State<OnboardingView> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Center(
+                            Flexible(
+                              flex: 8,
                               child: SizedBox(
-                                child: Image.asset('assets/images/onboarding-1.PNG', height: 360),
+                                child: Image.asset('assets/images/onboarding-1.PNG'),
                               ),
                             ),
-                            Text(
-                              'Get your tasks done!',
-                              style: myTitleStyle,
-                              textAlign: TextAlign.center,
+                            Flexible(
+                              flex: 1,
+                              child: Text(
+                                'Get your tasks done!',
+                                style: Theme.of(context).textTheme.headline.apply(color: Colors.white, fontWeightDelta: 2),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            verticalSpaceMedium,
-                            Text(
-                              'Post what you need to get done, how to do it, and how much you are willing to pay for it.',
-                              style: mySubtitleStyle,
-                              textAlign: TextAlign.center,
+                            verticalSpaceSmall,
+                            Flexible(
+                              flex: 1,
+                              child: Text(
+                                'Post what you need to get done, how to do it, and how much you are willing to pay for it.',
+                                style: Theme.of(context).textTheme.subhead.apply(color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 100),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 60),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Center(
+                            Flexible(
+                              flex: 8,
                               child: SizedBox(
-                                child: Image.asset('assets/images/onboarding-2.PNG', height: 360),
+                                child: Image.asset('assets/images/onboarding-2.PNG'),
                               ),
                             ),
-
-                            Text(
-                              'Make extra income!',
-                              style: myTitleStyle,
-                              textAlign: TextAlign.center,
+                            Flexible(
+                              flex: 1,
+                              child: Text(
+                                'Make extra income!',
+                                style: Theme.of(context).textTheme.headline.apply(color: Colors.white, fontWeightDelta: 2)
+                              ),
                             ),
-                            verticalSpaceMedium,
-                            Text(
-                              'Get things done and earn some cash.',
-                              style: mySubtitleStyle,
-                              textAlign: TextAlign.center,
+                            verticalSpaceSmall,
+                            Flexible(
+                              flex: 1,
+                              child: Text(
+                                'Get things done and earn some cash.',
+                                style: Theme.of(context).textTheme.subhead.apply(color: Colors.white),
+                                textAlign: TextAlign.center
+                              ),
                             ),
                           ],
                         ),

@@ -16,10 +16,9 @@ class ViewPostView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final taskReward = Container(
-      padding: const EdgeInsets.all(7.0),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(5.0)),
+          borderRadius: BorderRadius.circular(10.0)),
       child: Center(
         child: Text(
           "PHP " + viewingPost.reward,
@@ -45,35 +44,44 @@ class ViewPostView extends StatelessWidget {
       );
     }
 
-
     Widget topContentText(User user) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           verticalSpaceMassive,
-          Icon(
-            categoryIcon(viewingPost.category),
-            color: Colors.white,
-            size: 40.0,
+          Flexible(
+            flex: 1,
+            child: Icon(
+              categoryIcon(viewingPost.category),
+              color: Colors.white,
+              size: 40.0,
+            ),
           ),
-          Container(
-            width: 90.0,
-            child: Divider(color: Colors.white),
+          Flexible(
+            flex: 1,
+            child: Container(
+              width: 90.0,
+              child: Divider(color: Colors.white),
+            ),
           ),
-          verticalSpaceSmall,
-          Text(
-            viewingPost.title,
-            style: Theme.of(context).textTheme.headline.apply(color: Colors.white),
-            overflow: TextOverflow.ellipsis
+          Flexible(
+            flex: 1,
+            child: Text(
+              viewingPost.title,
+              style: Theme.of(context).textTheme.headline.apply(color: Colors.white),
+              overflow: TextOverflow.ellipsis
+            ),
           ),
-          verticalSpaceSmall,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(flex: 1, child: taskOwner(user)),
-              Expanded(flex: 2, child: taskOwnerRating(user)),
-              Expanded(flex: 1, child: taskReward)
-            ],
+          Flexible(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(flex: 1, child: taskOwner(user)),
+                Expanded(flex: 1, child: taskOwnerRating(user)),
+                Expanded(flex: 1, child: taskReward)
+              ],
+            ),
           ),
         ],
       );
