@@ -151,4 +151,21 @@ class FirestoreService {
       await _ratingCollectionReference.add(rating.toMap());
     } catch (e) {}
   }
+
+  Future <List<Map<dynamic, dynamic>>> getRating(String uid) async{
+    List<DocumentSnapshot> tempList;
+    List<Map<dynamic, dynamic>> list = new List();
+    QuerySnapshot ratingSnapshot = await _ratingCollectionReference
+      .where('ratingTo', isEqualTo: uid)
+      .getDocuments();
+
+    tempList = ratingSnapshot.documents;
+
+    list = tempList.map((DocumentSnapshot docSnapshot){
+      return docSnapshot.data;
+    }).toList();
+
+    return list;
+  }
+  
 }

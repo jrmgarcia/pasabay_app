@@ -28,17 +28,22 @@ class AuthenticationService {
       final FirebaseUser user = authResult.user;
       await _populateCurrentUser(user);
 
+      // get current user rating
+      var ratings = await _firestoreService.getRating(_currentUser.uid);
+      var userRating = ratings.map((m) => m['rate']).reduce((a, b) => a + b) / ratings.length;
+
       // create a new user profile on firestore
       _currentUser = User(
         uid: user.uid,
         displayName: user.displayName,
         email: user.email,
         photoUrl: user.photoUrl,
-        rating: 5.00
+        rating: userRating
       );
+      
       await _firestoreService.createUser(_currentUser);
 
-      print("User signed in.");  
+      print("User signed in.");
 
       return user != null;
     } catch (e) {}
