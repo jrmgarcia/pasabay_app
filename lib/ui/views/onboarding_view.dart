@@ -42,6 +42,8 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -72,7 +74,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   ),
                 ),
                 Container(
-                  height: 500,
+                  height: queryData.size.height/1.3,
                   child: PageView(
                     physics: ClampingScrollPhysics(),
                     controller: _pageController,
