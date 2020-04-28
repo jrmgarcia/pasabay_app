@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "527917572271-l7o00ordj26qkj2llphi99qdebl6ti4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pasabay_app",
+            "certificate_hash": "4136859530b0153ca6fa6842c22e6f971c95c35a"
+          }
+        },
+        {
           "client_id": "527917572271-m62amlnj284f77hee5q9agolnlif3kol.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
