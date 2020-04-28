@@ -26,31 +26,33 @@ class TransactionView extends StatelessWidget {
             return ListView(
               padding: EdgeInsets.all(8),
               children: messagesSnapshot.data.map((Task task) {
-                return Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  margin: EdgeInsets.all(8),
-                  child: InkWell(
-                    onTap: () => _navigationService.navigateTo(MessageViewRoute, arguments: task),
-                    child: ListTile(
-                      leading: userPhotoUrl(_authenticationService.currentUser.uid == task.userId ? task.doerAvatar : task.userAvatar),
-                      title: Text(
-                        task.title.toUpperCase(),
-                        style: Theme.of(context).textTheme.title,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Text(
-                        task.category + " • " + 
-                        task.reward + " PHP" + "\n" + 
-                        peerUser(task),
-                        style: Theme.of(context).textTheme.body1,
-                        overflow: TextOverflow.ellipsis,
+                if (task.userId == _authenticationService.currentUser.uid || task.doerId == _authenticationService.currentUser.uid) {
+                  return Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin: EdgeInsets.all(8),
+                    child: InkWell(
+                      onTap: () => _navigationService.navigateTo(MessageViewRoute, arguments: task),
+                      child: ListTile(
+                        leading: userPhotoUrl(_authenticationService.currentUser.uid == task.userId ? task.doerAvatar : task.userAvatar),
+                        title: Text(
+                          task.title.toUpperCase(),
+                          style: Theme.of(context).textTheme.title,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                          task.category + " • " + 
+                          task.reward + " PHP" + "\n" + 
+                          peerUser(task),
+                          style: Theme.of(context).textTheme.body1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-                );
+                  );
+                } else return SizedBox();
               }
             ).toList()
           );
