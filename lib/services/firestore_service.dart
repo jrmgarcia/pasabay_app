@@ -70,13 +70,13 @@ class FirestoreService {
     await for (var tasksSnapshot in tasksStream) {
       for (var taskDoc in tasksSnapshot.documents) {
         var task;
-        if (taskDoc["userId"] != null) {
+        if (taskDoc.exists) {
           var postSnapshot = await _postsCollectionReference.document(taskDoc['postId']).get();
           var userSnapshot = await _usersCollectionReference.document(taskDoc['userId']).get();
           var doerSnapshot = await _usersCollectionReference.document(taskDoc['doerId']).get();
           task = Task(
             taskDoc.documentID,
-            taskDoc["postId"],
+            taskDoc["postId"], 
             taskDoc["userId"],
             taskDoc["doerId"],
             postSnapshot["title"], 
