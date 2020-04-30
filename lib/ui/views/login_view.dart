@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
-import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:pasabay_app/viewmodels/login_view_model.dart';
 
