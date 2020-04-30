@@ -10,6 +10,8 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return ViewModelProvider<LoginViewModel>.withConsumer(
       viewModel: LoginViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -22,27 +24,35 @@ class LoginView extends StatelessWidget {
               colors: myGradient
             )
           ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  child: Image.asset('assets/images/pasabay_logo.png', height: 90),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Flexible(
+                flex: 1,
+                child: SizedBox(
+                  child: Image.asset('assets/images/pasabay_logo.png'),
                 ),
-                verticalSpaceLarge,
-                SizedBox(
-                  child: Image.asset('assets/images/pasabay_icon.png', height: 210),
+              ),
+              Flexible(
+                flex: 6,
+                child: Padding(
+                  padding: EdgeInsets.all(queryData.size.width/8),
+                  child: SizedBox(
+                    child: Image.asset('assets/images/pasabay_icon.png'),
+                  ),
                 ),
-                verticalSpaceLarge,
-                RaisedButton(
+              ),
+              Flexible(
+                flex: 1,
+                child: RaisedButton(
                   onPressed: () {
                     model.signIn();
                   },
                   color: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +62,7 @@ class LoginView extends StatelessWidget {
                           child: Image.asset('assets/images/google_logo.png'),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 10),
+                          padding: EdgeInsets.only(left: 10),
                           child: Text(
                             'Sign in with Google',
                             style: Theme.of(context).textTheme.subtitle.apply(color: Color(0xFF888888)),
@@ -61,9 +71,9 @@ class LoginView extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

@@ -21,13 +21,15 @@ class DashboardView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           verticalDirection: VerticalDirection.down,
           children: <Widget>[
-            Center(
+            Flexible(
+              flex: 4,
               child: SizedBox(
-                child: Image.asset('assets/images/' + fileName, height: 150),
+                child: Image.asset('assets/images/' + fileName),
               )
             ),
-            Center(
-              child: Text(title, style: Theme.of(context).textTheme.subtitle),
+            Flexible(
+              flex: 1,
+              child: Text(title, style: Theme.of(context).textTheme.subtitle, textAlign: TextAlign.center),
             )
           ],
         ),
