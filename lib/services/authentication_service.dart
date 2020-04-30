@@ -26,22 +26,34 @@ class AuthenticationService {
 
       final AuthResult authResult = await _firebaseAuth.signInWithCredential(credential);
       final FirebaseUser user = authResult.user;
-      await _populateCurrentUser(user);
+
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final FirebaseUser currentUser = await _firebaseAuth.currentUser();
+      assert(user.uid == currentUser.uid);
+
+      await _populateCurrentUser(currentUser);
 
       // get current user rating
-      var ratings = await _firestoreService.getRating(_currentUser.uid);
-      var userRating = ratings.map((m) => m['rate']).reduce((a, b) => a + b) / ratings.length;
+      var ratings = await _firestoreService.getRating(user.uid);
+
+      var userRating;
+      if (ratings.length != 0) {
+        userRating = ratings.map((m) => m['rate']).reduce((a, b) => a + b) / ratings.length;
+      } else userRating = 0.0;
 
       // create a new user profile on firestore
-      _currentUser = User(
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        photoUrl: user.photoUrl,
+      var newUser = User(
+        uid: currentUser.uid,
+        displayName: currentUser.displayName,
+        email: currentUser.email,
+        photoUrl: currentUser.photoUrl,
         rating: userRating
       );
+      _currentUser = newUser;
       
-      await _firestoreService.createUser(_currentUser);
+      await _firestoreService.createUser(newUser);
 
       print("User signed in.");
 
