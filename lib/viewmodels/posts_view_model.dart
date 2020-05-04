@@ -15,21 +15,20 @@ class PostsViewModel extends BaseModel {
     await _navigationService.navigateTo(CreatePostViewRoute);
   }
 
-  PostItem buildItem(DocumentSnapshot doc) {
+  PostItem buildItem(Post post) {
     return PostItem(
-      post: Post.fromMap(doc.data, doc.documentID),
-      onDeleteItem: () => deletePost(doc),
-      onTap: () => updatePost(doc)
+      post: post,
+      onDeleteItem: () => deletePost(post),
+      onTap: () => updatePost(post)
     );
   }
 
-  void updatePost(DocumentSnapshot doc) async {
-    _navigationService.navigateTo(CreatePostViewRoute, arguments: Post.fromMap(doc.data, doc.documentID));
+  void updatePost(Post post) async {
+    _navigationService.navigateTo(CreatePostViewRoute, arguments: post);
   }
 
-  void deletePost(DocumentSnapshot doc) async {
-    var postToDelete = doc;
-    var postToDeleteTitle = postToDelete.data['title'];
+  void deletePost(Post post) async {
+    var postToDeleteTitle = post.title;
     
     var dialogResponse = await _dialogService.showConfirmationDialog(
       title: 'Delete a post',
@@ -39,7 +38,8 @@ class PostsViewModel extends BaseModel {
     );
 
     if (dialogResponse.confirmed) {
-      await Firestore.instance.collection('posts').document(doc.documentID).delete();
+      await Firestore.instance.collection('posts').document(post.documentId).delete();
+      _navigationService.navigateTo(HomeViewRoute);
     }
   }
 }
