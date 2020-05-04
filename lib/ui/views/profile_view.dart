@@ -1,6 +1,8 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/user.dart';
+import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
@@ -10,7 +12,9 @@ import 'package:provider_architecture/viewmodel_provider.dart';
 
 class ProfileView extends StatelessWidget {
   final User viewingUser;
-  const ProfileView({Key key, this.viewingUser}) : super(key: key);
+  ProfileView({Key key, this.viewingUser}) : super(key: key);
+
+  final AuthenticationService _authenticationService = locator<AuthenticationService>();
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +95,23 @@ class ProfileView extends StatelessWidget {
             ],
           ),
         ),
+        floatingActionButton: _getFloatingActionButton(model, context),
       ),
     );
+  }
+
+  Widget _getFloatingActionButton(ProfileViewModel model, BuildContext context) {
+    if (_authenticationService.currentUser.uid == viewingUser.uid) {
+      return Container();
+    } else {
+      return FloatingActionButton(
+        tooltip: 'Block',
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(FontAwesomeIcons.ban, color: Colors.white),
+        onPressed: () {
+          model.block(blockedUser: viewingUser.uid, blockedBy: _authenticationService.currentUser.uid);
+        }
+      );
+    }
   }
 }

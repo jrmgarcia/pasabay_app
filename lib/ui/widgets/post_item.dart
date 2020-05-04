@@ -32,7 +32,8 @@ class PostItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           trailing: IconButton(
-            icon: Tooltip(message: 'Delete', child: Icon(FontAwesomeIcons.times, color: Theme.of(context).accentColor)),
+            tooltip: 'Delete',
+            icon: Icon(FontAwesomeIcons.times, color: Theme.of(context).accentColor),
             onPressed: () {
               if (onDeleteItem != null) {
                 onDeleteItem();

@@ -310,7 +310,7 @@ class ChatScreenState extends State<ChatScreen> {
                   message: 'View Profile',
                   child: InkWell(
                     onTap: () {_navigationService.navigateTo(ProfileViewRoute, arguments: User(
-                      displayName: peer.displayName, email: peer.email, photoUrl: peer.photoUrl, rating: peer.rating));},
+                      displayName: peer.displayName, email: peer.email, photoUrl: peer.photoUrl, rating: peer.rating, uid: peer.uid));},
                     child: Material(
                       child: CachedNetworkImage(
                         placeholder: (context, url) => Container(

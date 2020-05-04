@@ -16,6 +16,8 @@ class FirestoreService {
       Firestore.instance.collection('transactions');
   final CollectionReference _ratingCollectionReference = 
       Firestore.instance.collection('ratings');
+  final CollectionReference _blacklistCollectionReference = 
+      Firestore.instance.collection('blacklists');
 
   Future createUser(User user) async {
     try {
@@ -57,11 +59,29 @@ class FirestoreService {
     } catch (e) {}
   }
 
-  Future getPost(String pid) async {
-    try {
-      var postData = await _postsCollectionReference.document(pid).get();
-      return Post.fromData(postData.data);
-    } catch (e) {}
+  Stream<List<Post>> getPostData(String uid) async* {
+    var postsStream = _postsCollectionReference
+          .where('userId', isEqualTo: uid)
+          .snapshots();
+    var posts = List<Post>();
+    await for (var postsSnapshot in postsStream) {
+      for (var postDoc in postsSnapshot.documents) {
+        var post;
+        if (postDoc.exists) {
+          post = Post(
+            documentId: postDoc.documentID,
+            title: postDoc["title"], 
+            reward: postDoc["reward"], 
+            description: postDoc["description"], 
+            category: postDoc["category"], 
+            userId: postDoc["userId"]
+          );
+        }
+        else post = Post(title: null, category: null, userId: null);
+        posts.add(post);
+      }
+      yield posts;
+    }
   }
 
   Stream<List<Task>> getChatData() async* {
@@ -166,6 +186,51 @@ class FirestoreService {
     }).toList();
 
     return list;
+  }
+
+  Future blockUser(String blockedBy, String blockedUser) async {
+    try {
+      await _blacklistCollectionReference.add(
+        {
+          'blockedUser': blockedUser,
+          'blockedBy': blockedBy
+        }
+      );
+    } catch (e) {}
+  }
+
+  Future unblockUser(String blockedBy, String blockedUser) async {
+    try {
+      QuerySnapshot blacklist = await _blacklistCollectionReference
+          .where('blockedBy', isEqualTo: blockedBy)
+          .where('blockedUser', isEqualTo: blockedUser)
+          .getDocuments();
+      await _blacklistCollectionReference.document(blacklist.documents.first.documentID).delete();
+    } catch (e) {}
+  }
+
+  Stream<List<User>> getBlacklistData(String uid) async* {
+    var usersStream = _blacklistCollectionReference
+          .where('blockedBy', isEqualTo: uid)
+          .snapshots();
+    var users = List<User>();
+    await for (var usersSnapshot in usersStream) {
+      for (var userDoc in usersSnapshot.documents) {
+        var user;
+        if (userDoc.exists) {
+          var userSnapshot = await _usersCollectionReference.document(userDoc['blockedUser']).get();
+          user = User(
+            displayName: userSnapshot["displayName"],
+            photoUrl: userSnapshot["photoUrl"], 
+            email: userSnapshot["email"], 
+            uid: userSnapshot["uid"]
+          );
+        }
+        else user = User();
+        users.add(user);
+      }
+      yield users;
+    }
   }
   
 }
