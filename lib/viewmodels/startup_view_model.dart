@@ -14,7 +14,8 @@ class StartUpViewModel extends BaseModel {
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 
     if (hasLoggedInUser) {
-      _navigationService.navigateTo(HomeViewRoute);
+      await _authenticationService.syncUserProfile(_authenticationService.currentUser.uid);
+      await _navigationService.navigateTo(HomeViewRoute);
     } else {
       _navigationService.navigateTo(OnboardingViewRoute);
     }

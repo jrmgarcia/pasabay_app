@@ -19,7 +19,8 @@ class LoginViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(HomeViewRoute);
+        await _authenticationService.syncUserProfile(_authenticationService.currentUser.uid);
+        await _navigationService.navigateTo(HomeViewRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Sign In Failure'
