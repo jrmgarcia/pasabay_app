@@ -1,5 +1,6 @@
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
+import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -10,6 +11,7 @@ class BlacklistViewModel extends BaseModel {
   final DialogService _dialogService = locator<DialogService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final AuthenticationService _authenticationService = locator<AuthenticationService>();
 
   Future unblock(String blockedBy, String blockedUser) async {
     
@@ -22,6 +24,7 @@ class BlacklistViewModel extends BaseModel {
 
     if (dialogResponse.confirmed) {
       await _firestoreService.unblockUser(blockedBy, blockedUser);
+      await _authenticationService.syncUserProfile(blockedBy);
       await _navigationService.navigateTo(HomeViewRoute);
     }
 

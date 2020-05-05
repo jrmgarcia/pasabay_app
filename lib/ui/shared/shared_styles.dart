@@ -133,6 +133,6 @@ final AuthenticationService _authenticationService = locator<AuthenticationServi
 
 peerUser(Task task) {
   if (task.userId == _authenticationService.currentUser.uid) {
-    return task.doerName.substring(0, task.doerName.indexOf(' ')) + " " + task.doerRating.toString() + " ★";
-  } else return task.userName.substring(0, task.userName.indexOf(' ')) + " " + task.userRating.toString() + " ★";
+    return task.doerName.substring(0, task.doerName.indexOf(' ')) + " " + task.doerRating.toStringAsFixed(2) + " ★";
+  } else return task.userName.substring(0, task.userName.indexOf(' ')) + " " + task.userRating.toStringAsFixed(2) + " ★";
 }

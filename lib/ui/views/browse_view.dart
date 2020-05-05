@@ -38,7 +38,7 @@ class BrowseView extends StatelessWidget {
               return ListView(
                 padding: EdgeInsets.all(8),
                 children: messagesSnapshot.data.map((Task task) {
-                  if (task.userId == _authenticationService.currentUser.uid) {
+                  if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId)) {
                     return SizedBox();
                   } else {
                     return Card(
@@ -62,7 +62,7 @@ class BrowseView extends StatelessWidget {
                               subtitle: Text(
                                 task.category + " • " + 
                                 task.reward + " PHP • " +
-                                task.userName.substring(0, task.userName.indexOf(' ')) + " " + task.userRating.toString() + " ★\n" +
+                                task.userName.substring(0, task.userName.indexOf(' ')) + " " + task.userRating.toStringAsFixed(2) + " ★\n" +
                                 task.description, 
                                 style: Theme.of(context).textTheme.body1,
                                 overflow: TextOverflow.ellipsis,

@@ -37,7 +37,7 @@ class ViewPostView extends StatelessWidget {
     Widget taskOwnerRating(User user) {
       return Row(
         children: <Widget>[
-          Text(user.rating.toString() ?? ' ', style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)),
+          Text(user.rating.toStringAsFixed(2) ?? ' ', style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)),
           horizontalSpaceTiny,
           Icon(FontAwesomeIcons.solidStar, color: Colors.white, size: 10)
         ]

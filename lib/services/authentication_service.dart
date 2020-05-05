@@ -35,25 +35,9 @@ class AuthenticationService {
 
       await _populateCurrentUser(currentUser);
 
-      // get current user rating
-      var ratings = await _firestoreService.getRating(user.uid);
-
-      var userRating;
-      if (ratings.length != 0) {
-        userRating = ratings.map((m) => m['rate']).reduce((a, b) => a + b) / ratings.length;
-      } else userRating = 0.0;
-
-      // create a new user profile on firestore
-      var newUser = User(
-        uid: currentUser.uid,
-        displayName: currentUser.displayName,
-        email: currentUser.email,
-        photoUrl: currentUser.photoUrl,
-        rating: userRating
-      );
-      _currentUser = newUser;
+      var userProfile = await syncUserProfile(currentUser.uid);
       
-      await _firestoreService.createUser(newUser);
+      await _firestoreService.createUser(userProfile);
 
       print("User signed in.");
 
@@ -79,5 +63,32 @@ class AuthenticationService {
     if (user != null) {
       _currentUser = await _firestoreService.getUser(user.uid);
     }
+  }
+
+  syncUserProfile(String uid) async {
+    // get current user rating
+    var userRating;
+    var ratings = await _firestoreService.getRating(uid);
+    if (ratings.length != 0) {
+      userRating = ratings.map((r) => r['rate']).reduce((a, b) => a + b) / ratings.length;
+    } else userRating = 0.0;
+
+    // get current user blacklist
+    var blacklist = await _firestoreService.getBlacklist(uid);
+    var userBlacklist = blacklist.map((b) => b['blockedUser'].toString()).toList();
+
+    // create a new user profile on firestore
+    var userProfile = User(
+      uid: currentUser.uid,
+      displayName: currentUser.displayName,
+      email: currentUser.email,
+      photoUrl: currentUser.photoUrl,
+      rating: userRating, 
+      blacklist: userBlacklist
+    );
+
+    _currentUser = userProfile;
+
+    return userProfile;
   }
 }

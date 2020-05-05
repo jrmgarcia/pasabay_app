@@ -32,8 +32,9 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             title: Text("Profile"),
             leading: Icon(FontAwesomeIcons.user),
-            onTap: () {
-              _navigationService.navigateTo(ProfileViewRoute, arguments: _authenticationService.currentUser);
+            onTap: () async {
+              await _authenticationService.syncUserProfile(_authenticationService.currentUser.uid);
+              await _navigationService.navigateTo(ProfileViewRoute, arguments: _authenticationService.currentUser);
             },
             trailing: Icon(FontAwesomeIcons.caretRight),
           ),
@@ -48,9 +49,9 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             title: Text("Sign out"),
             leading: Icon(FontAwesomeIcons.signOutAlt),
-            onTap: () {
-              _authenticationService.signOutGoogle();
-              _navigationService.navigateTo(LoginViewRoute);
+            onTap: () async {
+              await _authenticationService.signOutGoogle();
+              await _navigationService.navigateTo(LoginViewRoute);
             },
             trailing: Icon(FontAwesomeIcons.caretRight),
           ),

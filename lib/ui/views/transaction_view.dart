@@ -16,7 +16,7 @@ class TransactionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var streamBuilder = StreamBuilder<List<Task>>(
-      stream: _firestoreService.getChatData(),
+      stream: _firestoreService.getTransactionData(),
       builder: (BuildContext context, AsyncSnapshot<List<Task>> messagesSnapshot) {
         if (messagesSnapshot.hasError)
           return Text('Error: ${messagesSnapshot.error}');
@@ -26,7 +26,8 @@ class TransactionView extends StatelessWidget {
             return ListView(
               padding: EdgeInsets.all(8),
               children: messagesSnapshot.data.map((Task task) {
-                if (task.userId == _authenticationService.currentUser.uid || task.doerId == _authenticationService.currentUser.uid) {
+                if ((task.userId == _authenticationService.currentUser.uid || task.doerId == _authenticationService.currentUser.uid) &&
+                  (!_authenticationService.currentUser.blacklist.contains(task.userId) && !_authenticationService.currentUser.blacklist.contains(task.doerId))) {
                   return Card(
                     elevation: 1,
                     shape: RoundedRectangleBorder(

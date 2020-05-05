@@ -48,7 +48,7 @@ class ProfileView extends StatelessWidget {
               itemSize: 50.0
           ),
           Text(
-            viewingUser.rating.toString(),
+            viewingUser.rating.toStringAsFixed(2),
             style: Theme.of(context).textTheme.subhead,
           ),
           verticalSpaceMedium

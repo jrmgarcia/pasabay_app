@@ -84,7 +84,7 @@ class FirestoreService {
     }
   }
 
-  Stream<List<Task>> getChatData() async* {
+  Stream<List<Task>> getTransactionData() async* {
     var tasksStream = _transactionCollectionReference.snapshots();
     var tasks = List<Task>();
     await for (var tasksSnapshot in tasksStream) {
@@ -180,6 +180,22 @@ class FirestoreService {
       .getDocuments();
 
     tempList = ratingSnapshot.documents;
+
+    list = tempList.map((DocumentSnapshot docSnapshot){
+      return docSnapshot.data;
+    }).toList();
+
+    return list;
+  }
+
+  Future <List<Map<dynamic, dynamic>>> getBlacklist(String uid) async{
+    List<DocumentSnapshot> tempList;
+    List<Map<dynamic, dynamic>> list = new List();
+    QuerySnapshot blacklistSnapshot = await _blacklistCollectionReference
+      .where('blockedBy', isEqualTo: uid)
+      .getDocuments();
+
+    tempList = blacklistSnapshot.documents;
 
     list = tempList.map((DocumentSnapshot docSnapshot){
       return docSnapshot.data;
