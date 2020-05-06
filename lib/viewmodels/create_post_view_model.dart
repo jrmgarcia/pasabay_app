@@ -29,6 +29,15 @@ class CreatePostViewModel extends BaseModel {
   }) async {
     setBusy(true);
 
+    List<String> splitList = title.split(" ");
+    List<String> indexList = [];
+
+    for (int i = 0; i < splitList.length; i++) {
+      for (int y = 1; y < splitList[i].length + 1; y++) {
+        indexList.add(splitList[i].substring(0, y).toLowerCase());
+      }
+    }
+
     var result;
     
     if (!_editing) {
@@ -38,6 +47,7 @@ class CreatePostViewModel extends BaseModel {
         reward: reward,
         description: description,
         category: _selectedCategory,
+        searchIndex: indexList
       ));
     } else {
       result = await _firestoreService.updatePost(Post(
@@ -47,6 +57,7 @@ class CreatePostViewModel extends BaseModel {
         description: description,
         category: _selectedCategory,
         documentId: _editingPost.documentId,
+        searchIndex: indexList
       ));
     }
     

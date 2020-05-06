@@ -43,7 +43,6 @@ class DashboardView extends StatelessWidget {
       viewModel: DashboardViewModel(),
       builder: (context, model, child) => Scaffold(
         body: Container(
-        padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
         child: GridView.count(
           crossAxisCount: 2,
           padding: EdgeInsets.all(3.0),

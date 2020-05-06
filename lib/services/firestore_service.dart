@@ -172,7 +172,7 @@ class FirestoreService {
     } catch (e) {}
   }
 
-  Future <List<Map<dynamic, dynamic>>> getRating(String uid) async{
+  Future <List<Map<dynamic, dynamic>>> getRating(String uid) async {
     List<DocumentSnapshot> tempList;
     List<Map<dynamic, dynamic>> list = new List();
     QuerySnapshot ratingSnapshot = await _ratingCollectionReference
@@ -188,7 +188,7 @@ class FirestoreService {
     return list;
   }
 
-  Future <List<Map<dynamic, dynamic>>> getBlacklist(String uid) async{
+  Future <List<Map<dynamic, dynamic>>> getBlacklist(String uid) async {
     List<DocumentSnapshot> tempList;
     List<Map<dynamic, dynamic>> list = new List();
     QuerySnapshot blacklistSnapshot = await _blacklistCollectionReference
@@ -249,4 +249,60 @@ class FirestoreService {
     }
   }
   
+  Future <List<Map<dynamic, dynamic>>> searchByTitle(String keyword) async {
+    List<DocumentSnapshot> tempList;
+    List<Map<dynamic, dynamic>> list = new List();
+    QuerySnapshot searchSnapshot = await _postsCollectionReference
+      .where('searchIndex', arrayContains: keyword)
+      .getDocuments();
+
+    tempList = searchSnapshot.documents;
+
+    list = tempList.map((DocumentSnapshot docSnapshot){
+      return docSnapshot.data;
+    }).toList();
+
+    return list;
+  }
+
+ Future <List<Task>> searchByTitleAlt(String searchKeyword) async {
+    QuerySnapshot tasksSnapshot = await _postsCollectionReference
+      .where('searchIndex', arrayContains: searchKeyword)
+      .getDocuments();
+
+    var tasks = List<Task>();
+
+    for (var taskDoc in tasksSnapshot.documents) {
+      var task;
+      if (taskDoc.exists) {
+        var userSnapshot = await _usersCollectionReference.document(taskDoc['userId']).get();
+        task = Task(
+          null,
+          taskDoc.documentID,
+          taskDoc["userId"],
+          null,
+          taskDoc["title"], 
+          taskDoc["category"], 
+          taskDoc["reward"], 
+          taskDoc["description"], 
+          taskDoc["timestamp"], 
+          taskDoc["fulfilledBy"], 
+          taskDoc["userRated"],
+          taskDoc["doerRated"], 
+          userSnapshot["photoUrl"], 
+          userSnapshot["displayName"], 
+          userSnapshot["email"], 
+          userSnapshot["rating"],
+          null,
+          null,
+          null, 
+          null
+        );
+      }
+      else task = Task(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      tasks.add(task);
+    }
+    return tasks;
+ }
+
 }

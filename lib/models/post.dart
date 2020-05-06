@@ -11,6 +11,7 @@ class Post {
   final String fulfilledBy;
   final bool userRated;
   final bool doerRated;
+  final List<String> searchIndex;
 
   Post({
     @required this.userId,
@@ -22,7 +23,8 @@ class Post {
     this.timestamp,
     this.fulfilledBy,
     this.userRated,
-    this.doerRated
+    this.doerRated,
+    this.searchIndex
   });
 
   Post.fromData(Map<String, dynamic> data)
@@ -35,7 +37,8 @@ class Post {
         timestamp = data['timestamp'],
         fulfilledBy = data['fulfilledBy'],
         userRated = data['userRated'],
-        doerRated = data['doerRated'];
+        doerRated = data['doerRated'],
+        searchIndex = data['searchIndex'];
 
   Map<String, dynamic> toMap() {
     return {
@@ -48,7 +51,8 @@ class Post {
       'timestamp': DateTime.now().toString(),
       'fulfilledBy': null,
       'userRated': false,
-      'doerRated': false
+      'doerRated': false,
+      'searchIndex': searchIndex
     };
   }
 
