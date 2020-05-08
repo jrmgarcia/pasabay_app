@@ -713,8 +713,6 @@ void markAsDone(BuildContext context, String postId, String doerId, User peer) a
     generateSysMsg(postId, doerId, "✓ Marked as done.");
 
     rate(context, peer);
-
-    _navigationService.navigateTo(HomeViewRoute);
   }
 }
 
