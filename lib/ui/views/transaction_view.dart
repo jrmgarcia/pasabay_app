@@ -10,25 +10,23 @@ class TransactionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return MaterialApp(
-      home: DefaultTabController(
+    return Scaffold(
+      body: DefaultTabController(
         length: 2,
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(24.0),
-            child: AppBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              flexibleSpace: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TabBar(
-                    tabs: [
-                      Tab(text: "Current"),
-                      Tab(text: "History")
-                    ],
-                  ),
-                ],
-              ),
+          appBar: AppBar(
+            leading: Container(),
+            backgroundColor: Theme.of(context).primaryColor,
+            flexibleSpace: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TabBar(
+                  tabs: [
+                    Tab(text: "Current"),
+                    Tab(text: "History")
+                  ],
+                ),
+              ],
             ),
           ),
           body: TabBarView(
