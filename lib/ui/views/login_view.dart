@@ -64,7 +64,7 @@ class LoginView extends StatelessWidget {
                           padding: EdgeInsets.only(left: 10),
                           child: Text(
                             'Sign in with Google',
-                            style: Theme.of(context).textTheme.subtitle.apply(color: Color(0xFF888888)),
+                            style: Theme.of(context).textTheme.subtitle2.apply(color: Color(0xFF888888)),
                           ),
                         )
                       ],

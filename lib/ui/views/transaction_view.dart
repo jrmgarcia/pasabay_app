@@ -40,14 +40,14 @@ class TransactionView extends StatelessWidget {
                         leading: userPhotoUrl(_authenticationService.currentUser.uid == task.userId ? task.doerAvatar : task.userAvatar),
                         title: Text(
                           task.title.toUpperCase(),
-                          style: Theme.of(context).textTheme.title,
+                          style: Theme.of(context).textTheme.headline6,
                           overflow: TextOverflow.ellipsis,
                         ),
                         subtitle: Text(
                           task.category + " • " + 
                           task.reward + " PHP" + "\n" + 
                           peerUser(task),
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText2,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

@@ -108,7 +108,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                               flex: 1,
                               child: Text(
                                 'This platform is only available for UPLB community at this moment.',
-                                style: Theme.of(context).textTheme.subhead.apply(color: Colors.white),
+                                style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -131,7 +131,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                               flex: 1,
                               child: Text(
                                 'Get your tasks done!',
-                                style: Theme.of(context).textTheme.headline.apply(color: Colors.white, fontWeightDelta: 2),
+                                style: Theme.of(context).textTheme.headline5.apply(color: Colors.white, fontWeightDelta: 2),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -140,7 +140,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                               flex: 1,
                               child: Text(
                                 'Post what you need to get done, how to do it, and how much you are willing to pay for it.',
-                                style: Theme.of(context).textTheme.subhead.apply(color: Colors.white),
+                                style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -163,7 +163,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                               flex: 1,
                               child: Text(
                                 'Make extra income!',
-                                style: Theme.of(context).textTheme.headline.apply(color: Colors.white, fontWeightDelta: 2)
+                                style: Theme.of(context).textTheme.headline5.apply(color: Colors.white, fontWeightDelta: 2)
                               ),
                             ),
                             verticalSpaceSmall,
@@ -171,7 +171,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                               flex: 1,
                               child: Text(
                                 'Get things done and earn some cash.',
-                                style: Theme.of(context).textTheme.subhead.apply(color: Colors.white),
+                                style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.white),
                                 textAlign: TextAlign.center
                               ),
                             ),

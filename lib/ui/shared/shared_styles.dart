@@ -33,7 +33,7 @@ myBoxDecoration(BuildContext context) {
 
 Widget mySnackBar(BuildContext context, String message) {
   return SnackBar(
-    content: Text(message, style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)),
+    content: Text(message, style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.white)),
     backgroundColor: Theme.of(context).accentColor,
     duration: Duration(milliseconds : 1000),
   );

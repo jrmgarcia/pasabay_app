@@ -43,14 +43,14 @@ class MessageView extends StatelessWidget {
         title: ListTile(
           title: Text(
             peerUser(viewingTask),
-            style: Theme.of(context).textTheme.title,
+            style: Theme.of(context).textTheme.headline6,
             overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
             viewingTask.title + " • " + 
             viewingTask.category + " • " + 
             viewingTask.reward + " PHP",
-            style: Theme.of(context).textTheme.body1,
+            style: Theme.of(context).textTheme.bodyText2,
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -288,7 +288,7 @@ class ChatScreenState extends State<ChatScreen> {
                     )
                   // System
                   : Container(
-                    child: Text(document['content'], style: Theme.of(context).textTheme.subtitle),
+                    child: Text(document['content'], style: Theme.of(context).textTheme.subtitle2),
                     padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                     width: 200.0,
                     decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(10)),
@@ -401,7 +401,7 @@ class ChatScreenState extends State<ChatScreen> {
                       margin: EdgeInsets.only(bottom: 10.0, right: 10.0),
                     )
                   : Container(
-                      child: Text(document['content'], style: Theme.of(context).textTheme.subtitle),
+                      child: Text(document['content'], style: Theme.of(context).textTheme.subtitle2),
                       padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                       width: 200.0,
                       decoration: BoxDecoration(color: Theme.of(context).accentColor, borderRadius: BorderRadius.circular(8.0)),
@@ -766,7 +766,7 @@ Future<Null> rate(BuildContext context, User peer, [Task task]) async {
               children: <Widget>[
                 Text(
                   'Rate $peerName',
-                  style: Theme.of(context).textTheme.title
+                  style: Theme.of(context).textTheme.headline6
                 ),
                 verticalSpaceSmall,
                 RatingBar(
@@ -798,7 +798,7 @@ Future<Null> rate(BuildContext context, User peer, [Task task]) async {
                   ),
                   margin: EdgeInsets.only(right: 10.0),
                 ),
-                Text('NOT NOW', style: Theme.of(context).textTheme.subtitle)
+                Text('NOT NOW', style: Theme.of(context).textTheme.subtitle2)
               ],
             ),
           ),
@@ -815,7 +815,7 @@ Future<Null> rate(BuildContext context, User peer, [Task task]) async {
                   ),
                   margin: EdgeInsets.only(right: 10.0),
                 ),
-                Text('SUBMIT', style: Theme.of(context).textTheme.subtitle)
+                Text('SUBMIT', style: Theme.of(context).textTheme.subtitle2)
               ],
             ),
           ),

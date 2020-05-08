@@ -22,7 +22,7 @@ class ViewPostView extends StatelessWidget {
       child: Center(
         child: Text(
           "PHP " + viewingPost.reward,
-          style: Theme.of(context).textTheme.title.apply(color: Colors.white),
+          style: Theme.of(context).textTheme.headline6.apply(color: Colors.white),
         ),
       ),
     );
@@ -30,14 +30,14 @@ class ViewPostView extends StatelessWidget {
     Widget taskOwner(User user) {
       return Text(
         user.displayName.substring(0, user.displayName.indexOf(' ')) ?? ' ', 
-        style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)
+        style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.white)
       );
     }
 
     Widget taskOwnerRating(User user) {
       return Row(
         children: <Widget>[
-          Text(user.rating.toStringAsFixed(2) ?? ' ', style: Theme.of(context).textTheme.subhead.apply(color: Colors.white)),
+          Text(user.rating.toStringAsFixed(2) ?? ' ', style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.white)),
           horizontalSpaceTiny,
           Icon(FontAwesomeIcons.solidStar, color: Colors.white, size: 10)
         ]
@@ -68,7 +68,7 @@ class ViewPostView extends StatelessWidget {
             flex: 1,
             child: Text(
               viewingPost.title,
-              style: Theme.of(context).textTheme.headline.apply(color: Colors.white),
+              style: Theme.of(context).textTheme.headline5.apply(color: Colors.white),
               overflow: TextOverflow.ellipsis
             ),
           ),
@@ -117,7 +117,7 @@ class ViewPostView extends StatelessWidget {
 
     final bottomContentText = Text(
       viewingPost.description,
-      style: Theme.of(context).textTheme.body1,
+      style: Theme.of(context).textTheme.bodyText2,
     );
 
     final timestamp = Text(

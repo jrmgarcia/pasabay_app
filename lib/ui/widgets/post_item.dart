@@ -28,7 +28,7 @@ class PostItem extends StatelessWidget {
           leading: Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
           title: Text(
             post.title, 
-            style: Theme.of(context).textTheme.subhead,
+            style: Theme.of(context).textTheme.subtitle1,
             overflow: TextOverflow.ellipsis,
           ),
           trailing: IconButton(

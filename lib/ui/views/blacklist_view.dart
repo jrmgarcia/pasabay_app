@@ -48,12 +48,12 @@ class BlacklistView extends StatelessWidget {
                         leading: userPhotoUrl(user.photoUrl ?? ' '),
                         title: Text(
                           user.displayName ?? ' ',
-                          style: Theme.of(context).textTheme.title,
+                          style: Theme.of(context).textTheme.headline6,
                           overflow: TextOverflow.ellipsis,
                         ),
                         subtitle: Text(
                           user.email,
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText2,
                           overflow: TextOverflow.ellipsis,
                         ),
                         trailing: IconButton(

@@ -126,11 +126,11 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     Text(
                       'Exit app',
-                      style: Theme.of(context).textTheme.title
+                      style: Theme.of(context).textTheme.headline6
                     ),
                     Text(
                       'Are you sure to exit app?',
-                      style: Theme.of(context).textTheme.subhead
+                      style: Theme.of(context).textTheme.subtitle1
                     ),
                   ],
                 ),
@@ -148,7 +148,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       margin: EdgeInsets.only(right: 10.0),
                     ),
-                    Text('CANCEL', style: Theme.of(context).textTheme.subtitle)
+                    Text('CANCEL', style: Theme.of(context).textTheme.subtitle2)
                   ],
                 ),
               ),
@@ -165,7 +165,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       margin: EdgeInsets.only(right: 10.0),
                     ),
-                    Text('YES', style: Theme.of(context).textTheme.subtitle)
+                    Text('YES', style: Theme.of(context).textTheme.subtitle2)
                   ],
                 ),
               ),

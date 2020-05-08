@@ -69,7 +69,7 @@ class _InputFieldState extends State<InputField> {
             children: <Widget>[
               Expanded(
                 child: TextFormField(
-                  style: Theme.of(context).textTheme.subhead.apply(color: Color(0xFF212121)),
+                  style: Theme.of(context).textTheme.subtitle1.apply(color: Color(0xFF212121)),
                   autofocus: widget.autoFocus,
                   controller: widget.controller,
                   keyboardType: widget.textInputType,
@@ -94,7 +94,7 @@ class _InputFieldState extends State<InputField> {
                   readOnly: widget.isReadOnly,
                   decoration: InputDecoration.collapsed(
                       hintText: widget.placeholder,
-                      hintStyle: Theme.of(context).textTheme.subhead.apply(color: Color(0xFF888888))),
+                      hintStyle: Theme.of(context).textTheme.subtitle1.apply(color: Color(0xFF888888))),
                 ),
               ),
               GestureDetector(

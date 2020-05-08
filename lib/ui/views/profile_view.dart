@@ -36,7 +36,7 @@ class ProfileView extends StatelessWidget {
           verticalSpaceSmall,
           Text(
             viewingUser.displayName,
-            style: Theme.of(context).textTheme.headline,
+            style: Theme.of(context).textTheme.headline5,
           ),
           RatingBarIndicator(
               rating: viewingUser.rating,
@@ -49,7 +49,7 @@ class ProfileView extends StatelessWidget {
           ),
           Text(
             viewingUser.rating.toStringAsFixed(2),
-            style: Theme.of(context).textTheme.subhead,
+            style: Theme.of(context).textTheme.subtitle1,
           ),
           verticalSpaceMedium
         ]
@@ -86,7 +86,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     title:Text(
                       viewingUser.email,
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
                 ),

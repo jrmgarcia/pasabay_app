@@ -56,7 +56,7 @@ class BrowseView extends StatelessWidget {
                               leading: userPhotoUrl(task.userAvatar ?? ' '),
                               title: Text(
                                 task.title.toUpperCase() ?? ' ',
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.headline6,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               subtitle: Text(
@@ -64,7 +64,7 @@ class BrowseView extends StatelessWidget {
                                 task.reward + " PHP • " +
                                 task.userName.substring(0, task.userName.indexOf(' ')) + " " + task.userRating.toStringAsFixed(2) + " ★\n" +
                                 task.description, 
-                                style: Theme.of(context).textTheme.body1,
+                                style: Theme.of(context).textTheme.bodyText2,
                                 overflow: TextOverflow.ellipsis,
                               )
                             ),
@@ -74,7 +74,7 @@ class BrowseView extends StatelessWidget {
                               right: 10,
                               child: Text(
                                 timeAgo(task.timestamp) ?? ' ', 
-                                style: Theme.of(context).textTheme.body2.apply(color: Theme.of(context).accentColor)
+                                style: Theme.of(context).textTheme.bodyText1.apply(color: Theme.of(context).accentColor)
                               )
                             )
                           ]

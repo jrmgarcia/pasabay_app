@@ -29,7 +29,7 @@ class DashboardView extends StatelessWidget {
             ),
             Flexible(
               flex: 1,
-              child: Text(title, style: Theme.of(context).textTheme.subtitle, textAlign: TextAlign.center),
+              child: Text(title, style: Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.center),
             )
           ],
         ),
