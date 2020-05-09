@@ -21,7 +21,7 @@ class HistoryView extends StatelessWidget {
         if (messagesSnapshot.hasError)
           return Text('Error: ${messagesSnapshot.error}');
         switch (messagesSnapshot.connectionState) {
-          case ConnectionState.waiting: return Center(child: CircularProgressIndicator());
+          case ConnectionState.waiting: return shimmerCard(context);
           default:
             return ListView(
               padding: EdgeInsets.all(8),
