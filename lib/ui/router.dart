@@ -3,6 +3,7 @@ import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/ui/views/blacklist_view.dart';
 import 'package:pasabay_app/ui/views/browse_view.dart';
+import 'package:pasabay_app/ui/views/info_view.dart';
 import 'package:pasabay_app/ui/views/transaction_view.dart';
 import 'package:pasabay_app/ui/views/create_post_view.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +87,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: BlacklistView(),
+      );
+    case InfoViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: InfoView(),
       );
     default:
       return MaterialPageRoute(

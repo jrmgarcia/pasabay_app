@@ -8,8 +8,10 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:pasabay_app/ui/views/transaction_view.dart';
 import 'package:pasabay_app/ui/views/dashboard_view.dart';
@@ -18,6 +20,7 @@ import 'package:pasabay_app/ui/views/posts_view.dart';
 void main() => runApp(MaterialApp(home: HomeView()));
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
+final NavigationService _navigationService = locator<NavigationService>();
 
 class HomeView extends StatefulWidget {
   @override
@@ -150,7 +153,7 @@ class _HomeViewState extends State<HomeView> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
         actions: <Widget>[
-          IconButton(tooltip: 'Info', icon: Icon(FontAwesomeIcons.questionCircle), onPressed: () {}),
+          IconButton(tooltip: 'Info', icon: Icon(FontAwesomeIcons.questionCircle), onPressed: () => _navigationService.navigateTo(InfoViewRoute)),
         ],
       ),
       drawer: MyDrawer(),

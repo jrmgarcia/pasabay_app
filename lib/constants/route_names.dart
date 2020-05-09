@@ -11,4 +11,5 @@ const String BlacklistViewRoute = "BlacklistView";
 const String SearchViewRoute = "SearchView";
 const String TransactionViewRoute = "TransactionView";
 const String MessageViewRoute = "MessageView";
+const String InfoViewRoute = "InfoView";
 // Generate the views here
