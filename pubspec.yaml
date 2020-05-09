@@ -40,6 +40,9 @@ dependencies:
   cloud_firestore: ^0.13.1+1
   # storage
   firebase_storage: ^3.1.1
+  # push notifications
+  firebase_messaging: ^6.0.13
+  flutter_local_notifications: ^1.4.3
   # utilities
   image_picker: ^0.6.5
   cached_network_image: ^2.0.0

@@ -35,7 +35,8 @@ class MessageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var peer = _authenticationService.currentUser.uid == viewingTask.userId
+    var currentUserId = _authenticationService.currentUser.uid;
+    var peer = currentUserId == viewingTask.userId
       ? User(photoUrl: viewingTask.doerAvatar, displayName: viewingTask.doerName, email: viewingTask.doerEmail, rating: viewingTask.doerRating, uid: viewingTask.doerId)
       : User(photoUrl: viewingTask.userAvatar, displayName: viewingTask.userName, email: viewingTask.userEmail, rating: viewingTask.userRating, uid: viewingTask.userId);
     return Scaffold(
@@ -56,15 +57,22 @@ class MessageView extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).primaryColor,
         iconTheme: IconThemeData(color: Colors.white),
-        leading: myBackButton(context),
+        leading: IconButton(
+          tooltip: 'Back', 
+          icon: Icon(FontAwesomeIcons.chevronLeft), 
+          onPressed: () async {
+            await Firestore.instance.collection('users').document(currentUserId).updateData({'chattingWith': null});
+            await _navigationService.pop();  
+          },
+        ),
         actions: <Widget>[
-          _authenticationService.currentUser.uid == viewingTask.userId && viewingTask.fulfilledBy == null
+          currentUserId == viewingTask.userId && viewingTask.fulfilledBy == null
           ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () => markAsDone(context, viewingTask.postId, viewingTask.doerId, peer))
           : Container(),
           viewingTask.fulfilledBy != null
-          ? _authenticationService.currentUser.uid == viewingTask.userId && viewingTask.userRated == false
+          ? currentUserId == viewingTask.userId && viewingTask.userRated == false
             ? IconButton(tooltip: 'Rate', icon: Icon(FontAwesomeIcons.solidStar), onPressed: () => rate(context, peer, viewingTask))
-            : _authenticationService.currentUser.uid == viewingTask.doerId && viewingTask.doerRated == false
+            : currentUserId == viewingTask.doerId && viewingTask.doerRated == false
               ? IconButton(tooltip: 'Rate', icon: Icon(FontAwesomeIcons.solidStar), onPressed: () => rate(context, peer, viewingTask))
               : Container()
           : Container()
@@ -201,6 +209,7 @@ class ChatScreenState extends State<ChatScreen> {
           documentReference,
           {
             'idFrom': doerId == _authenticationService.currentUser.uid ? doerId : _authenticationService.currentUser.uid,
+            'idTo': peer.uid,
             'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
             'content': content,
             'type': type
