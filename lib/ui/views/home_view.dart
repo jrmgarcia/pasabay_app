@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:pasabay_app/ui/views/transaction_view.dart';
@@ -21,6 +22,7 @@ void main() => runApp(MaterialApp(home: HomeView()));
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 final NavigationService _navigationService = locator<NavigationService>();
+final DialogService _dialogService = locator<DialogService>();
 
 class HomeView extends StatefulWidget {
   @override
@@ -186,87 +188,16 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Future<bool> onBackPress() {
-    openDialog();
-    return Future.value(false);
-  }
-
-  Future<Null> openDialog() async {
-    switch (await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-            contentPadding: EdgeInsets.all(0),
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)), color: Theme.of(context).primaryColor),
-                margin: EdgeInsets.all(0),
-                padding: EdgeInsets.only(bottom: 25.0, top: 25.0),
-                height: 150.0,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        FontAwesomeIcons.signOutAlt,
-                        size: 30.0,
-                        color: Colors.white,
-                      ),
-                      margin: EdgeInsets.only(bottom: 10.0),
-                    ),
-                    Text(
-                      'Exit app',
-                      style: Theme.of(context).textTheme.headline6
-                    ),
-                    Text(
-                      'Are you sure to exit app?',
-                      style: Theme.of(context).textTheme.subtitle1
-                    ),
-                  ],
-                ),
-              ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context, 0);
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        FontAwesomeIcons.timesCircle,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      margin: EdgeInsets.only(right: 10.0),
-                    ),
-                    Text('CANCEL', style: Theme.of(context).textTheme.subtitle2)
-                  ],
-                ),
-              ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context, 1);
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        FontAwesomeIcons.checkCircle,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      margin: EdgeInsets.only(right: 10.0),
-                    ),
-                    Text('YES', style: Theme.of(context).textTheme.subtitle2)
-                  ],
-                ),
-              ),
-            ],
-          );
-        })) {
-      case 0:
-        break;
-      case 1:
-        exit(0);
-        break;
+  Future<bool> onBackPress() async {
+    var dialogResponse = await _dialogService.showConfirmationDialog(
+      title: "Exit app",
+      description: "Are you sure you want to exit the app?",
+      confirmationTitle: 'Yes',
+      cancelTitle: 'No'
+    );
+    if (dialogResponse.confirmed) {
+      exit(0);
     }
+    return Future.value(false);
   }
 }

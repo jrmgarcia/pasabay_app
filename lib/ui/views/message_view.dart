@@ -18,7 +18,6 @@ import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
-import 'package:pasabay_app/ui/shared/ui_helpers.dart';
 import 'package:pasabay_app/ui/views/full_photo.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -760,23 +759,12 @@ Future<Null> rate(BuildContext context, User peer, [Task task]) async {
     context: context,
     builder: (BuildContext context) {
       var peerName = peer.displayName.substring(0, peer.displayName.indexOf(' '));
-      return SimpleDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        contentPadding: EdgeInsets.all(0),
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)), color: Theme.of(context).primaryColor),
-            margin: EdgeInsets.all(0),
-            padding: EdgeInsets.only(bottom: 25.0, top: 25.0),
-            height: 150.0,
-            child: Column(
-              children: <Widget>[
-                Text(
+      return AlertDialog(
+        title: Text(
                   'Rate $peerName',
                   style: Theme.of(context).textTheme.headline6
                 ),
-                verticalSpaceSmall,
-                RatingBar(
+        content: RatingBar(
                   minRating: 1,
                   itemCount: 5,
                   itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
@@ -789,42 +777,14 @@ Future<Null> rate(BuildContext context, User peer, [Task task]) async {
                     print(inputRating);
                   },
                 ),
-              ],
-            ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("Not now"),
+            onPressed: () => Navigator.pop(context, 0),
           ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context, 0);
-            },
-            child: Row(
-              children: <Widget>[
-                Container(
-                  child: Icon(
-                    FontAwesomeIcons.timesCircle,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  margin: EdgeInsets.only(right: 10.0),
-                ),
-                Text('NOT NOW', style: Theme.of(context).textTheme.subtitle2)
-              ],
-            ),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context, 1);
-            },
-            child: Row(
-              children: <Widget>[
-                Container(
-                  child: Icon(
-                    FontAwesomeIcons.checkCircle,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  margin: EdgeInsets.only(right: 10.0),
-                ),
-                Text('SUBMIT', style: Theme.of(context).textTheme.subtitle2)
-              ],
-            ),
+          FlatButton(
+            child: Text("Rate"),
+            onPressed: () => Navigator.pop(context, 1),
           ),
         ],
       );
