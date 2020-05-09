@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
@@ -15,6 +16,7 @@ class HistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentUserId = _authenticationService.currentUser.uid;
     var streamBuilder = StreamBuilder<List<Task>>(
       stream: _firestoreService.getTransactionData(),
       builder: (BuildContext context, AsyncSnapshot<List<Task>> messagesSnapshot) {
@@ -26,7 +28,7 @@ class HistoryView extends StatelessWidget {
             return ListView(
               padding: EdgeInsets.all(8),
               children: messagesSnapshot.data.map((Task task) {
-                if ((task.userId == _authenticationService.currentUser.uid || task.doerId == _authenticationService.currentUser.uid)
+                if ((task.userId == currentUserId || task.doerId == currentUserId)
                   && (!_authenticationService.currentUser.blacklist.contains(task.userId) && !_authenticationService.currentUser.blacklist.contains(task.doerId))
                   && task.fulfilledBy != null) {
                   return Card(
@@ -36,9 +38,12 @@ class HistoryView extends StatelessWidget {
                     ),
                     margin: EdgeInsets.all(8),
                     child: InkWell(
-                      onTap: () => _navigationService.navigateTo(MessageViewRoute, arguments: task),
+                      onTap: () async {
+                        await Firestore.instance.collection('users').document(currentUserId).updateData({'chattingWith': currentUserId == task.userId ? task.doerId : task.userId});
+                        await _navigationService.navigateTo(MessageViewRoute, arguments: task);  
+                      },
                       child: ListTile(
-                        leading: userPhotoUrl(_authenticationService.currentUser.uid == task.userId ? task.doerAvatar : task.userAvatar),
+                        leading: userPhotoUrl(currentUserId == task.userId ? task.doerAvatar : task.userAvatar),
                         title: Text(
                           task.title.toUpperCase(),
                           style: Theme.of(context).textTheme.headline6,
