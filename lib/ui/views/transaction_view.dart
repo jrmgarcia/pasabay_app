@@ -25,6 +25,8 @@ class TransactionView extends StatelessWidget {
                     Tab(text: "Current"),
                     Tab(text: "History")
                   ],
+                  labelColor: Colors.white,
+                  indicatorColor: Colors.white
                 ),
               ],
             ),
