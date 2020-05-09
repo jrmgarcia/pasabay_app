@@ -4,10 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 
 final AuthenticationService _authenticationService = locator<AuthenticationService>();
 final NavigationService _navigationService = locator<NavigationService>();
+final DialogService _dialogService = locator<DialogService>();
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -35,6 +37,10 @@ class MyDrawer extends StatelessWidget {
             onTap: () async {
               await _authenticationService.syncUserProfile(_authenticationService.currentUser.uid);
               await _navigationService.navigateTo(ProfileViewRoute, arguments: _authenticationService.currentUser);
+              if (_authenticationService.currentUser.rating < 3) await _dialogService.showDialog(
+                title: "Please mind your rating",
+                description: "Once you reached an average rate of less than two, the system will automatically ban you from using the application."
+              );
             },
             trailing: Icon(FontAwesomeIcons.caretRight),
           ),
