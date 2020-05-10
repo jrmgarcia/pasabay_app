@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
+import 'package:pasabay_app/models/user.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
@@ -63,7 +64,7 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  final String currentUserId = _authenticationService.currentUser.uid;
+  final User currentUser = _authenticationService.currentUser;
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -96,7 +97,7 @@ class _HomeViewState extends State<HomeView> {
       print('token: $token');
       Firestore.instance
           .collection('users')
-          .document(currentUserId)
+          .document(currentUser.uid)
           .updateData({'pushToken': token});
     }).catchError((err) {
       Fluttertoast.showToast(msg: err.message.toString());
@@ -114,11 +115,9 @@ class _HomeViewState extends State<HomeView> {
 
   void showNotification(message) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      Platform.isAndroid
-          ? 'com.example.pasabay_app'
-          : 'com.example.pasabay_app',
-      'Flutter chat demo',
-      'your channel description',
+      'com.example.pasabay_app',
+      'Pasabay',
+      'An Errand Crowdsourcing Mobile Application for UPLB Community',
       playSound: true,
       enableVibration: true,
       importance: Importance.Max,
@@ -128,17 +127,9 @@ class _HomeViewState extends State<HomeView> {
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
-    print(message);
-//    print(message['body'].toString());
-//    print(json.encode(message));
-
     await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
         message['body'].toString(), platformChannelSpecifics,
         payload: json.encode(message));
-
-//    await flutterLocalNotificationsPlugin.show(
-//        0, 'plain title', 'plain body', platformChannelSpecifics,
-//        payload: 'item x');
   }
 
   @override

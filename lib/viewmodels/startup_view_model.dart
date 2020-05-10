@@ -17,7 +17,7 @@ class StartUpViewModel extends BaseModel {
       await _authenticationService.syncUserProfile(currentUser.uid);
       await _navigationService.navigateTo(HomeViewRoute);
     } else {
-      _navigationService.navigateTo(OnboardingViewRoute);
+      await _navigationService.navigateTo(OnboardingViewRoute);
     }
   }
 }

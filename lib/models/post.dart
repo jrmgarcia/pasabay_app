@@ -27,19 +27,6 @@ class Post {
     this.searchIndex
   });
 
-  Post.fromData(Map<String, dynamic> data)
-      : title = data['title'],
-        userId = data['userId'],
-        documentId = data['documentId'],
-        reward = data['reward'],
-        description = data['description'],
-        category = data['category'],
-        timestamp = data['timestamp'],
-        fulfilledBy = data['fulfilledBy'],
-        userRated = data['userRated'],
-        doerRated = data['doerRated'],
-        searchIndex = data['searchIndex'];
-
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
@@ -54,22 +41,5 @@ class Post {
       'doerRated': false,
       'searchIndex': searchIndex
     };
-  }
-
-  static Post fromMap(Map<String, dynamic> map, String documentId) {
-    if (map == null) return null;
-
-    return Post(
-      userId: map['userId'],
-      title: map['title'],
-      reward: map['reward'],
-      description: map['description'],
-      category: map['category'],
-      timestamp: map['timestamp'],
-      fulfilledBy: map['fulfilledBy'],
-      userRated: map['userRated'],
-      doerRated: map['doerRated'],
-      documentId: documentId,
-    );
   }
 }

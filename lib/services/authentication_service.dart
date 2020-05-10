@@ -53,8 +53,7 @@ class AuthenticationService {
         email: currentUser.email,
         photoUrl: currentUser.photoUrl,
         rating: userRating,
-        blacklist: userBlacklist,
-        chattingWith: null
+        blacklist: userBlacklist
       );
       _currentUser = newUser;
       

@@ -34,7 +34,7 @@ class LoginErrorView extends StatelessWidget {
               flex: 3,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Login Failed", style: Theme.of(context).textTheme.headline6),
+                child: Text("Login Failed", style: Theme.of(context).textTheme.headline6.apply(color: Colors.white)),
               )
             ),
             Flexible(
@@ -43,9 +43,9 @@ class LoginErrorView extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: <Widget>[
-                    Text("You can't log in to Pasabay using this account due to one of the following restrictions:", style: Theme.of(context).textTheme.bodyText1),
-                    ListTile(leading: Icon(FontAwesomeIcons.at), title: Text("It's not a UP Mail account (@up.edu.ph)", style: Theme.of(context).textTheme.bodyText2)),
-                    ListTile(leading: Icon(FontAwesomeIcons.star), title: Text("You've reached an avarage rating of less than 2 stars.", style: Theme.of(context).textTheme.bodyText2))
+                    Text("You can't log in to Pasabay using this account due to one of the following restrictions:", style: Theme.of(context).textTheme.bodyText1.apply(color: Colors.white)),
+                    ListTile(leading: Icon(FontAwesomeIcons.at, color: Colors.white), title: Text("It's not a UP Mail account (@up.edu.ph)", style: Theme.of(context).textTheme.bodyText2.apply(color: Colors.white))),
+                    ListTile(leading: Icon(FontAwesomeIcons.star, color: Colors.white), title: Text("You've reached an avarage rating of less than 2 stars.", style: Theme.of(context).textTheme.bodyText2.apply(color: Colors.white)))
                   ]
                 ),
               )
