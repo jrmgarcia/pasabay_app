@@ -12,4 +12,5 @@ const String SearchViewRoute = "SearchView";
 const String TransactionViewRoute = "TransactionView";
 const String MessageViewRoute = "MessageView";
 const String InfoViewRoute = "InfoView";
+const String LoginErrorViewRoute = "LoginErrorView";
 // Generate the views here
