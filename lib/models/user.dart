@@ -5,8 +5,9 @@ class User {
   final String photoUrl;
   final double rating;
   final List<String> blacklist;
+  final String chattingWith;
 
-  User({this.uid, this.displayName, this.email, this.photoUrl, this.rating, this.blacklist});
+  User({this.uid, this.displayName, this.email, this.photoUrl, this.rating, this.blacklist, this.chattingWith});
 
   User.fromData(Map<String, dynamic> data)
       : uid = data['uid'],
@@ -14,7 +15,8 @@ class User {
         email = data['email'],
         photoUrl = data['photoUrl'],
         rating = data['rating'],
-        blacklist = data['blacklist'];
+        blacklist = data['blacklist'],
+        chattingWith = data['chattingWith'];
 
   Map<String, dynamic> toJson() {
     return{
@@ -22,7 +24,9 @@ class User {
       'displayName' : displayName,
       'email' : email,
       'photoUrl' : photoUrl,
-      'rating' : rating
+      'rating' : rating,
+      'blacklist' : blacklist,
+      'chattingWith' : chattingWith
     };
   }
 

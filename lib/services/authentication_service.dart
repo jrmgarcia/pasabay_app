@@ -35,9 +35,30 @@ class AuthenticationService {
 
       await _populateCurrentUser(currentUser);
 
-      var userProfile = await syncUserProfile(currentUser.uid);
+      // get current user rating
+      var userRating;
+      var ratings = await _firestoreService.getRating(user.uid);
+      if (ratings.length != 0) {
+        userRating = ratings.map((m) => m['rate']).reduce((a, b) => a + b) / ratings.length;
+      } else userRating = 0.0;
+
+      // get current user blacklist
+      var blacklist = await _firestoreService.getBlacklist(user.uid);
+      var userBlacklist = blacklist.map((b) => b['blockedUser'].toString()).toList();
+
+      // create a new user profile on firestore
+      var newUser = User(
+        uid: currentUser.uid,
+        displayName: currentUser.displayName,
+        email: currentUser.email,
+        photoUrl: currentUser.photoUrl,
+        rating: userRating,
+        blacklist: userBlacklist,
+        chattingWith: null
+      );
+      _currentUser = newUser;
       
-      await _firestoreService.createUser(userProfile);
+      await _firestoreService.createUser(newUser);
 
       print("User signed in.");
 
@@ -88,7 +109,5 @@ class AuthenticationService {
     );
 
     _currentUser = userProfile;
-
-    return userProfile;
   }
 }

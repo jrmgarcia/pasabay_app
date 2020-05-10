@@ -21,8 +21,8 @@ class LoginViewModel extends BaseModel {
         caseSensitive: false,
         multiLine: false,
       );
-      if (result && regExp.hasMatch(_authenticationService.currentUser.email) && (_authenticationService.currentUser.rating > 2 || _authenticationService.currentUser.rating == 0)) {
-        await _authenticationService.syncUserProfile(_authenticationService.currentUser.uid);
+      if (result && regExp.hasMatch(currentUser.email) && (currentUser.rating > 2 || currentUser.rating == 0)) {
+        await _authenticationService.syncUserProfile(currentUser.uid);
         await _navigationService.navigateTo(HomeViewRoute);
       } else {
         await _authenticationService.signOutGoogle();

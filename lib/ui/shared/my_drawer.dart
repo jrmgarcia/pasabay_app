@@ -14,6 +14,7 @@ final DialogService _dialogService = locator<DialogService>();
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var currentUser = _authenticationService.currentUser;
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -21,11 +22,11 @@ class MyDrawer extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
             ),
-            accountName: Text(_authenticationService.currentUser.displayName ?? ' ', style: TextStyle(color: Colors.white)),
-            accountEmail: Text(_authenticationService.currentUser.email ?? ' ', style: TextStyle(color: Colors.white)),
+            accountName: Text(currentUser.displayName ?? ' ', style: TextStyle(color: Colors.white)),
+            accountEmail: Text(currentUser.email ?? ' ', style: TextStyle(color: Colors.white)),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
-                _authenticationService.currentUser.photoUrl ?? 'https://lh3.googleusercontent.com/-cXXaVVq8nMM/AAAAAAAAAAI/AAAAAAAAAKI/_Y1WfBiSnRI/photo.jpg?sz=50',
+                currentUser.photoUrl ?? 'https://lh3.googleusercontent.com/-cXXaVVq8nMM/AAAAAAAAAAI/AAAAAAAAAKI/_Y1WfBiSnRI/photo.jpg?sz=50',
               ),
               radius: 60,
               backgroundColor: Colors.transparent,
@@ -35,9 +36,9 @@ class MyDrawer extends StatelessWidget {
             title: Text("Profile"),
             leading: Icon(FontAwesomeIcons.user),
             onTap: () async {
-              await _authenticationService.syncUserProfile(_authenticationService.currentUser.uid);
-              await _navigationService.navigateTo(ProfileViewRoute, arguments: _authenticationService.currentUser);
-              if (_authenticationService.currentUser.rating < 3) await _dialogService.showDialog(
+              await _authenticationService.syncUserProfile(currentUser.uid);
+              await _navigationService.navigateTo(ProfileViewRoute, arguments: currentUser);
+              if (currentUser.rating < 3) await _dialogService.showDialog(
                 title: "Please mind your rating",
                 description: "Once you reached an average rate of less than two, the system will automatically ban you from using the application."
               );
