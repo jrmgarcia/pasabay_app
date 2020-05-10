@@ -74,7 +74,9 @@ class FirestoreService {
             reward: postDoc["reward"], 
             description: postDoc["description"], 
             category: postDoc["category"], 
-            userId: postDoc["userId"]
+            timestamp: postDoc["timestamp"],
+            userId: postDoc["userId"],
+            fulfilledBy: postDoc["fulfilledBy"]
           );
         }
         else post = Post(title: null, category: null, userId: null);

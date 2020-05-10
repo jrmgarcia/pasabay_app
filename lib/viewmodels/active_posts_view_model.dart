@@ -7,7 +7,7 @@ import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/widgets/post_item.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
 
-class PostsViewModel extends BaseModel {
+class ActivePostsViewModel extends BaseModel {
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
 

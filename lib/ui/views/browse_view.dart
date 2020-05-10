@@ -38,7 +38,9 @@ class BrowseView extends StatelessWidget {
               return ListView(
                 padding: EdgeInsets.all(8),
                 children: messagesSnapshot.data.map((Task task) {
-                  if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId)) {
+                  final timestamp = DateTime.parse(task.timestamp);
+                  final daysAgo = DateTime.now().difference(timestamp).inDays;
+                  if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || daysAgo > 7) {
                     return SizedBox();
                   } else {
                     return Card(

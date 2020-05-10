@@ -75,65 +75,61 @@ class MyInfoPageState extends State<MyInfoPage> {
 }
 
 Widget buildExpandable(BuildContext context, String label, IconData icon, String description) {
-
-  buildList() {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(description, style: Theme.of(context).textTheme.bodyText2),
-    );
-  }
-
   return ExpandableNotifier(
-      child: ScrollOnExpand(
-        child: Card(
-          elevation: 1,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          margin: EdgeInsets.all(8),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: <Widget>[
-              ExpandablePanel(
-                theme: ExpandableThemeData(
-                  headerAlignment: ExpandablePanelHeaderAlignment.center,
-                  tapBodyToExpand: true,
-                  tapBodyToCollapse: true,
-                  hasIcon: false,
-                ),
-                header: Container(
-                  color: Theme.of(context).cardColor,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Icon(icon, color: Theme.of(context).accentColor),
-                        horizontalSpaceMedium,
-                        Expanded(
-                          child: Text(
-                            label,
-                            style: Theme.of(context).textTheme.subtitle1
-                          ),
+    child: ScrollOnExpand(
+      child: Card(
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: EdgeInsets.all(8),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: <Widget>[
+            ExpandablePanel(
+              theme: ExpandableThemeData(
+                headerAlignment: ExpandablePanelHeaderAlignment.center,
+                tapBodyToExpand: true,
+                tapBodyToCollapse: true,
+                hasIcon: false,
+              ),
+              header: Container(
+                color: Theme.of(context).cardColor,
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Icon(icon, color: Theme.of(context).accentColor),
+                      horizontalSpaceMedium,
+                      Expanded(
+                        child: Text(
+                          label,
+                          style: Theme.of(context).textTheme.subtitle1
                         ),
-                        ExpandableIcon(
-                          theme: ExpandableThemeData(
-                            expandIcon: Icons.arrow_right,
-                            collapseIcon: Icons.arrow_drop_down,
-                            iconColor: Theme.of(context).accentColor,
-                            iconSize: 28.0,
-                            iconRotationAngle: math.pi / 2,
-                            iconPadding: EdgeInsets.only(right: 5),
-                            hasIcon: false,
-                          ),
+                      ),
+                      ExpandableIcon(
+                        theme: ExpandableThemeData(
+                          expandIcon: Icons.arrow_right,
+                          collapseIcon: Icons.arrow_drop_down,
+                          iconColor: Theme.of(context).accentColor,
+                          iconSize: 28.0,
+                          iconRotationAngle: math.pi / 2,
+                          iconPadding: EdgeInsets.only(right: 5),
+                          hasIcon: false,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                expanded: buildList(),
               ),
-            ],
-          ),
+              expanded: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(description, style: Theme.of(context).textTheme.bodyText2),
+              ),
+            ),
+          ],
         ),
-      ));
+      ),
+    )
+  );
 }
