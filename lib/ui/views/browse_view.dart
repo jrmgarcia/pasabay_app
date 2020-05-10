@@ -90,7 +90,6 @@ class BrowseView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Search',
-        elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(FontAwesomeIcons.search, color: Colors.white),
         onPressed: () => _navigationService.navigateTo(SearchViewRoute),
