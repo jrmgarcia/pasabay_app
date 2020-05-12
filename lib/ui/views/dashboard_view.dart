@@ -60,7 +60,7 @@ class DashboardView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 24.0),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/20),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -108,19 +108,17 @@ class DashboardView extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
-                child: Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 3,
-                    padding: EdgeInsets.all(3.0),
-                    children: <Widget>[
-                      makeDashboardItem(context, Cleaning, "icon_cleaning.PNG", model.browseCleaning),
-                      makeDashboardItem(context, Delivery, "icon_delivery.PNG", model.browseDelivery),
-                      makeDashboardItem(context, Officework, "icon_officework.PNG", model.browseOfficework),
-                      makeDashboardItem(context, PetSitting, "icon_pet_sitting.PNG", model.browsePetSitting),
-                      makeDashboardItem(context, Schoolwork, "icon_schoolwork.PNG", model.browseToSchoolwork),
-                      makeDashboardItem(context, "Post Task", "icon_post_task.PNG", model.navigateToCreateView)
-                    ],
-                  ),
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  padding: EdgeInsets.all(3.0),
+                  children: <Widget>[
+                    makeDashboardItem(context, Cleaning, "icon_cleaning.PNG", model.browseCleaning),
+                    makeDashboardItem(context, Delivery, "icon_delivery.PNG", model.browseDelivery),
+                    makeDashboardItem(context, Officework, "icon_officework.PNG", model.browseOfficework),
+                    makeDashboardItem(context, PetSitting, "icon_pet_sitting.PNG", model.browsePetSitting),
+                    makeDashboardItem(context, Schoolwork, "icon_schoolwork.PNG", model.browseToSchoolwork),
+                    makeDashboardItem(context, "Post Task", "icon_post_task.PNG", model.navigateToCreateView)
+                  ],
                 ),
               )
             ],
