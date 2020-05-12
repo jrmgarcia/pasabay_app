@@ -40,17 +40,18 @@ class MessageView extends StatelessWidget {
       : User(photoUrl: viewingTask.userAvatar, displayName: viewingTask.userName, email: viewingTask.userEmail, rating: viewingTask.userRating, uid: viewingTask.userId);
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: ListTile(
           title: Text(
             peerUser(viewingTask),
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline6.apply(color: Colors.white),
             overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
             viewingTask.title + " • " + 
             viewingTask.category + " • " + 
             viewingTask.reward + " PHP",
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyText2.apply(color: Colors.white),
             overflow: TextOverflow.ellipsis,
           ),
         ),

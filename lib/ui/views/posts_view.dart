@@ -15,6 +15,7 @@ class PostsView extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             leading: Container(),
             backgroundColor: Theme.of(context).primaryColor,
             flexibleSpace: Column(

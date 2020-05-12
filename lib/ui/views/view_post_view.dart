@@ -143,6 +143,8 @@ class ViewPostView extends StatelessWidget {
       viewModel: ViewPostViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
           title: Text("View a Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),

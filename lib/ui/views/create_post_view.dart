@@ -40,6 +40,8 @@ class CreatePostView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
           title: editingPost != null ? Text("Edit a Post", style: TextStyle(color: Colors.white)) : Text("Create a Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
@@ -63,8 +65,7 @@ class CreatePostView extends StatelessWidget {
                 placeholder: 'Title',
                 controller: titleController,
                 formatter: [
-                  LengthLimitingTextInputFormatter(16),
-                  WhitelistingTextInputFormatter(RegExp("[a-zA-Z ]")),
+                  LengthLimitingTextInputFormatter(40),
                   BlacklistingTextInputFormatter.singleLineFormatter
                 ],
                 nextFocusNode: focusReward,

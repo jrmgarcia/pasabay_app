@@ -60,7 +60,7 @@ class DashboardView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/20),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/8),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -97,14 +97,14 @@ class DashboardView extends StatelessWidget {
                 )
               ),
               Container(
-                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2.5),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2),
                 decoration: BoxDecoration(
                   color: Theme.of(context).canvasColor,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/3),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2.4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
