@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pasabay_app/ui/shared/shared_styles.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:pasabay_app/viewmodels/login_view_model.dart';
 
@@ -17,7 +16,7 @@ class LoginView extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: myGradient
+              colors: [Theme.of(context).primaryColorDark, Theme.of(context).primaryColorLight]
             )
           ),
           child: Column(

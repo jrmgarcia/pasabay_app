@@ -69,8 +69,6 @@ IconData categoryIcon(String category) {
   }
 }
 
-final myGradient = [Color(0xFFFDA085), Color(0xFFF6D365)];
-
 shimmerEffect(Brightness brightness, double height, [double width]) {
   return Shimmer.fromColors(
     baseColor: brightness == Brightness.dark ? Colors.black45 : Colors.grey[300],

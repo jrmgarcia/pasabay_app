@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
-import 'package:pasabay_app/ui/shared/shared_styles.dart';
 
 NavigationService _navigationService = locator<NavigationService>();
 
@@ -17,7 +16,7 @@ class LoginErrorView extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: myGradient
+            colors: [Theme.of(context).primaryColorDark, Theme.of(context).primaryColorLight]
           )
         ),
         child: Column(

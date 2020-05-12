@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         primaryColor: Color(0xFFEAB971),
         accentColor: Color(0xFFF6DB7F),
+        primaryColorDark: Color(0xFFFDA085),
+        primaryColorLight: Color(0xFFF6D365),
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme.apply(
             bodyColor: Colors.black54,
