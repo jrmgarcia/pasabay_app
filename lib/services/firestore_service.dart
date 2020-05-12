@@ -41,7 +41,7 @@ class FirestoreService {
   Future updatePost(Post post) async {
     try {
       await _postsCollectionReference
-            .document(post.documentId)
+            .document(post.pid)
             .updateData(post.toMap());
     } catch (e) {}
   }
@@ -69,7 +69,7 @@ class FirestoreService {
         var post;
         if (postDoc.exists) {
           post = Post(
-            documentId: postDoc.documentID,
+            pid: postDoc.documentID,
             title: postDoc["title"], 
             reward: postDoc["reward"], 
             description: postDoc["description"], 

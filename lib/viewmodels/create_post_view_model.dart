@@ -5,6 +5,7 @@ import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
+import 'package:pasabay_app/constants/route_names.dart';
 
 class CreatePostViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
@@ -56,7 +57,7 @@ class CreatePostViewModel extends BaseModel {
         reward: reward,
         description: description,
         category: _selectedCategory,
-        documentId: _editingPost.documentId,
+        pid: _editingPost.pid,
         searchIndex: indexList
       ));
     }
@@ -69,13 +70,20 @@ class CreatePostViewModel extends BaseModel {
         description: result,
       );
     } else {
-      await _dialogService.showDialog(
-        title: 'Create a post',
-        description: 'Your post has been created.',
-      );
+      if (!_editing) {
+        await _dialogService.showDialog(
+          title: 'Create a Post',
+          description: 'Your post has been created.',
+        );
+      } else {
+        await _dialogService.showDialog(
+          title: 'Edit a Post',
+          description: 'Your post has been edited.',
+        );
+      }
     }
 
-    _navigationService.pop();
+    await _navigationService.navigateTo(HomeViewRoute);
   }
 
   void setEditingPost(Post editingPost) {

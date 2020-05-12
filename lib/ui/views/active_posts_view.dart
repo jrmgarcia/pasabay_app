@@ -7,6 +7,9 @@ import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/viewmodels/active_posts_view_model.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 
+int _postCount = 0;
+get postCount => _postCount;
+
 class ActivePostsView extends StatelessWidget {
   ActivePostsView({Key key}) : super(key: key);
 
@@ -15,6 +18,7 @@ class ActivePostsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return ViewModelProvider<ActivePostsViewModel>.withConsumer(
       viewModel: ActivePostsViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -31,7 +35,10 @@ class ActivePostsView extends StatelessWidget {
                   children: postsSnapshot.data.map((Post post) {
                     final timestamp = DateTime.parse(post.timestamp);
                     final daysAgo = DateTime.now().difference(timestamp).inDays;
-                    if (post.fulfilledBy == null && daysAgo < 7) return model.buildItem(post);
+                    if (post.fulfilledBy == null && daysAgo < 7) {
+                      _postCount++;
+                      return model.buildItem(post);
+                    }
                     else return SizedBox();
                   }
                 ).toList()
@@ -43,7 +50,9 @@ class ActivePostsView extends StatelessWidget {
           tooltip: 'Add post',
           backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
           child: !model.busy ? Icon(FontAwesomeIcons.plus, color: Colors.white) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
-          onPressed: model.navigateToCreateView,
+          onPressed: postCount < 5
+          ? model.navigateToCreateView
+          : model.limitPost,
         ),
       )
     );

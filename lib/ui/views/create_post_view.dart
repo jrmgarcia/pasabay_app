@@ -8,6 +8,7 @@ import 'package:pasabay_app/ui/widgets/input_field.dart';
 import 'package:pasabay_app/viewmodels/create_post_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:intl/intl.dart';
 
 class CreatePostView extends StatelessWidget {
   
@@ -25,6 +26,7 @@ class CreatePostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var expirationDate = DateFormat('E, MMM dd K:mm a').format(DateTime.now().add(Duration(days: 7)));
     return ViewModelProvider<CreatePostViewModel>.withConsumer(
       viewModel: CreatePostViewModel(),
       onModelReady: (model) {
@@ -62,6 +64,7 @@ class CreatePostView extends StatelessWidget {
                 controller: titleController,
                 formatter: [
                   LengthLimitingTextInputFormatter(16),
+                  WhitelistingTextInputFormatter(RegExp("[a-zA-Z ]")),
                   BlacklistingTextInputFormatter.singleLineFormatter
                 ],
                 nextFocusNode: focusReward,
@@ -90,6 +93,7 @@ class CreatePostView extends StatelessWidget {
                   LengthLimitingTextInputFormatter(1000)
                 ],
               ),
+              Text("*This post will expire on $expirationDate.", style: Theme.of(context).textTheme.overline)
             ],
           ),
         ),

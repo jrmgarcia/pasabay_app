@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class Post {
   final String title;
   final String userId;
-  final String documentId;
+  final String pid;
   final String reward;
   final String description;
   final String category;
@@ -17,7 +17,7 @@ class Post {
     @required this.userId,
     @required this.title,
     @required this.category,
-    this.documentId,
+    this.pid,
     this.reward,
     this.description,
     this.timestamp,
@@ -31,7 +31,7 @@ class Post {
     return {
       'userId': userId,
       'title': title,
-      'documentId': documentId, 
+      'pid': pid, 
       'reward': reward, 
       'description': description, 
       'category': category,
