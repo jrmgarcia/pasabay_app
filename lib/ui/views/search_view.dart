@@ -67,7 +67,7 @@ class SearchView extends StatelessWidget {
   }
 
   Future<List<Task>> search(String searchKey) async {
-    var results = await _firestoreService.searchByTitleAlt(searchKey); 
+    var results = await _firestoreService.searchByTitleAlt(searchKey.toLowerCase()); 
     return results;
   }
 }
