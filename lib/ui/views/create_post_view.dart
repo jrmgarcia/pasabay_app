@@ -103,7 +103,7 @@ class CreatePostView extends StatelessWidget {
           onPressed: () {
             var title = titleController.text.replaceAll(RegExp(r'\s'), '');
             if (!model.busy && model.selectedCategory != 'Select Category' && title.isNotEmpty && rewardController.text.isNotEmpty && descriptionController.text.isNotEmpty) {
-              model.addPost(title: title, reward: rewardController.text, description: descriptionController.text);
+              model.addPost(title: titleController.text, reward: rewardController.text, description: descriptionController.text);
             } else {
               if (model.selectedCategory == 'Select Category') {
                 _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please select a category.')); 
