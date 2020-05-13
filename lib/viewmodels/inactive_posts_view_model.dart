@@ -41,7 +41,7 @@ class InactivePostsViewModel extends BaseModel {
                 header: Container(
                   color: Theme.of(context).cardColor,
                   child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
                     child: Row(
                       children: [
                         Icon(categoryIcon(post.category), color: Theme.of(context).accentColor),
@@ -68,16 +68,20 @@ class InactivePostsViewModel extends BaseModel {
                   ),
                 ),
                 expanded: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(children: <Widget>[
-                    Text(post.description, style: Theme.of(context).textTheme.bodyText2),
-                    verticalSpaceSmall,
-                    post.fulfilledBy != null
-                    ? Text("Fulfilled by User#" + post.fulfilledBy, style: Theme.of(context).textTheme.overline)
-                    : daysAgo > 7
-                      ? Text("Post Expired".toUpperCase(), style: Theme.of(context).textTheme.overline)
-                      : Text("")
-                  ])
+                  padding: EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Text(post.description, style: Theme.of(context).textTheme.bodyText2),
+                        verticalSpaceSmall,
+                        post.fulfilledBy != null
+                        ? Text("Fulfilled by User#" + post.fulfilledBy, style: Theme.of(context).textTheme.overline)
+                        : daysAgo > 7
+                          ? Text("Post Expired".toUpperCase(), style: Theme.of(context).textTheme.overline)
+                          : Text("")
+                      ]
+                    ),
+                  )
                 ),
               ),
             ],

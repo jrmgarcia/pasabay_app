@@ -98,7 +98,7 @@ Widget buildExpandable(BuildContext context, String label, IconData icon, String
               header: Container(
                 color: Theme.of(context).cardColor,
                 child: Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
                   child: Row(
                     children: [
                       Icon(icon, color: Theme.of(context).accentColor),
@@ -125,7 +125,7 @@ Widget buildExpandable(BuildContext context, String label, IconData icon, String
                 ),
               ),
               expanded: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(16.0),
                 child: Text(description, style: Theme.of(context).textTheme.bodyText2),
               ),
             ),
