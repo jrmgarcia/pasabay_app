@@ -801,6 +801,8 @@ Future<Null> rate(BuildContext context, User peer, Task task) async {
         await Firestore.instance.collection('posts').document(task.postId).updateData({'userRated': true});
       } else await Firestore.instance.collection('posts').document(task.postId).updateData({'doerRated': true});
 
+      await Firestore.instance.collection('users').document(_authenticationService.currentUser.uid).updateData({'chattingWith': null});
+
       _navigationService.navigateTo(HomeViewRoute);
 
       break;

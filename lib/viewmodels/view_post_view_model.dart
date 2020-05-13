@@ -8,6 +8,7 @@ import 'package:pasabay_app/services/authentication_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ViewPostViewModel extends BaseModel {
 
@@ -32,7 +33,9 @@ class ViewPostViewModel extends BaseModel {
 
     User user = _authenticationService.currentUser;
 
-    _navigationService.navigateTo(MessageViewRoute, 
+    await Firestore.instance.collection('users').document(user.uid).updateData({'chattingWith': task.userId});
+    
+    await _navigationService.navigateTo(MessageViewRoute, 
       arguments: Task(
         null,
         task.postId,
