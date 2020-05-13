@@ -76,7 +76,7 @@ class CreatePostView extends StatelessWidget {
                 controller: rewardController,
                 textInputType: TextInputType.number,
                 formatter: [
-                  LengthLimitingTextInputFormatter(6),
+                  LengthLimitingTextInputFormatter(5),
                   WhitelistingTextInputFormatter.digitsOnly,
                   BlacklistingTextInputFormatter.singleLineFormatter,
                 ],
@@ -101,12 +101,13 @@ class CreatePostView extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: !model.busy ? Icon(editingPost != null ? FontAwesomeIcons.edit : FontAwesomeIcons.check, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: () {
-            if (!model.busy && model.selectedCategory != 'Select Category' && titleController.text.isNotEmpty && rewardController.text.isNotEmpty && descriptionController.text.isNotEmpty) {
-              model.addPost(title: titleController.text, reward: rewardController.text, description: descriptionController.text);
+            var title = titleController.text.replaceAll(RegExp(r'\s'), '');
+            if (!model.busy && model.selectedCategory != 'Select Category' && title.isNotEmpty && rewardController.text.isNotEmpty && descriptionController.text.isNotEmpty) {
+              model.addPost(title: title, reward: rewardController.text, description: descriptionController.text);
             } else {
               if (model.selectedCategory == 'Select Category') {
                 _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please select a category.')); 
-              } else if (titleController.text.isEmpty) {
+              } else if (title.isEmpty) {
                 _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please enter a title.')); 
               } else if (rewardController.text.isEmpty) {
                 _scaffoldKey.currentState.showSnackBar(mySnackBar(context, 'Please enter a reward.')); 
