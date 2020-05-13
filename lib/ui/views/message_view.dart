@@ -67,7 +67,7 @@ class MessageView extends StatelessWidget {
         ),
         actions: <Widget>[
           currentUserId == viewingTask.userId && viewingTask.fulfilledBy == null
-          ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () => markAsDone(context, viewingTask.postId, viewingTask.doerId, peer))
+          ? IconButton(tooltip: 'Mark as Done', icon: Icon(FontAwesomeIcons.check), onPressed: () => markAsDone(context, viewingTask, peer))
           : Container(),
           viewingTask.fulfilledBy != null
           ? currentUserId == viewingTask.userId && viewingTask.userRated == false
@@ -705,7 +705,7 @@ class ChatScreenState extends State<ChatScreen> {
   }
 }
 
-void markAsDone(BuildContext context, String postId, String doerId, User peer) async {
+void markAsDone(BuildContext context, Task task, User peer) async {
 
   var peerName = peer.displayName.substring(0, peer.displayName.indexOf(' '));
 
@@ -717,11 +717,11 @@ void markAsDone(BuildContext context, String postId, String doerId, User peer) a
   );
 
   if (dialogResponse.confirmed) {
-    await Firestore.instance.collection('posts').document(postId).updateData({'fulfilledBy': doerId});
+    await Firestore.instance.collection('posts').document(task.postId).updateData({'fulfilledBy': task.doerId});
 
-    generateSysMsg(postId, doerId, "✓ Marked as done.");
+    generateSysMsg(task.postId, task.doerId, "✓ Marked as done.");
 
-    rate(context, peer);
+    rate(context, peer, task);
   }
 }
 
@@ -754,7 +754,7 @@ void generateSysMsg(String postId, String doerId, String message) {
     });
 }
 
-Future<Null> rate(BuildContext context, User peer, [Task task]) async {
+Future<Null> rate(BuildContext context, User peer, Task task) async {
   var inputRating;
   switch (await showDialog(
     context: context,
