@@ -30,6 +30,7 @@ class ActivePostsView extends StatelessWidget {
             switch (postsSnapshot.connectionState) {
               case ConnectionState.waiting: return Center(child: CircularProgressIndicator());
               default:
+                _postCount = 0;
                 return ListView(
                   padding: EdgeInsets.all(8),
                   children: postsSnapshot.data.map((Post post) {

@@ -65,6 +65,7 @@ class FirestoreService {
           .snapshots();
     var posts = List<Post>();
     await for (var postsSnapshot in postsStream) {
+      posts.clear();
       for (var postDoc in postsSnapshot.documents) {
         var post;
         if (postDoc.exists) {
@@ -90,6 +91,7 @@ class FirestoreService {
     var tasksStream = _transactionCollectionReference.snapshots();
     var tasks = List<Task>();
     await for (var tasksSnapshot in tasksStream) {
+      tasks.clear();
       for (var taskDoc in tasksSnapshot.documents) {
         var task;
         if (taskDoc.exists) {
@@ -134,6 +136,7 @@ class FirestoreService {
             .snapshots();
     var tasks = List<Task>();
     await for (var tasksSnapshot in tasksStream) {
+      tasks.clear();
       for (var taskDoc in tasksSnapshot.documents) {
         var task;
         if (taskDoc["userId"] != null) {
@@ -233,6 +236,7 @@ class FirestoreService {
           .snapshots();
     var users = List<User>();
     await for (var usersSnapshot in usersStream) {
+      users.clear();
       for (var userDoc in usersSnapshot.documents) {
         var user;
         if (userDoc.exists) {

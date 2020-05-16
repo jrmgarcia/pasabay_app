@@ -57,7 +57,7 @@ class ActivePostsViewModel extends BaseModel {
 
       if (dialogResponse.confirmed) {
         await Firestore.instance.collection('posts').document(post.pid).delete();
-        _navigationService.navigateTo(HomeViewRoute);
+        await _navigationService.navigateTo(HomeViewRoute);
       }
     }    
   }
