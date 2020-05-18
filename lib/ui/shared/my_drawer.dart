@@ -54,6 +54,17 @@ class MyDrawer extends StatelessWidget {
             trailing: Icon(FontAwesomeIcons.caretRight),
           ),
           ListTile(
+            title: Text("Dark mode"),
+            leading: Icon(FontAwesomeIcons.moon),
+            onTap: () {
+              _dialogService.showDialog(
+                title: "Dark Mode",
+                description: "Enabling dark mode on your device will automatically switch the app to dark theme."
+              );
+            },
+            trailing: Icon(FontAwesomeIcons.caretRight),
+          ),
+          ListTile(
             title: Text("Sign out"),
             leading: Icon(FontAwesomeIcons.signOutAlt),
             onTap: () async {

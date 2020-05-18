@@ -43,6 +43,7 @@ class MyInfoPageState extends State<MyInfoPage> {
     String chatDescription = "This allows the users to transact with each other in order to further clarify the scope of selected errand through sending of texts and images.";
     String rateDescription = "After an errand is marked as done, you will rate your experience (on a scale of one to ﬁve stars) based on the performance of the user who completed the errand and vice versa.";
     String blockDescription = "This allows you to block users if you receive unjust treatment from them, including but not limited to, scamming and harassing. If you block a user, they cannot see your posted errands and message you. Also, it would terminate any ongoing transaction between you and the user.";
+    String darkModeDescription = "Enabling dark mode on your device will automatically switch the app to dark theme.";
     String cleaningDescription = "This service includes sweeping and mopping ﬂoors, making beds, tidying, bathroom cleaning, vacuuming, surface cleaning, car washing, laundry and ironing, and following the customer instructions.";
     String deliveryDescription = "This service includes purchase and pick-up of desired items, groceries, food or beverages, and delivery of the purchased items to a speciﬁed location. Quantity of orders needs to be agreed upon between users before purchasing of items.";
     String officeworkDescription = "This service is on-site and includes inbound and unbound calls, typing and word processing, operating ofﬁce machines, ﬁling data entry, ofﬁce inventory and replenishment, running errands, and following the customer instructions. Customer shall provide the materials, tools, and necessary training for the doer to perform the task.";
@@ -62,6 +63,7 @@ class MyInfoPageState extends State<MyInfoPage> {
             buildExpandable(context, "Chat", FontAwesomeIcons.comments, chatDescription),
             buildExpandable(context, "Rate", FontAwesomeIcons.star, rateDescription),
             buildExpandable(context, "Block", FontAwesomeIcons.ban, blockDescription),
+            buildExpandable(context, "Dark Mode", FontAwesomeIcons.moon, darkModeDescription),
             Text("Categories", style: Theme.of(context).textTheme.headline5),
             verticalSpaceTiny,
             buildExpandable(context, Cleaning, FontAwesomeIcons.broom, cleaningDescription),
