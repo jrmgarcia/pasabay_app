@@ -5,6 +5,8 @@ import 'package:pasabay_app/ui/views/blacklist_view.dart';
 import 'package:pasabay_app/ui/views/browse_view.dart';
 import 'package:pasabay_app/ui/views/info_view.dart';
 import 'package:pasabay_app/ui/views/login_error_view.dart';
+import 'package:pasabay_app/ui/views/privacy_policy_view.dart';
+import 'package:pasabay_app/ui/views/terms_conditions_view.dart';
 import 'package:pasabay_app/ui/views/transaction_view.dart';
 import 'package:pasabay_app/ui/views/create_post_view.dart';
 import 'package:flutter/material.dart';
@@ -98,6 +100,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: LoginErrorView(),
+      );
+    case PrivacyPolicyViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: PrivacyPolicyView(),
+      );
+    case TermsConditionsViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: TermsConditionsView(),
       );
     default:
       return MaterialPageRoute(

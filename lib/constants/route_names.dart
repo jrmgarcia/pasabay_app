@@ -13,4 +13,6 @@ const String TransactionViewRoute = "TransactionView";
 const String MessageViewRoute = "MessageView";
 const String InfoViewRoute = "InfoView";
 const String LoginErrorViewRoute = "LoginErrorView";
+const String PrivacyPolicyViewRoute = "PrivacyPolicyView";
+const String TermsConditionsViewRoute = "TermsConditionsView";
 // Generate the views here

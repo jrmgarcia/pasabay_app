@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pasabay_app/constants/route_names.dart';
+import 'package:pasabay_app/locator.dart';
+import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:pasabay_app/viewmodels/login_view_model.dart';
 
 class LoginView extends StatelessWidget {
+
+  final NavigationService _navigationService = locator<NavigationService>();
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -67,6 +73,36 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              Flexible(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("By signing in, you agree to our ", style: TextStyle(color: Colors.white)),
+                          InkWell(
+                            child: Text("Privacy Policy", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
+                            onTap: () => _navigationService.navigateTo(PrivacyPolicyViewRoute))
+                          ]
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("and our ", style: TextStyle(color: Colors.white)),
+                          InkWell(
+                            child: Text("Terms & Conditons", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)), 
+                            onTap: () => _navigationService.navigateTo(TermsConditionsViewRoute)
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                )
               )
             ],
           ),
