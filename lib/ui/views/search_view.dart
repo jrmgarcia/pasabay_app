@@ -10,8 +10,6 @@ import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
-import 'package:pasabay_app/viewmodels/search_view_model.dart';
-import 'package:provider_architecture/viewmodel_provider.dart';
 
 class SearchView extends StatelessWidget {
   SearchView({Key key}) : super(key: key);
@@ -22,49 +20,46 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<SearchViewModel>.withConsumer(
-      viewModel: SearchViewModel(),
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          title: Text("Search", style: TextStyle(color: Colors.white)),
-          backgroundColor: Theme.of(context).primaryColor,
-          iconTheme: IconThemeData(color: Colors.white),
-          leading: myBackButton(context)
-        ),
-        drawer: MyDrawer(),
-        body: SafeArea(
-          child: SearchBar<Task>(
-            searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
-            headerPadding: EdgeInsets.symmetric(horizontal: 10),
-            listPadding: EdgeInsets.symmetric(horizontal: 10),
-            searchBarStyle: SearchBarStyle(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              padding: EdgeInsets.fromLTRB(15, 5, 15, 5)
-            ),
-            cancellationWidget: Icon(FontAwesomeIcons.times),
-            icon: Icon(FontAwesomeIcons.search),
-            hintText: "What are you looking for?",
-            emptyWidget: Center(child: Text("Your search did not match any posts.")),
-            minimumChars: 1,
-            onSearch: search,
-            onItemFound: (Task task, int index) {
-              final timestamp = DateTime.parse(task.timestamp);
-              final daysAgo = DateTime.now().difference(timestamp).inDays;
-              if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || daysAgo > 7) {
-                return SizedBox();
-              } else return InkWell(
-                  onTap: () => _navigationService.navigateTo(ViewPostViewRoute, arguments: task),
-                  child: ListTile(
-                    leading: Icon(categoryIcon(task.category), color: Theme.of(context).accentColor),
-                    title: Text(task.title)
-                  ),
-                );
-            },
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text("Search", style: TextStyle(color: Colors.white)),
+        backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: myBackButton(context)
+      ),
+      drawer: MyDrawer(),
+      body: SafeArea(
+        child: SearchBar<Task>(
+          searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
+          headerPadding: EdgeInsets.symmetric(horizontal: 10),
+          listPadding: EdgeInsets.symmetric(horizontal: 10),
+          searchBarStyle: SearchBarStyle(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            padding: EdgeInsets.fromLTRB(15, 5, 15, 5)
           ),
+          cancellationWidget: Icon(FontAwesomeIcons.times),
+          icon: Icon(FontAwesomeIcons.search),
+          hintText: "What are you looking for?",
+          emptyWidget: Center(child: Text("Your search did not match any posts.")),
+          minimumChars: 1,
+          onSearch: search,
+          onItemFound: (Task task, int index) {
+            final timestamp = DateTime.parse(task.timestamp);
+            final daysAgo = DateTime.now().difference(timestamp).inDays;
+            if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || daysAgo > 7) {
+              return SizedBox();
+            } else return InkWell(
+                onTap: () => _navigationService.navigateTo(ViewPostViewRoute, arguments: task),
+                child: ListTile(
+                  leading: Icon(categoryIcon(task.category), color: Theme.of(context).accentColor),
+                  title: Text(task.title)
+                ),
+              );
+          },
         ),
-      )
+      ),
     );
   }
 
