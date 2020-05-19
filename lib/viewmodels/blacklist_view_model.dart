@@ -16,7 +16,7 @@ class BlacklistViewModel extends BaseModel {
   Future unblock(String blockedBy, String blockedUser) async {
     
     var dialogResponse = await _dialogService.showConfirmationDialog(
-      title: 'Unblock a user',
+      title: 'Unblock User',
       description: 'Do you really want to unblock this user?',
       confirmationTitle: 'Yes',
       cancelTitle: 'No',

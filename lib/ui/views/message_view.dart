@@ -710,7 +710,7 @@ void markAsDone(BuildContext context, Task task, User peer) async {
   var peerName = peer.displayName.substring(0, peer.displayName.indexOf(' '));
 
   var dialogResponse = await _dialogService.showConfirmationDialog(
-    title: 'Mark as done',
+    title: 'Mark As Done',
     description: 'Is $peerName done?',
     confirmationTitle: 'Yes',
     cancelTitle: 'No',

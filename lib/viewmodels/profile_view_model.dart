@@ -18,7 +18,7 @@ class ProfileViewModel extends BaseModel {
   Future block({String blockedBy, String blockedUser}) async {
 
     var dialogResponse = await _dialogService.showConfirmationDialog(
-      title: 'Block a user',
+      title: 'Block User',
       description: 'Do you really want to block this user?',
       confirmationTitle: 'Yes',
       cancelTitle: 'No',

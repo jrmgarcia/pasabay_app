@@ -189,7 +189,7 @@ class _HomeViewState extends State<HomeView> {
 
   Future<bool> onBackPress() async {
     var dialogResponse = await _dialogService.showConfirmationDialog(
-      title: "Exit app",
+      title: "Exit App",
       description: "Are you sure you want to exit the app?",
       confirmationTitle: 'Yes',
       cancelTitle: 'No'

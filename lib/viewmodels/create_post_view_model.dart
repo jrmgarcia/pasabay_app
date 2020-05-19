@@ -72,12 +72,12 @@ class CreatePostViewModel extends BaseModel {
     } else {
       if (!_editing) {
         await _dialogService.showDialog(
-          title: 'Create a Post',
+          title: 'Create Post',
           description: 'Your post has been created.',
         );
       } else {
         await _dialogService.showDialog(
-          title: 'Edit a Post',
+          title: 'Edit Post',
           description: 'Your post has been edited.',
         );
       }

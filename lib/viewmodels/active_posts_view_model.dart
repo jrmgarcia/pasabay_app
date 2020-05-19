@@ -42,14 +42,14 @@ class ActivePostsViewModel extends BaseModel {
     
     if (checkTransactions.documents.length > 0) {
       await _dialogService.showDialog(
-        title: "Delete a Post",
+        title: "Delete Post",
         description: "You can't delete post with existing transactions. Just wait for it to be fulfilled or expired."
       );
     } else {
       var postToDeleteTitle = post.title;
     
       var dialogResponse = await _dialogService.showConfirmationDialog(
-        title: 'Delete a Post',
+        title: 'Delete Post',
         description: 'Do you really want to delete \'$postToDeleteTitle\'?',
         confirmationTitle: 'Yes',
         cancelTitle: 'No',
