@@ -18,7 +18,7 @@ class HistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUser = _authenticationService.currentUser;
     var streamBuilder = StreamBuilder<List<Task>>(
-      stream: _firestoreService.getTransactionData(),
+      stream: _firestoreService.getTransactionData(currentUser.uid),
       builder: (BuildContext context, AsyncSnapshot<List<Task>> messagesSnapshot) {
         if (messagesSnapshot.hasError)
           return Text('Error: ${messagesSnapshot.error}');

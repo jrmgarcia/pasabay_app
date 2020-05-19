@@ -18,7 +18,7 @@ class CurrentView extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUserId = _authenticationService.currentUser.uid;
     var streamBuilder = StreamBuilder<List<Task>>(
-      stream: _firestoreService.getTransactionData(),
+      stream: _firestoreService.getTransactionData(currentUserId),
       builder: (BuildContext context, AsyncSnapshot<List<Task>> messagesSnapshot) {
         if (messagesSnapshot.hasError)
           return Text('Error: ${messagesSnapshot.error}');

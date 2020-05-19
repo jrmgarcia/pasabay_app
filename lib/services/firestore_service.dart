@@ -87,8 +87,10 @@ class FirestoreService {
     }
   }
 
-  Stream<List<Task>> getTransactionData() async* {
-    var tasksStream = _transactionCollectionReference.snapshots();
+  Stream<List<Task>> getTransactionData(uid) async* {
+    var tasksStream = _transactionCollectionReference
+      .where('uids', arrayContains: uid)
+      .snapshots();
     var tasks = List<Task>();
     await for (var tasksSnapshot in tasksStream) {
       tasks.clear();
