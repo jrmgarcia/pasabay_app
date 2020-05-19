@@ -42,7 +42,7 @@ class CreatePostView extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: editingPost != null ? Text("Edit a Post", style: TextStyle(color: Colors.white)) : Text("Create a Post", style: TextStyle(color: Colors.white)),
+          title: editingPost != null ? Text("Edit Post", style: TextStyle(color: Colors.white)) : Text("Create Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
           leading: myBackButton(context)

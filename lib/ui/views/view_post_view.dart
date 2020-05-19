@@ -145,7 +145,7 @@ class ViewPostView extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: Text("View a Post", style: TextStyle(color: Colors.white)),
+          title: Text("View Post", style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           iconTheme: IconThemeData(color: Colors.white),
           leading: myBackButton(context)
