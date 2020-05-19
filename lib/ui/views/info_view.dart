@@ -38,7 +38,7 @@ class MyInfoPage extends StatefulWidget {
 class MyInfoPageState extends State<MyInfoPage> {
   @override
   Widget build(BuildContext context) {
-    String postErrandDescription = "This allows you to post what you need to get done, how to do it, and how much you are willing to pay for it. All unfulfilled posts will be expired after a week. If you want to renew its expiration date, just edit the post. You are not allowed to delete posts with exisiting transactions.";
+    String postErrandDescription = "This allows you to post what you need to get done, how to do it, and how much you are willing to pay for it. All unfulfilled posts will be expired after a week. If you want to renew its expiration date, just edit the post. You are not allowed to delete posts with existing transactions.";
     String browseErrandsDescription = "This allows the user, who is looking for an errand, to search, sort, and ﬁlter errands.";
     String chatDescription = "This allows the users to transact with each other in order to further clarify the scope of selected errand through sending of texts and images.";
     String rateDescription = "After an errand is marked as done, you will rate your experience (on a scale of one to ﬁve stars) based on the performance of the user who completed the errand and vice versa.";

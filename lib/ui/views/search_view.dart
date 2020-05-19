@@ -50,15 +50,17 @@ class SearchView extends StatelessWidget {
             minimumChars: 1,
             onSearch: search,
             onItemFound: (Task task, int index) {
-              if (task.userId != _authenticationService.currentUser.uid)
-                return InkWell(
+              final timestamp = DateTime.parse(task.timestamp);
+              final daysAgo = DateTime.now().difference(timestamp).inDays;
+              if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || daysAgo > 7) {
+                return SizedBox();
+              } else return InkWell(
                   onTap: () => _navigationService.navigateTo(ViewPostViewRoute, arguments: task),
                   child: ListTile(
                     leading: Icon(categoryIcon(task.category), color: Theme.of(context).accentColor),
                     title: Text(task.title)
                   ),
                 );
-              else return SizedBox();
             },
           ),
         ),
@@ -67,7 +69,7 @@ class SearchView extends StatelessWidget {
   }
 
   Future<List<Task>> search(String searchKey) async {
-    var results = await _firestoreService.searchByTitleAlt(searchKey.toLowerCase()); 
+    var results = await _firestoreService.searchByTitle(searchKey.toLowerCase()); 
     return results;
   }
 }

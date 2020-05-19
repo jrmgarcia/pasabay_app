@@ -66,14 +66,6 @@ class ViewPostView extends StatelessWidget {
           ),
           Flexible(
             flex: 1,
-            child: Text(
-              viewingPost.title,
-              style: Theme.of(context).textTheme.headline5.apply(color: Colors.white),
-              overflow: TextOverflow.ellipsis
-            ),
-          ),
-          Flexible(
-            flex: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -115,27 +107,35 @@ class ViewPostView extends StatelessWidget {
       );
     } 
 
+    final bottomContentTitle = Text(
+      viewingPost.title.toString().toUpperCase(),
+      style: Theme.of(context).textTheme.headline6,
+      textAlign: TextAlign.center
+    );
+
     final bottomContentText = Text(
       viewingPost.description,
       style: Theme.of(context).textTheme.bodyText2,
+      textAlign: TextAlign.center
     );
 
     final timestamp = Text(
       viewingPost.timestamp,
       style: Theme.of(context).textTheme.overline,
+      textAlign: TextAlign.center
     );
 
     final bottomContent = Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(40.0),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            bottomContentText,
-            verticalSpaceMedium,
-            timestamp
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          bottomContentTitle,
+          verticalSpaceMedium,
+          bottomContentText,
+          verticalSpaceSmall,
+          timestamp
+        ],
       ),
     );
 

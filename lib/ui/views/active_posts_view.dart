@@ -48,7 +48,7 @@ class ActivePostsView extends StatelessWidget {
           }
         ),
         floatingActionButton: FloatingActionButton(
-          tooltip: 'Add post',
+          tooltip: 'Add',
           backgroundColor: !model.busy ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
           child: !model.busy ? Icon(FontAwesomeIcons.plus, color: Colors.white) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: postCount < 5

@@ -99,6 +99,7 @@ class CreatePostView extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          tooltip: editingPost != null ? 'Edit' : 'Create',
           child: !model.busy ? Icon(editingPost != null ? FontAwesomeIcons.edit : FontAwesomeIcons.check, color: Colors.white,) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)),
           onPressed: () {
             var title = titleController.text.replaceAll(RegExp(r'\s'), '');

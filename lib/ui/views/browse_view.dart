@@ -24,7 +24,7 @@ class BrowseView extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text("Browse", style: TextStyle(color: Colors.white)),
+        title: Text(browsingCategory, style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
         iconTheme: IconThemeData(color: Colors.white),
         leading: myBackButton(context)

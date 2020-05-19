@@ -254,26 +254,11 @@ class FirestoreService {
       yield users;
     }
   }
-  
-  Future <List<Map<dynamic, dynamic>>> searchByTitle(String keyword) async {
-    List<DocumentSnapshot> tempList;
-    List<Map<dynamic, dynamic>> list = new List();
-    QuerySnapshot searchSnapshot = await _postsCollectionReference
-      .where('searchIndex', arrayContains: keyword)
-      .getDocuments();
 
-    tempList = searchSnapshot.documents;
-
-    list = tempList.map((DocumentSnapshot docSnapshot){
-      return docSnapshot.data;
-    }).toList();
-
-    return list;
-  }
-
- Future <List<Task>> searchByTitleAlt(String searchKeyword) async {
+ Future <List<Task>> searchByTitle(String searchKeyword) async {
     QuerySnapshot tasksSnapshot = await _postsCollectionReference
       .where('searchIndex', arrayContains: searchKeyword)
+      .where('fulfilledBy', isNull: true)
       .getDocuments();
 
     var tasks = List<Task>();
