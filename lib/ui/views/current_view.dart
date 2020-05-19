@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pasabay_app/constants/route_names.dart';
 import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/task.dart';
 import 'package:pasabay_app/services/authentication_service.dart';
+import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/ui/shared/shared_styles.dart';
@@ -13,6 +15,7 @@ class CurrentView extends StatelessWidget {
   final AuthenticationService _authenticationService = locator<AuthenticationService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
+  final DialogService _dialogService = locator<DialogService>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +59,31 @@ class CurrentView extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyText2,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        trailing: IconButton(
+                          tooltip: 'Archive',
+                          icon: Icon(FontAwesomeIcons.minus, color: Theme.of(context).accentColor),
+                          onPressed: () async {
+                            QuerySnapshot transaction = await Firestore.instance.collection('transactions')
+                              .where('postId', isEqualTo: task.postId)
+                              .where('userId', isEqualTo: task.userId)
+                              .where('doerId', isEqualTo: task.doerId)
+                              .getDocuments();
+                            var tid = transaction.documents.first.documentID;
+                            
+                            var transactionToArchive = task.title;
+    
+                            var dialogResponse = await _dialogService.showConfirmationDialog(
+                              title: 'Archive Transaction',
+                              description: 'Archiving a transaction hides it from your inbox until the next time you chat with that person. Do you really want to archive \'$transactionToArchive\'?',
+                              confirmationTitle: 'Yes',
+                              cancelTitle: 'No',
+                            );
+
+                            if (dialogResponse.confirmed) {
+                              await Firestore.instance.collection('transactions').document(tid).delete();
+                            }
+                          },
+                        )
                       ),
                     ),
                   );
