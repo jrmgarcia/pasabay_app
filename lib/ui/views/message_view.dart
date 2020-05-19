@@ -623,6 +623,7 @@ class ChatScreenState extends State<ChatScreen> {
           Material(
             child: Container(
               child: IconButton(
+                tooltip: 'Send Image',
                 icon: Icon(FontAwesomeIcons.images),
                 onPressed: getImage,
                 color: Theme.of(context).accentColor,
@@ -633,6 +634,7 @@ class ChatScreenState extends State<ChatScreen> {
           Material(
             child: Container(
               child: IconButton(
+                tooltip: 'Send Sticker',
                 icon: Icon(FontAwesomeIcons.stickyNote),
                 onPressed: getSticker,
                 color: Theme.of(context).accentColor,
@@ -659,6 +661,7 @@ class ChatScreenState extends State<ChatScreen> {
           Material(
             child: Container(
               child: IconButton(
+                tooltip: 'Send Message',
                 icon: Icon(Icons.send),
                 onPressed: () => onSendMessage(textEditingController.text, 0),
                 color: Theme.of(context).accentColor,
