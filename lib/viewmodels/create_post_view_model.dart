@@ -3,11 +3,14 @@ import 'package:pasabay_app/locator.dart';
 import 'package:pasabay_app/models/post.dart';
 import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
+import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
+import 'package:pasabay_app/constants/route_names.dart';
 
 class CreatePostViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   String _selectedCategory = 'Select Category';
   String get selectedCategory => _selectedCategory;
@@ -79,6 +82,8 @@ class CreatePostViewModel extends BaseModel {
         );
       }
     }
+
+    await _navigationService.pop();
   }
 
   void setEditingPost(Post editingPost) {
