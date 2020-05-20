@@ -5,7 +5,6 @@ import 'package:pasabay_app/services/dialog_service.dart';
 import 'package:pasabay_app/services/firestore_service.dart';
 import 'package:pasabay_app/services/navigation_service.dart';
 import 'package:pasabay_app/viewmodels/base_model.dart';
-import 'package:pasabay_app/constants/route_names.dart';
 
 class CreatePostViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
