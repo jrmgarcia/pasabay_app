@@ -6,6 +6,7 @@ import 'package:pasabay_app/ui/views/startup_view.dart';
 import 'managers/dialog_manager.dart';
 import 'ui/router.dart';
 import 'locator.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   // Register all the models and services before the app starts
@@ -17,6 +18,10 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark
+    ));
     return MaterialApp(
       title: 'Pasabay',
       builder: (context, child) => Navigator(
