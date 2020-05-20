@@ -18,7 +18,7 @@ class ActivePostsViewModel extends BaseModel {
   Future limitPost() async {
     await _dialogService.showDialog(
       title: "Limit Post",
-      description: "You are only allowed to create up to five posts."
+      description: "You are only allowed to create up to active five posts."
     );
   }
 
