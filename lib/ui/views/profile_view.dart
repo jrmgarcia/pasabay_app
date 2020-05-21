@@ -37,6 +37,7 @@ class ProfileView extends StatelessWidget {
           Text(
             viewingUser.displayName,
             style: Theme.of(context).textTheme.headline5,
+            overflow: TextOverflow.ellipsis
           ),
           RatingBarIndicator(
               rating: viewingUser.rating,

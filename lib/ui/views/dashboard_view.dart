@@ -81,7 +81,11 @@ class DashboardView extends StatelessWidget {
                       ]
                     ),
                     verticalSpaceSmall,
-                    Text(_authenticationService.currentUser.displayName, style: Theme.of(context).textTheme.headline5.apply(color: Colors.white)),
+                    Text(
+                      _authenticationService.currentUser.displayName, 
+                      style: Theme.of(context).textTheme.headline5.apply(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     Card(
                       elevation: 1,
                       shape: RoundedRectangleBorder(
