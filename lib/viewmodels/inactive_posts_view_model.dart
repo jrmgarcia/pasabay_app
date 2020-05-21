@@ -18,8 +18,8 @@ class InactivePostsViewModel extends BaseModel {
   }
 
   Widget buildItem(BuildContext context, Post post) {
-    final timestamp = DateTime.parse(post.timestamp);
-    final daysAgo = DateTime.now().difference(timestamp).inDays;
+    var timestamp = DateTime.parse(post.timestamp);
+    var timeInMinutes = DateTime.now().difference(timestamp).inMinutes;
     return ExpandableNotifier(
       child: ScrollOnExpand(
         child: Card(
@@ -76,7 +76,7 @@ class InactivePostsViewModel extends BaseModel {
                         verticalSpaceSmall,
                         post.fulfilledBy != null
                         ? Text("Fulfilled by User#" + post.fulfilledBy, style: Theme.of(context).textTheme.overline)
-                        : daysAgo > 7
+                        : timeInMinutes > 10080
                           ? Text("Post Expired".toUpperCase(), style: Theme.of(context).textTheme.overline)
                           : Text("")
                       ]

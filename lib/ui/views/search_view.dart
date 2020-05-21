@@ -46,9 +46,9 @@ class SearchView extends StatelessWidget {
           minimumChars: 1,
           onSearch: search,
           onItemFound: (Task task, int index) {
-            final timestamp = DateTime.parse(task.timestamp);
-            final daysAgo = DateTime.now().difference(timestamp).inDays;
-            if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || daysAgo > 7) {
+            var timestamp = DateTime.parse(task.timestamp);
+            var timeInMinutes = DateTime.now().difference(timestamp).inMinutes;
+            if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || timeInMinutes > 10080) {
               return SizedBox();
             } else return InkWell(
                 onTap: () => _navigationService.navigateTo(ViewPostViewRoute, arguments: task),

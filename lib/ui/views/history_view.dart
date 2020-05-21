@@ -29,7 +29,8 @@ class HistoryView extends StatelessWidget {
               padding: EdgeInsets.all(8),
               children: messagesSnapshot.data.map((Task task) {
                 if ((task.userId == currentUser.uid || task.doerId == currentUser.uid)
-                  && (!currentUser.blacklist.contains(task.userId) && !currentUser.blacklist.contains(task.doerId))
+                  && !currentUser.blacklist.contains(task.userId) 
+                  && !currentUser.blacklist.contains(task.doerId)
                   && task.fulfilledBy != null) {
                   return Card(
                     elevation: 1,

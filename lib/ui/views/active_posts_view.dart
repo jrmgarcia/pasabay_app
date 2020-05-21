@@ -34,9 +34,9 @@ class ActivePostsView extends StatelessWidget {
                 return ListView(
                   padding: EdgeInsets.all(8),
                   children: postsSnapshot.data.map((Post post) {
-                    final timestamp = DateTime.parse(post.timestamp);
-                    final daysAgo = DateTime.now().difference(timestamp).inDays;
-                    if (post.fulfilledBy == null && daysAgo < 7) {
+                    var timestamp = DateTime.parse(post.timestamp);
+                    var timeInMinutes = DateTime.now().difference(timestamp).inMinutes;
+                    if (post.fulfilledBy == null && timeInMinutes < 10080) {
                       _postCount++;
                       return model.buildItem(post);
                     }

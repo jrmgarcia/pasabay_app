@@ -40,9 +40,9 @@ class BrowseView extends StatelessWidget {
               return ListView(
                 padding: EdgeInsets.all(8),
                 children: messagesSnapshot.data.map((Task task) {
-                  final timestamp = DateTime.parse(task.timestamp);
-                  final daysAgo = DateTime.now().difference(timestamp).inDays;
-                  if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || daysAgo > 7) {
+                  var timestamp = DateTime.parse(task.timestamp);
+                  var timeInMinutes = DateTime.now().difference(timestamp).inMinutes;
+                  if (task.userId == _authenticationService.currentUser.uid || _authenticationService.currentUser.blacklist.contains(task.userId) || timeInMinutes > 10080) {
                     return SizedBox();
                   } else {
                     return Card(
@@ -72,7 +72,6 @@ class BrowseView extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               )
                             ),
-                            Positioned(right: 50, child: VerticalDivider()),
                             Positioned(
                               top: 5, 
                               right: 10,
