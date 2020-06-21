@@ -1,16 +1,10 @@
-# pasabay_app
+# PASABAY: An Errand Crowdsourcing Mobile Application for UPLB Community
 
-A new Flutter project.
+## Abstract
+PASABAY is an Android mobile application developed to provide a user-friendly errand crowdsourcing platform for UPLB students and employees. This application allows its users to post and sign up for errands, as well as to chat, rate, and block other users. After surveying 35 individuals, the mobile application was found to have an excellent user experience with an average of 87.7 SUS score.
 
-## Getting Started
+## Links
+- [Demo Video](https://drive.google.com/file/d/1ViNrLqpyA8ERZo2yFJqPy_VYZ41sKqO0/view?usp=sharing)
+- [Academic Paper](https://drive.google.com/file/d/1U4CVbqevyslRgMYpPf9gf5mHVCyp6s7z/view?usp=sharing)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*This app was developed in partial fulfillment of the requirements for Bachelor of Science in Computer Science, presented to the Institute of Computer Science, University of the Philippines Los Baños.*
