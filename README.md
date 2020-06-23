@@ -1,7 +1,10 @@
-# PASABAY: An Errand Crowdsourcing Mobile Application for UPLB Community
+# Pasabay
+An Errand Crowdsourcing Mobile Application for UPLB Community
+
+<img src="https://github.com/jrmgarcia/pasabay_app/blob/master/assets/ui1.png" width="600">
 
 ## Abstract
-PASABAY is an Android mobile application developed to provide a user-friendly errand crowdsourcing platform for UPLB students and employees. This application allows its users to post and sign up for errands, as well as to chat, rate, and block other users. After surveying 35 individuals, the mobile application was found to have an excellent user experience with an average of 87.7 SUS score.
+Pasabay is an Android mobile application developed to provide a user-friendly errand crowdsourcing platform for UPLB students and employees. This application allows its users to post and sign up for errands, as well as to chat, rate, and block other users. After surveying 35 individuals, the mobile application was found to have an excellent user experience with an average of 87.7 SUS score.
 
 ## Links
 - [Demo Video](https://drive.google.com/file/d/1ViNrLqpyA8ERZo2yFJqPy_VYZ41sKqO0/view?usp=sharing)
